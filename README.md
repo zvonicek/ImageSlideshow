@@ -43,3 +43,9 @@ Petr Zvoníček, zvonicek@gmail.com
 ## License
 
 ImageSlideshow is available under the MIT license. See the LICENSE file for more info.
+
+### References
+
+Inspired by projects: 
+- https://github.com/gonzalezreal/Vertigo
+- https://github.com/kimar/KIImagePager
