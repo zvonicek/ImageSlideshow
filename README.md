@@ -12,8 +12,8 @@ iOS / Swift image slideshow with circular scrolling, timer and full screen viewe
 This component is under development. Description and brief documentation will follow with future versions. The API will be subject of change.
 
 Roadmap for 1.0:
-- ~~Create CocoaPod~~
 - ~~Create test project~~
+- Create CocoaPod
 - Fix initial bugs
 - Polish API
 - Write integration guide
@@ -27,12 +27,14 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-ImageSlideshow is available through [CocoaPods](http://cocoapods.org). To install
+Not yet on CocoaPods
+<!--ImageSlideshow is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
 pod "ImageSlideshow"
 ```
+-->
 
 ## Author
 
