@@ -1,0 +1,6 @@
+framework module Pods_ImageSlideshow_Example {
+  umbrella header "Pods-ImageSlideshow_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

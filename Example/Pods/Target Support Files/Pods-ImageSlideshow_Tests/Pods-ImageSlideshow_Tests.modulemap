@@ -1,0 +1,6 @@
+framework module Pods_ImageSlideshow_Tests {
+  umbrella header "Pods-ImageSlideshow_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

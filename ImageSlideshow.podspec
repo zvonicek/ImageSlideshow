@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "ImageSlideshow"
   s.version          = "0.1.0"
-  s.summary          = "A short description of ImageSlideshow."
+  s.summary          = "Image slideshow written in Swift with circular scrolling, timer and full screen viewer"
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,14 +17,15 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
-                       DESC
+Image slideshow is a Swift library providing customizable image slideshow with circular scrolling, timer and full screen viewer. Optionally also provides downloading images via AFNetworking
+                         DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/ImageSlideshow"
+  s.homepage         = "https://github.com/zvonicek/ImageSlideshow"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
-  s.author           = { "Petr Zvoníček" => "zvonicek@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/ImageSlideshow.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { "Petr Zvonicek" => "zvonicek@gmail.com" }
+  s.source           = { :git => "https://github.com/zvonicek/ImageSlideshow.git", :tag => s.version.to_s }
+  s.social_media_url = 'https://twitter.com/zvonicek'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
@@ -34,7 +35,17 @@ Pod::Spec.new do |s|
     'ImageSlideshow' => ['Pod/Assets/*.png']
   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'AFNetworking', '~> 2.3'
+
+
+  s.subspec 'Base' do |base|
+  end
+
+  s.subspec 'AFNetworking' do |afnetworking|
+#    afnetworking.xcconfig = { 'OTHER_CFLAGS' => '$(inherited) -DOFFER_AFNETWORKING' }
+#    afnetworking.dependency 'AFNetworking', '~> 2.3'
+  end
+
+  s.default_subspec = 'Base'
+
 end
