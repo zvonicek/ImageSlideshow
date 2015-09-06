@@ -1,7 +1,7 @@
 {
   "name": "ImageSlideshow",
   "version": "0.1.0",
-  "summary": "Image slideshow with circular scrolling, timer and full screen viewer",
+  "summary": "Image slideshow written in Swift with circular scrolling, timer and full screen viewer",
   "description": "Image slideshow is a Swift library providing customizable image slideshow with circular scrolling, timer and full screen viewer. Optionally also provides downloading images via AFNetworking",
   "homepage": "https://github.com/zvonicek/ImageSlideshow",
   "license": "MIT",
@@ -17,24 +17,25 @@
     "ios": "8.0"
   },
   "requires_arc": true,
-  "source_files": "Pod/Classes/**/*",
-  "resource_bundles": {
-    "ImageSlideshow": [
-      "Pod/Assets/*.png"
-    ]
-  },
-  "dependencies": {
-    "AFNetworking": [
-      "~> 2.3"
-    ]
-  },
-  "default_subspecs": "Base",
+  "default_subspecs": "Core",
   "subspecs": [
     {
-      "name": "Base"
+      "name": "Core",
+      "source_files": "Pod/Classes/Core/**/*",
+      "resource_bundles": {
+        "ImageSlideshow": [
+          "Pod/Assets/*.png"
+        ]
+      }
     },
     {
-      "name": "AFNetworking"
+      "name": "AFURL",
+      "dependencies": {
+        "AFNetworking": [
+          "~> 2.3"
+        ]
+      },
+      "source_files": "Pod/Classes/AFNetworking/**/*"
     }
   ]
 }

@@ -30,22 +30,22 @@ Image slideshow is a Swift library providing customizable image slideshow with c
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'ImageSlideshow' => ['Pod/Assets/*.png']
-  }
-
-  s.dependency 'AFNetworking', '~> 2.3'
+#  s.dependency 'AFNetworking', '~> 2.3'
 
 
-  s.subspec 'Base' do |base|
+  s.subspec 'Core' do |core|
+    core.source_files = 'Pod/Classes/Core/**/*'
+    core.resource_bundles = {
+        'ImageSlideshow' => ['Pod/Assets/*.png']
+    }
   end
 
-  s.subspec 'AFNetworking' do |afnetworking|
+  s.subspec 'AFURL' do |afnetworking|
 #    afnetworking.xcconfig = { 'OTHER_CFLAGS' => '$(inherited) -DOFFER_AFNETWORKING' }
-#    afnetworking.dependency 'AFNetworking', '~> 2.3'
+    afnetworking.dependency 'AFNetworking', '~> 2.3'
+    afnetworking.source_files = 'Pod/Classes/AFNetworking/**/*'
   end
 
-  s.default_subspec = 'Base'
+  s.default_subspec = 'Core'
 
 end

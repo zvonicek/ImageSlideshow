@@ -1,30 +1,7 @@
 PODS:
-  - AFNetworking (2.6.0):
-    - AFNetworking/NSURLConnection (= 2.6.0)
-    - AFNetworking/NSURLSession (= 2.6.0)
-    - AFNetworking/Reachability (= 2.6.0)
-    - AFNetworking/Security (= 2.6.0)
-    - AFNetworking/Serialization (= 2.6.0)
-    - AFNetworking/UIKit (= 2.6.0)
-  - AFNetworking/NSURLConnection (2.6.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
-  - AFNetworking/UIKit (2.6.0):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
   - ImageSlideshow (0.1.0):
-    - AFNetworking (~> 2.3)
-    - ImageSlideshow/Base (= 0.1.0)
-  - ImageSlideshow/Base (0.1.0):
-    - AFNetworking (~> 2.3)
+    - ImageSlideshow/Core (= 0.1.0)
+  - ImageSlideshow/Core (0.1.0)
 
 DEPENDENCIES:
   - ImageSlideshow (from `../`)
@@ -34,7 +11,6 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
-  ImageSlideshow: ce15aab5f5a967b0b9f90e027a9296022487a87b
+  ImageSlideshow: aee6202c7551664456140d9195926f220e5f31c3
 
 COCOAPODS: 0.38.2

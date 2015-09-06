@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AFNetworking
 
 public protocol InputSource {
     func setToImageView(imageView: UIImageView);
@@ -20,35 +19,20 @@ public class ImageSource: InputSource {
         self.image = image
     }
     
+    public init?(image: String) {
+        if let imageObj = UIImage(named: image) {
+            self.image = imageObj
+        } else {
+            // working around Swift 1.2 failure initializer bug
+            self.image = UIImage(named: "")!
+            return nil
+        }
+    }
+    
     public func setToImageView(imageView: UIImageView) {
         imageView.image = self.image
     }
 }
-
-public class URLSource: InputSource {
-    let url: NSURL!
-    
-    public init(url: NSURL) {
-        self.url = url
-    }
-    
-    public init?(url: String) {
-        if let validUrl = NSURL(string: url) {
-            self.url = validUrl
-        } else {
-            // working around Swift 1.2 failure initializer bug
-            self.url = NSURL(string: "")!
-            return nil
-        }
-    }
-
-    public func setToImageView(imageView: UIImageView) {
-        imageView.setImageWithURLRequest(NSURLRequest(URL: url), placeholderImage: nil, success: { (request: NSURLRequest!, response: NSHTTPURLResponse!, image: UIImage!) -> Void in
-            imageView.image = image
-            }, failure: nil)
-    }
-}
-
 
 @objc public enum PageControlPosition: Int {
     case Hidden
