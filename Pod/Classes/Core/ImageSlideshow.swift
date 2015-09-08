@@ -49,7 +49,8 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     public var pageControlPosition = PageControlPosition.InsideScrollView {
         didSet {
-            //TODO: set page control position
+            setNeedsLayout()
+            layoutScrollView()
         }
     }
     public private(set) var currentPage: Int = 0 {
@@ -121,19 +122,23 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         
         self.addSubview(pageControl)
         
-        self.setTimerIfNeeded()
+        setTimerIfNeeded()
+        layoutScrollView()
     }
     
     override public func layoutSubviews() {
-        scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 50.0)
         
+        pageControl.hidden = pageControlPosition == .Hidden
         pageControl.frame = CGRectMake(0, 0, self.frame.size.width, 10)
         pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 12.0)
         
-        updateScrollView()
+        layoutScrollView()
     }
     
-    func updateScrollView() {
+    func layoutScrollView() {
+        let scrollViewBottomPadding: CGFloat = self.pageControlPosition == .UnderScrollView ? 30.0 : 0.0
+        scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - scrollViewBottomPadding)
+        
         self.scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * CGFloat(scrollViewImages.count), scrollView.frame.size.height)
         
         var i = 0
@@ -150,12 +155,10 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
             view.removeFromSuperview()
         }
         self.slideshowItems = []
-        
-        self.scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * CGFloat(scrollViewImages.count), scrollView.frame.size.height)
-        
+                
         var i = 0
         for image in scrollViewImages {
-            var item = ImageSlideshowItem(image: image, frame: CGRectMake(scrollView.frame.size.width * CGFloat(i), 0, scrollView.frame.size.width, scrollView.frame.size.height), zoomEnabled: self.zoomEnabled)
+            var item = ImageSlideshowItem(image: image, zoomEnabled: self.zoomEnabled)
             item.imageView.contentMode = self.contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)

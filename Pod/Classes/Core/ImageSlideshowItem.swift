@@ -17,9 +17,9 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     private var isZoomed = false
     private var myContext = 0
     
-    init(image: InputSource, frame: CGRect, zoomEnabled: Bool) {
+    init(image: InputSource, zoomEnabled: Bool) {
         self.zoomEnabled = zoomEnabled
-        super.init(frame: frame)
+        super.init(frame: CGRectNull)
         imageView.addObserver(self, forKeyPath: "image", options: .New, context: &myContext)
 
         image.setToImageView(imageView)
