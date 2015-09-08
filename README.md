@@ -15,7 +15,7 @@ This component is under development. Description and brief documentation will fo
 
 Roadmap for 1.0:
 - ~~Create test project~~
-- Create CocoaPod
+- ~~Create CocoaPod~~
 - Fix initial bugs
 - Polish API
 - Write integration guide
