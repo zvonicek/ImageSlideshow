@@ -20,6 +20,7 @@ Roadmap for 1.0:
 - Polish API
 - Write integration guide
 - Write brief documentation
+- *InputSource* subclass for *Alamofire* (yay!)
 
 ## Usage
 
