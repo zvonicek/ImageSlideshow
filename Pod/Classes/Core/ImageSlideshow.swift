@@ -181,20 +181,6 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         setImageInputs(inputs)
     }
     
-    #if DOFFER_AFNETWORKING
-    
-    public func setURLs(urls: [NSURL]) {
-        var inputs = [InputSource]()
-        for url in urls {
-
-            inputs.append(ImageInput.URL(url: url))
-        }
-        
-        setImageInputs(inputs)
-    }
-    
-    #endif
-    
     public func setImageInputs(inputs: [InputSource]) {
         self.images = inputs
         self.pageControl.numberOfPages = inputs.count;
@@ -304,14 +290,8 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
             
             if (scrollView.contentOffset.x >= scrollView.frame.size.width * CGFloat(images.count + 1)) {
                 scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x - regularContentOffset, 0)
-                
-                //                slideshowItems[1].setZoomScale(slideshowItems.last!.zoomScale, animated: false)
-                //                slideshowItems[1].setContentOffset(slideshowItems.last!.contentOffset, animated: false)
             } else if (scrollView.contentOffset.x < 0) {
                 scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x + regularContentOffset, 0)
-                
-                //                slideshowItems.last?.setZoomScale(slideshowItems[1].zoomScale, animated: false)
-                //                slideshowItems.last?.setContentOffset(slideshowItems[1].contentOffset, animated: false)
             }
         }
     }
