@@ -93,7 +93,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     private var scrollViewImages = [InputSource]()
     public private(set) var slideshowItems = [ImageSlideshowItem]()
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
     }
