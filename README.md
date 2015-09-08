@@ -9,6 +9,8 @@
 
 iOS / Swift image slideshow with circular scrolling, timer and full screen viewer.
 
+![](http://cl.ly/image/2v193I0G0h0Z/ImageSlideshow2.gif)
+
 This component is under development. Description and brief documentation will follow with future versions. The API will be subject of change.
 
 Roadmap for 1.0:
