@@ -17,11 +17,11 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
-Image slideshow is a Swift library providing customizable image slideshow with circular scrolling, timer and full screen viewer. Optionally also provides downloading images via AFNetworking
+Image slideshow is a Swift library providing customizable image slideshow with circular scrolling, timer and full screen viewer and extendable image source (AFNetworking image source available in AFURL subspec).
                          DESC
 
   s.homepage         = "https://github.com/zvonicek/ImageSlideshow"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.screenshots     = "http://cl.ly/image/2v193I0G0h0Z/ImageSlideshow2.gif"
   s.license          = 'MIT'
   s.author           = { "Petr Zvonicek" => "zvonicek@gmail.com" }
   s.source           = { :git => "https://github.com/zvonicek/ImageSlideshow.git", :tag => s.version.to_s }
@@ -29,9 +29,6 @@ Image slideshow is a Swift library providing customizable image slideshow with c
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
-
-#  s.dependency 'AFNetworking', '~> 2.3'
-
 
   s.subspec 'Core' do |core|
     core.source_files = 'Pod/Classes/Core/**/*'
@@ -41,9 +38,8 @@ Image slideshow is a Swift library providing customizable image slideshow with c
   end
 
   s.subspec 'AFURL' do |afnetworking|
-#    afnetworking.xcconfig = { 'OTHER_CFLAGS' => '$(inherited) -DOFFER_AFNETWORKING' }
     afnetworking.dependency 'AFNetworking', '~> 2.3'
-    afnetworking.source_files = 'Pod/Classes/AFNetworking/**/*'
+    afnetworking.source_files = 'Pod/Classes/InputSources/AFURLSource.swift'
   end
 
   s.default_subspec = 'Core'

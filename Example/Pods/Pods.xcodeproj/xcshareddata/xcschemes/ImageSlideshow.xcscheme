@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00B72B6722F43E71636725DD"
+               BlueprintIdentifier = "861F8B88AB3F24A1EDF3D622"
                BuildableName = "ImageSlideshow.framework"
                BlueprintName = "ImageSlideshow"
                ReferencedContainer = "container:Pods.xcodeproj">

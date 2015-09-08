@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="L16-jC-HJe" customClass="ImageSlideshow" customModule="ImageSlideshow">
-                                <rect key="frame" x="16" y="35" width="288" height="220"/>
+                                <rect key="frame" x="10" y="35" width="300" height="220"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
