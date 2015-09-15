@@ -8,28 +8,30 @@
 
 import UIKit
 
-public protocol InputSource {
+@objc public protocol InputSource {
     func setToImageView(imageView: UIImageView);
 }
 
-public class ImageSource: InputSource {
+public class ImageSource: NSObject, InputSource {
     let image: UIImage
     
     public init(image: UIImage) {
         self.image = image
     }
     
-    public init?(image: String) {
-        if let imageObj = UIImage(named: image) {
+    public init?(imageString: String) {
+        if let imageObj = UIImage(named: imageString) {
             self.image = imageObj
+            super.init()
         } else {
             // working around Swift 1.2 failure initializer bug
             self.image = UIImage(named: "")!
+            super.init()
             return nil
         }
     }
     
-    public func setToImageView(imageView: UIImageView) {
+    @objc public func setToImageView(imageView: UIImageView) {
         imageView.image = self.image
     }
 }
@@ -174,15 +176,6 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     }
     
     //MARK: image setting
-    
-    public func setImages(images: [UIImage]) {
-        var inputs = [InputSource]()
-        for image in images {
-            inputs.append(ImageSource(image: image))
-        }
-        
-        setImageInputs(inputs)
-    }
     
     public func setImageInputs(inputs: [InputSource]) {
         self.images = inputs

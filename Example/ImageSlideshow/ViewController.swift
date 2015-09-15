@@ -23,8 +23,8 @@ class ViewController: UIViewController {
         slideshow.pageControl.currentPageIndicatorTintColor = UIColor.lightGrayColor();
         slideshow.pageControl.pageIndicatorTintColor = UIColor.blackColor();
         
-//        slideshow.setImageInputs([AFURLSource(url: "http://thumbs.dreamstime.com/z/flysch-rocks-barrika-beach-sunset-58426273.jpg")!, AFURLSource(url: "http://thumbs.dreamstime.com/z/man-surfboard-beautiful-foggy-beach-boy-running-golden-sunrise-daytona-florida-58532550.jpg")!, AFURLSource(url: "http://thumbs.dreamstime.com/z/woman-putting-mask-her-face-black-cloak-sitting-ground-58291716.jpg")!])
-        slideshow.setImageInputs([ImageSource(image: "img1")!, ImageSource(image: "img2")!, ImageSource(image: "img3")!, ImageSource(image: "img4")!])
+//        slideshow.setImageInputs([AFURLSource(urlString: "https://thumbs.dreamstime.com/z/flysch-rocks-barrika-beach-sunset-58426273.jpg")!, AFURLSource(urlString: "https://thumbs.dreamstime.com/z/man-surfboard-beautiful-foggy-beach-boy-running-golden-sunrise-daytona-florida-58532550.jpg")!, AFURLSource(urlString: "https://thumbs.dreamstime.com/z/woman-putting-mask-her-face-black-cloak-sitting-ground-58291716.jpg")!])
+        slideshow.setImageInputs([ImageSource(imageString: "img1")!, ImageSource(imageString: "img2")!, ImageSource(imageString: "img3")!, ImageSource(imageString: "img4")!])
         
         let recognizer = UITapGestureRecognizer(target: self, action: "click")
         slideshow.addGestureRecognizer(recognizer)

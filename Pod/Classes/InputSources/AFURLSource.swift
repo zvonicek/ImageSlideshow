@@ -8,24 +8,26 @@
 
 import AFNetworking
 
-public class AFURLSource: InputSource {
+public class AFURLSource: NSObject, InputSource {
     let url: NSURL!
     
     public init(url: NSURL) {
         self.url = url
     }
     
-    public init?(url: String) {
-        if let validUrl = NSURL(string: url) {
+    public init?(urlString: String) {
+        if let validUrl = NSURL(string: urlString) {
             self.url = validUrl
+            super.init()
         } else {
             // working around Swift 1.2 failure initializer bug
             self.url = NSURL(string: "")!
+            super.init()
             return nil
         }
     }
     
-    public func setToImageView(imageView: UIImageView) {
+    @objc public func setToImageView(imageView: UIImageView) {
         imageView.setImageWithURLRequest(NSURLRequest(URL: url), placeholderImage: nil, success: { (request: NSURLRequest!, response: NSHTTPURLResponse!, image: UIImage!) -> Void in
             imageView.image = image
             }, failure: nil)

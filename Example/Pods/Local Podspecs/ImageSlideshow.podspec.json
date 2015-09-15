@@ -1,6 +1,6 @@
 {
   "name": "ImageSlideshow",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "summary": "Image slideshow written in Swift with circular scrolling, timer and full screen viewer",
   "description": "Image slideshow is a Swift library providing customizable image slideshow with circular scrolling, timer and full screen viewer and extendable image source (AFNetworking image source available in AFURL subspec).",
   "homepage": "https://github.com/zvonicek/ImageSlideshow",
@@ -11,7 +11,7 @@
   },
   "source": {
     "git": "https://github.com/zvonicek/ImageSlideshow.git",
-    "tag": "0.2.0"
+    "tag": "0.2.2"
   },
   "social_media_url": "https://twitter.com/zvonicek",
   "platforms": {
