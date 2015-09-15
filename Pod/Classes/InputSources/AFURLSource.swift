@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Petr Zvonicek. All rights reserved.
 //
 
-import ImageSlideshow
 import AFNetworking
 
 public class AFURLSource: InputSource {
