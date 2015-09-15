@@ -26,7 +26,7 @@ public class FullScreenSlideshowViewController: UIViewController {
         slideshow.zoomEnabled = true
         slideshow.contentScaleMode = UIViewContentMode.ScaleAspectFit
         slideshow.pageControlPosition = PageControlPosition.InsideScrollView
-        slideshow.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        slideshow.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         if let inputs = inputs {
             slideshow.setImageInputs(inputs)
         }

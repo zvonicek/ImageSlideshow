@@ -35,13 +35,13 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         super.init()
     }
     
-    @objc func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-        var viewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+    @objc func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+        let viewController: UIViewController = transitionContext!.viewControllerForKey(UITransitionContextToViewControllerKey)!
         return viewController.isBeingPresented() ? 0.5 : 0.25
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        var viewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let viewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         if viewController.isBeingPresented() {
             self.animateZoomInTransition(transitionContext)
         }
@@ -51,14 +51,14 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
     }
     
     func animateZoomInTransition(transitionContext: UIViewControllerContextTransitioning) {
-        var fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        var toViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! FullScreenSlideshowViewController
-        var transitionView: UIImageView = UIImageView(image: self.referenceSlideshowView.currentSlideshowItem!.imageView.image)
+        let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let toViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! FullScreenSlideshowViewController
+        let transitionView: UIImageView = UIImageView(image: self.referenceSlideshowView.currentSlideshowItem!.imageView.image)
         transitionView.contentMode = UIViewContentMode.ScaleAspectFill
         transitionView.clipsToBounds = true
-        transitionView.frame = transitionContext.containerView().convertRect(self.referenceSlideshowView.currentSlideshowItem!.bounds, fromView: self.referenceSlideshowView.currentSlideshowItem)
-        transitionContext.containerView().addSubview(transitionView)
-        var finalFrame: CGRect = toViewController.slideshow!.scrollView.frame
+        transitionView.frame = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.currentSlideshowItem!.bounds, fromView: self.referenceSlideshowView.currentSlideshowItem)
+        transitionContext.containerView()!.addSubview(transitionView)
+        let finalFrame: CGRect = toViewController.slideshow!.scrollView.frame
         var transitionViewFinalFrame: CGRect;
         if let image = self.referenceSlideshowView.currentSlideshowItem!.imageView.image {
             transitionViewFinalFrame = image.tgr_aspectFitRectForSize(finalFrame.size)
@@ -66,7 +66,7 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
             transitionViewFinalFrame = finalFrame
         }
         
-        var duration: NSTimeInterval = self.transitionDuration(transitionContext)
+        let duration: NSTimeInterval = self.transitionDuration(transitionContext)
         self.referenceSlideshowView.alpha = 0
         
         UIView.animateWithDuration(duration, delay:0, usingSpringWithDamping:0.7, initialSpringVelocity:0, options: UIViewAnimationOptions.CurveLinear, animations: {
@@ -75,30 +75,30 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
             }, completion: {(finished: Bool) in
                 fromViewController.view.alpha = 1
                 transitionView.removeFromSuperview()
-                transitionContext.containerView().addSubview(toViewController.view)
+                transitionContext.containerView()!.addSubview(toViewController.view)
                 transitionContext.completeTransition(true)
         })
     }
     
     func animateZoomOutTransition(transitionContext: UIViewControllerContextTransitioning) {
-        var toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        var fromViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! FullScreenSlideshowViewController
+        let toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let fromViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! FullScreenSlideshowViewController
         toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
         toViewController.view.alpha = 0
-        transitionContext.containerView().addSubview(toViewController.view)
-        transitionContext.containerView().sendSubviewToBack(toViewController.view)
+        transitionContext.containerView()!.addSubview(toViewController.view)
+        transitionContext.containerView()!.sendSubviewToBack(toViewController.view)
         var transitionViewInitialFrame: CGRect
         if let image = fromViewController.slideshow!.currentSlideshowItem!.imageView.image {
             transitionViewInitialFrame = image.tgr_aspectFitRectForSize(fromViewController.slideshow!.currentSlideshowItem!.imageView.frame.size)
         } else {
             transitionViewInitialFrame = fromViewController.slideshow!.currentSlideshowItem!.imageView.frame
         }
-        transitionViewInitialFrame = transitionContext.containerView().convertRect(transitionViewInitialFrame, fromView: fromViewController.slideshow!.currentSlideshowItem)
+        transitionViewInitialFrame = transitionContext.containerView()!.convertRect(transitionViewInitialFrame, fromView: fromViewController.slideshow!.currentSlideshowItem)
         
         // TODO: do this only when aspect fit
-        var transitionViewFinalFrame: CGRect = transitionContext.containerView().convertRect(self.referenceSlideshowView.scrollView.bounds, fromView: self.referenceSlideshowView.scrollView)
+        var transitionViewFinalFrame: CGRect = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.scrollView.bounds, fromView: self.referenceSlideshowView.scrollView)
         if let image = fromViewController.slideshow!.currentSlideshowItem!.imageView.image {
-            transitionViewFinalFrame = transitionContext.containerView().convertRect(frameForImage(image, inImageViewAspectFit: self.referenceSlideshowView.currentSlideshowItem!.imageView), fromView: self.referenceSlideshowView.currentSlideshowItem!.imageView)
+            transitionViewFinalFrame = transitionContext.containerView()!.convertRect(frameForImage(image, inImageViewAspectFit: self.referenceSlideshowView.currentSlideshowItem!.imageView), fromView: self.referenceSlideshowView.currentSlideshowItem!.imageView)
         } else {
             transitionViewFinalFrame = self.referenceSlideshowView.currentSlideshowItem!.imageView.frame
         }
@@ -106,13 +106,13 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         if UIApplication.sharedApplication().statusBarHidden && !toViewController.prefersStatusBarHidden() && toViewController.isKindOfClass(UINavigationController) {
             transitionViewFinalFrame = CGRectOffset(transitionViewFinalFrame, 0, 20)
         }
-        var transitionView: UIImageView = UIImageView(image: fromViewController.slideshow!.currentSlideshowItem!.imageView.image)
+        let transitionView: UIImageView = UIImageView(image: fromViewController.slideshow!.currentSlideshowItem!.imageView.image)
         transitionView.contentMode = UIViewContentMode.ScaleAspectFill
         transitionView.clipsToBounds = true
         transitionView.frame = transitionViewInitialFrame
-        transitionContext.containerView().addSubview(transitionView)
+        transitionContext.containerView()!.addSubview(transitionView)
         fromViewController.view.removeFromSuperview()
-        var duration: NSTimeInterval = self.transitionDuration(transitionContext)
+        let duration: NSTimeInterval = self.transitionDuration(transitionContext)
         UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
             toViewController.view.alpha = 1
             transitionView.frame = transitionViewFinalFrame
@@ -124,18 +124,18 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
     }
     
     func frameForImage(image: UIImage, inImageViewAspectFit imageView: UIImageView) -> CGRect {
-        var imageRatio: CGFloat = image.size.width / image.size.height
-        var viewRatio: CGFloat = imageView.frame.size.width / imageView.frame.size.height
+        let imageRatio: CGFloat = image.size.width / image.size.height
+        let viewRatio: CGFloat = imageView.frame.size.width / imageView.frame.size.height
         if imageRatio < viewRatio {
-            var scale: CGFloat = imageView.frame.size.height / image.size.height
-            var width: CGFloat = scale * image.size.width
-            var topLeftX: CGFloat = (imageView.frame.size.width - width) * 0.5
+            let scale: CGFloat = imageView.frame.size.height / image.size.height
+            let width: CGFloat = scale * image.size.width
+            let topLeftX: CGFloat = (imageView.frame.size.width - width) * 0.5
             return CGRectMake(topLeftX, 0, width, imageView.frame.size.height)
         }
         else {
-            var scale: CGFloat = imageView.frame.size.width / image.size.width
-            var height: CGFloat = scale * image.size.height
-            var topLeftY: CGFloat = (imageView.frame.size.height - height) * 0.5
+            let scale: CGFloat = imageView.frame.size.width / image.size.width
+            let height: CGFloat = scale * image.size.height
+            let topLeftY: CGFloat = (imageView.frame.size.height - height) * 0.5
             return CGRectMake(0, topLeftY, imageView.frame.size.width, height)
         }
     }
