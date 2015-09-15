@@ -1,7 +1,7 @@
 PODS:
-  - ImageSlideshow (0.1.0):
-    - ImageSlideshow/Core (= 0.1.0)
-  - ImageSlideshow/Core (0.1.0)
+  - ImageSlideshow (0.2.0):
+    - ImageSlideshow/Core (= 0.2.0)
+  - ImageSlideshow/Core (0.2.0)
 
 DEPENDENCIES:
   - ImageSlideshow (from `../`)
@@ -11,6 +11,6 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ImageSlideshow: 39d7032a97261a6c2930a5b605ee588ec3938d9a
+  ImageSlideshow: 8d47bf4387d89089e0d888c14ddfa1c1dc4c7d90
 
 COCOAPODS: 0.38.2
