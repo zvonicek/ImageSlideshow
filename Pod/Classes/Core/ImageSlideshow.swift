@@ -102,7 +102,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         self.init(frame: CGRectZero)
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
     }
@@ -158,7 +158,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
                 
         var i = 0
         for image in scrollViewImages {
-            var item = ImageSlideshowItem(image: image, zoomEnabled: self.zoomEnabled)
+            let item = ImageSlideshowItem(image: image, zoomEnabled: self.zoomEnabled)
             item.imageView.contentMode = self.contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)

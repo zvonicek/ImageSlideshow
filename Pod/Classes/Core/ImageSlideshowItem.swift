@@ -34,13 +34,13 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.minimumZoomScale = 1.0
         self.maximumZoomScale = calculateMaximumScale()
         
-        var tap = UITapGestureRecognizer(target: self, action: "tapZoom")
+        let tap = UITapGestureRecognizer(target: self, action: "tapZoom")
         tap.numberOfTapsRequired = 2
         imageView.userInteractionEnabled = true
         imageView.addGestureRecognizer(tap)
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -48,7 +48,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         imageView.removeObserver(self, forKeyPath: "image", context: &myContext)
     }
     
-    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [NSObject : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if context == &myContext {
             if let newValue = change?[NSKeyValueChangeNewKey] as? UIImage {
                 self.maximumZoomScale = calculateMaximumScale()
@@ -78,7 +78,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
     
     private func calculatePictureFrame() {
-        var boundsSize: CGSize = self.bounds.size
+        let boundsSize: CGSize = self.bounds.size
         var frameToCenter: CGRect = imageView.frame
         if frameToCenter.size.width < boundsSize.width {
             frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2
@@ -97,9 +97,9 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     private func calculatePictureSize() -> CGSize {
         if let image = imageView.image {
-            var picSize = image.size
-            var picRatio = picSize.width / picSize.height
-            var screenRatio = screenSize().width / screenSize().height
+            let picSize = image.size
+            let picRatio = picSize.width / picSize.height
+            let screenRatio = screenSize().width / screenSize().height
             
             if (picRatio > screenRatio){
                 return CGSize(width: screenSize().width, height: screenSize().width / picSize.width * picSize.height)
@@ -164,11 +164,11 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         setPictoCenter()
     }
     
-    public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView!) {
+    public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
         isZoomed = true
     }
     
-    public func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView!, atScale scale: CGFloat) {
+    public func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
         if (scale == self.minimumZoomScale){
             isZoomed = false
         }
