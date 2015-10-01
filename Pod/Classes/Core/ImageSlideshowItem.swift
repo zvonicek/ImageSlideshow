@@ -14,7 +14,6 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     let zoomEnabled: Bool
     
-    private var isZoomed = false
     private var myContext = 0
     
     init(image: InputSource, zoomEnabled: Bool) {
@@ -50,25 +49,24 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if context == &myContext {
-            if let newValue = change?[NSKeyValueChangeNewKey] as? UIImage {
-                self.maximumZoomScale = calculateMaximumScale()
-            }
+            self.maximumZoomScale = calculateMaximumScale()
         } else {
             super.observeValueForKeyPath(keyPath!, ofObject: object!, change: change!, context: context)            
         }
     }
     
+    func isZoomed() -> Bool {
+        return self.zoomScale != self.minimumZoomScale
+    }
     
     func zoomOut() {
         self.setZoomScale(minimumZoomScale, animated: false)
     }
     
     func tapZoom() {
-        if isZoomed {
-            isZoomed = false
+        if isZoomed() {
             self.setZoomScale(minimumZoomScale, animated: true)
         } else {
-            isZoomed = true
             self.setZoomScale(maximumZoomScale, animated: true)
         }
     }
@@ -137,10 +135,10 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     override public func layoutSubviews() {
         super.layoutSubviews()
-        
+                
         if (!zoomEnabled) {
             imageView.frame.size = frame.size;
-        } else if (!isZoomed) {
+        } else if (!isZoomed()) {
             imageView.frame.size = calculatePictureSize()
             setPictoCenter()
         }
@@ -162,16 +160,6 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     public func scrollViewDidZoom(scrollView: UIScrollView) {
         setPictoCenter()
-    }
-    
-    public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
-        isZoomed = true
-    }
-    
-    public func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
-        if (scale == self.minimumZoomScale){
-            isZoomed = false
-        }
     }
     
     public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {

@@ -129,7 +129,6 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     }
     
     override public func layoutSubviews() {
-        
         pageControl.hidden = pageControlPosition == .Hidden
         pageControl.frame = CGRectMake(0, 0, self.frame.size.width, 10)
         pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 12.0)
@@ -145,6 +144,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         
         var i = 0
         for view in self.slideshowItems {
+            view.zoomOut()
             view.frame = CGRectMake(scrollView.frame.size.width * CGFloat(i), 0, scrollView.frame.size.width, scrollView.frame.size.height)
             i++
         }
