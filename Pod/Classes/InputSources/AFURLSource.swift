@@ -28,8 +28,9 @@ public class AFURLSource: NSObject, InputSource {
     }
     
     @objc public func setToImageView(imageView: UIImageView) {
-        imageView.setImageWithURLRequest(NSURLRequest(URL: url), placeholderImage: nil, success: { (request: NSURLRequest!, response: NSHTTPURLResponse!, image: UIImage!) -> Void in
+        imageView.setImageWithURLRequest(NSURLRequest(URL: url), placeholderImage: nil, success: { (request: NSURLRequest, response: NSHTTPURLResponse?, image: UIImage) -> Void in
             imageView.image = image
             }, failure: nil)
     }
+
 }
