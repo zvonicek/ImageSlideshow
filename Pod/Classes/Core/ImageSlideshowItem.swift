@@ -20,7 +20,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.zoomEnabled = zoomEnabled
         super.init(frame: CGRectNull)
         imageView.addObserver(self, forKeyPath: "image", options: .New, context: &myContext)
-
+        
         image.setToImageView(imageView)
         
         imageView.clipsToBounds = true
@@ -51,7 +51,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         if context == &myContext {
             self.maximumZoomScale = calculateMaximumScale()
         } else {
-            super.observeValueForKeyPath(keyPath!, ofObject: object!, change: change!, context: context)            
+            super.observeValueForKeyPath(keyPath!, ofObject: object!, change: change!, context: context)
         }
     }
     
@@ -110,11 +110,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
     
     private func calculateMaximumScale() -> CGFloat {
-        if let image = imageView.image {
-            return image.size.width / calculatePictureSize().width
-        } else {
-            return 1.0
-        }
+        return 2.0
     }
     
     private func setPictoCenter(){
@@ -135,7 +131,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     override public func layoutSubviews() {
         super.layoutSubviews()
-                
+        
         if (!zoomEnabled) {
             imageView.frame.size = frame.size;
         } else if (!isZoomed()) {
