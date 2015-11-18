@@ -58,7 +58,7 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         transitionView.clipsToBounds = true
         transitionView.frame = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.currentSlideshowItem!.bounds, fromView: self.referenceSlideshowView.currentSlideshowItem)
         transitionContext.containerView()!.addSubview(transitionView)
-        let finalFrame: CGRect = toViewController.slideshow!.scrollView.frame
+        let finalFrame: CGRect = toViewController.slideshow.scrollView.frame
         var transitionViewFinalFrame: CGRect;
         if let image = self.referenceSlideshowView.currentSlideshowItem!.imageView.image {
             transitionViewFinalFrame = image.tgr_aspectFitRectForSize(finalFrame.size)
@@ -88,16 +88,16 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         transitionContext.containerView()!.addSubview(toViewController.view)
         transitionContext.containerView()!.sendSubviewToBack(toViewController.view)
         var transitionViewInitialFrame: CGRect
-        if let image = fromViewController.slideshow!.currentSlideshowItem!.imageView.image {
-            transitionViewInitialFrame = image.tgr_aspectFitRectForSize(fromViewController.slideshow!.currentSlideshowItem!.imageView.frame.size)
+        if let image = fromViewController.slideshow.currentSlideshowItem!.imageView.image {
+            transitionViewInitialFrame = image.tgr_aspectFitRectForSize(fromViewController.slideshow.currentSlideshowItem!.imageView.frame.size)
         } else {
-            transitionViewInitialFrame = fromViewController.slideshow!.currentSlideshowItem!.imageView.frame
+            transitionViewInitialFrame = fromViewController.slideshow.currentSlideshowItem!.imageView.frame
         }
-        transitionViewInitialFrame = transitionContext.containerView()!.convertRect(transitionViewInitialFrame, fromView: fromViewController.slideshow!.currentSlideshowItem)
+        transitionViewInitialFrame = transitionContext.containerView()!.convertRect(transitionViewInitialFrame, fromView: fromViewController.slideshow.currentSlideshowItem)
         
         // TODO: do this only when aspect fit
         var transitionViewFinalFrame: CGRect = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.scrollView.bounds, fromView: self.referenceSlideshowView.scrollView)
-        if let image = fromViewController.slideshow!.currentSlideshowItem!.imageView.image {
+        if let image = fromViewController.slideshow.currentSlideshowItem!.imageView.image {
             transitionViewFinalFrame = transitionContext.containerView()!.convertRect(frameForImage(image, inImageViewAspectFit: self.referenceSlideshowView.currentSlideshowItem!.imageView), fromView: self.referenceSlideshowView.currentSlideshowItem!.imageView)
         } else {
             transitionViewFinalFrame = self.referenceSlideshowView.currentSlideshowItem!.imageView.frame
@@ -106,7 +106,7 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         if UIApplication.sharedApplication().statusBarHidden && !toViewController.prefersStatusBarHidden() && toViewController.isKindOfClass(UINavigationController) {
             transitionViewFinalFrame = CGRectOffset(transitionViewFinalFrame, 0, 20)
         }
-        let transitionView: UIImageView = UIImageView(image: fromViewController.slideshow!.currentSlideshowItem!.imageView.image)
+        let transitionView: UIImageView = UIImageView(image: fromViewController.slideshow.currentSlideshowItem!.imageView.image)
         transitionView.contentMode = UIViewContentMode.ScaleAspectFill
         transitionView.clipsToBounds = true
         transitionView.frame = transitionViewInitialFrame
