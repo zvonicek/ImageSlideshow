@@ -68,6 +68,7 @@ It is possible to configure behaviour by setting numerous properties:
 - ```zoomEnabled``` - enables zooming
 - ```circular``` - enables circular scrolling
 - ```pageControlPosition``` - configures position of UIPageControll (hidden, inside scroll view or under scroll view)
+- ```contentScaleMode``` - configures the scaling (UIViewContentMode.ScaleAspectFit by default)
 
 ### Full Screen view
 
