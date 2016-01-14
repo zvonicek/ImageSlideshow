@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         
         slideshow.backgroundColor = UIColor.whiteColor()
         slideshow.slideshowInterval = 5.0
+        slideshow.draggingEnabled = false
         slideshow.pageControlPosition = PageControlPosition.UnderScrollView
         slideshow.pageControl.currentPageIndicatorTintColor = UIColor.lightGrayColor();
         slideshow.pageControl.pageIndicatorTintColor = UIColor.blackColor();

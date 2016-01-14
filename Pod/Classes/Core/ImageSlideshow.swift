@@ -48,6 +48,11 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     // preferences
     
     public var circular = true
+    public var draggingEnabled = true {
+        didSet {
+            self.scrollView.userInteractionEnabled = draggingEnabled
+        }
+    }
     public var zoomEnabled = false
     public var slideshowInterval = 0.0 {
         didSet {
