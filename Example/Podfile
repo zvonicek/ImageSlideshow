@@ -2,6 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'ImageSlideshow_Example', :exclusive => true do
-    pod "ImageSlideshow", :path => "../"
+    #pod "ImageSlideshow", :path => "../"
     #pod "ImageSlideshow/AFURL", :path => "../"
+    pod "ImageSlideshow/Alamofire", :path => "../"
 end
