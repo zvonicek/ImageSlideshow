@@ -8,34 +8,6 @@
 
 import UIKit
 
-@objc public protocol InputSource {
-    func setToImageView(imageView: UIImageView);
-}
-
-public class ImageSource: NSObject, InputSource {
-    let image: UIImage
-    
-    public init(image: UIImage) {
-        self.image = image
-    }
-    
-    public init?(imageString: String) {
-        if let imageObj = UIImage(named: imageString) {
-            self.image = imageObj
-            super.init()
-        } else {
-            // working around Swift 1.2 failure initializer bug
-            self.image = UIImage(named: "")!
-            super.init()
-            return nil
-        }
-    }
-    
-    @objc public func setToImageView(imageView: UIImageView) {
-        imageView.image = self.image
-    }
-}
-
 @objc public enum PageControlPosition: Int {
     case Hidden
     case InsideScrollView
