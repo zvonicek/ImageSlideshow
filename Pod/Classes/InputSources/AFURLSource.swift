@@ -8,10 +8,18 @@
 import AFNetworking
 
 public class AFURLSource: NSObject, InputSource {
-    let url: NSURL!
+    var url: NSURL!
+    var placeholder: UIImage?
     
     public init(url: NSURL) {
         self.url = url
+        super.init()
+    }
+    
+    public init(url: NSURL, placeholder: UIImage) {
+        self.url = url
+        self.placeholder = placeholder
+        super.init()
     }
     
     public init?(urlString: String) {
@@ -19,15 +27,13 @@ public class AFURLSource: NSObject, InputSource {
             self.url = validUrl
             super.init()
         } else {
-            // working around Swift 1.2 failure initializer bug
-            self.url = NSURL(string: "")!
             super.init()
             return nil
         }
     }
     
     @objc public func setToImageView(imageView: UIImageView) {
-        imageView.setImageWithURLRequest(NSURLRequest(URL: url), placeholderImage: nil, success: { (request: NSURLRequest, response: NSHTTPURLResponse?, image: UIImage) -> Void in
+        imageView.setImageWithURLRequest(NSURLRequest(URL: url), placeholderImage: self.placeholder, success: { (request: NSURLRequest, response: NSHTTPURLResponse?, image: UIImage) -> Void in
             imageView.image = image
             }, failure: nil)
     }
