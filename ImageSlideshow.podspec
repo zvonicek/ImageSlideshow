@@ -43,6 +43,12 @@ Image slideshow is a Swift library providing customizable image slideshow with c
     afnetworking.source_files = 'Pod/Classes/InputSources/AFURLSource.swift'
   end
 
+  s.subspec 'Alamofire' do |afnetworking|
+    afnetworking.dependency 'ImageSlideshow/Core'
+    afnetworking.dependency 'AlamofireImage', '~> 2.0'
+    afnetworking.source_files = 'Pod/Classes/InputSources/AlamofireSource.swift'
+  end  
+
   s.default_subspec = 'Core'
 
 end
