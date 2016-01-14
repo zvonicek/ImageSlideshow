@@ -3,7 +3,7 @@
 //  ImageSlideshow
 //
 //  Created by Petr Zvoníček on 31.08.15.
-//  Copyright (c) 2015 Petr Zvonicek. All rights reserved.
+//
 //
 
 import UIKit
