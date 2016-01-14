@@ -26,11 +26,13 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
             layoutScrollView()
         }
     }
+    
     public private(set) var currentPage: Int = 0 {
         didSet {
             pageControl.currentPage = currentPage;
         }
     }
+    
     public var currentSlideshowItem: ImageSlideshowItem? {
         get {
             if (self.slideshowItems.count > self.scrollViewPage) {
@@ -40,6 +42,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
             }
         }
     }
+    
     public private(set) var scrollViewPage: Int = 0
     
     // preferences
@@ -84,6 +87,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         self.autoresizesSubviews = true
         self.clipsToBounds = true
         
+        // scroll view configuration
         scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 50.0)
         scrollView.delegate = self
         scrollView.pagingEnabled = true
@@ -107,11 +111,11 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         layoutScrollView()
     }
     
+    /// updates frame of the scroll view and its inner items
     func layoutScrollView() {
         let scrollViewBottomPadding: CGFloat = self.pageControlPosition == .UnderScrollView ? 30.0 : 0.0
         scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - scrollViewBottomPadding)
-        
-        self.scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * CGFloat(scrollViewImages.count), scrollView.frame.size.height)
+        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * CGFloat(scrollViewImages.count), scrollView.frame.size.height)
         
         var i = 0
         for view in self.slideshowItems {
@@ -123,6 +127,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         setCurrentPage(currentPage, animated: false)
     }
     
+    /// reloads scroll view with latest slideshowItems
     func reloadScrollView() {
         for view in self.slideshowItems {
             view.removeFromSuperview()
@@ -146,13 +151,13 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         }
     }
     
-    //MARK: image setting
+    // MARK: image setting
     
     public func setImageInputs(inputs: [InputSource]) {
         self.images = inputs
         self.pageControl.numberOfPages = inputs.count;
         
-        // in circular mode we add dummy first and last image to allow smooth scrolling
+        // in circular mode we add dummy first and last image to enable smooth scrolling
         if circular && images.count > 1 {
             var scImages = [InputSource]()
             
@@ -173,7 +178,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         setTimerIfNeeded()
     }
     
-    //MARK: paging methods
+    // MARK: paging methods
     
     public func setCurrentPage(currentPage: Int, animated: Bool) {
         var pageOffset = currentPage
