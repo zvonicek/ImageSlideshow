@@ -16,10 +16,10 @@ This component is under development. Description and brief documentation will fo
 Roadmap for 1.0:
 - ~~Create test project~~
 - ~~Create CocoaPod~~
-- Fix initial bugs
+- ~~Fix initial bugs~~
 - Polish API
 - Write brief documentation
-- *InputSource* subclass for *Alamofire* (yay!)
+- ~~*InputSource* subclass for *Alamofire* (yay!)~~
 
 ## Usage
 
@@ -33,7 +33,7 @@ ImageSlideshow is available through [CocoaPods](http://cocoapods.org). To instal
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ImageSlideshow', '~> 0.2.3'
+pod 'ImageSlideshow', '~> 0.3'
 ```
 
 ## Usage
@@ -48,7 +48,25 @@ Images can be set by calling ```setImageInputs``` method on ```ImageSlideshow```
 slideshow.setImageInputs([ImageSource(image: UIImage(named: "myImage"))!, ImageSource(image: UIImage(named: "myImage2"))!,])
 ```
 
-There is one more *InputSource* available in *AFURL* subspec allowing to load image from URL using *AFNetworking*. To use this add the AFURL subspec below the original *ImageSlideshow* pod:
+There are two more *InputSource*s available:
+
+#### AlamofireImage
+
+*AlamofireSource* subspec allowing to load image from URL using *AlamofireImage*. To use this add the Alamofire subspec to your Podfile.
+
+```ruby
+pod "ImageSlideshow/Alamofire"
+``` 
+
+It is then possible to load image from URL by calling
+
+```swift
+AlamofireSource(urlString: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Trencin_hdr_001.jpg")
+```
+
+#### AFNetworking
+
+*AFURL* subspec allowing to load image from URL using *AFNetworking*. To use this add the AFURL subspec to your Podfile.
 
 ```ruby
 pod "ImageSlideshow/AFURL"
@@ -57,7 +75,7 @@ pod "ImageSlideshow/AFURL"
 It is then possible to load image from URL by calling
 
 ```swift
-AFURLSource(url: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Trencin_hdr_001.jpg")
+AFURLSource(urlString: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Trencin_hdr_001.jpg")
 ```
 
 ### Configuration
@@ -69,6 +87,7 @@ It is possible to configure behaviour by setting numerous properties:
 - ```circular``` - enables circular scrolling
 - ```pageControlPosition``` - configures position of UIPageControll (hidden, inside scroll view or under scroll view)
 - ```contentScaleMode``` - configures the scaling (UIViewContentMode.ScaleAspectFit by default)
+- ```draggingEnabled``` - enables dragging
 
 ### Full Screen view
 
