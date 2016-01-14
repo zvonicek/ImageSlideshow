@@ -11,21 +11,21 @@ import UIKit
 public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     var imageView = UIImageView()
-    
     let zoomEnabled: Bool
-    
-    private var myContext = 0
     
     init(image: InputSource, zoomEnabled: Bool) {
         self.zoomEnabled = zoomEnabled
+        
         super.init(frame: CGRectNull)
-        imageView.addObserver(self, forKeyPath: "image", options: .New, context: &myContext)
         
         image.setToImageView(imageView)
         
         imageView.clipsToBounds = true
+        imageView.userInteractionEnabled = true
+        
         setPictoCenter()
         
+        // scroll view configuration
         self.delegate = self
         self.showsVerticalScrollIndicator = false
         self.showsHorizontalScrollIndicator = false
@@ -33,26 +33,14 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.minimumZoomScale = 1.0
         self.maximumZoomScale = calculateMaximumScale()
         
+        // tap gesture recognizer
         let tap = UITapGestureRecognizer(target: self, action: "tapZoom")
         tap.numberOfTapsRequired = 2
-        imageView.userInteractionEnabled = true
         imageView.addGestureRecognizer(tap)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        imageView.removeObserver(self, forKeyPath: "image", context: &myContext)
-    }
-    
-    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if context == &myContext {
-            self.maximumZoomScale = calculateMaximumScale()
-        } else {
-            super.observeValueForKeyPath(keyPath!, ofObject: object!, change: change!, context: context)
-        }
     }
     
     func isZoomed() -> Bool {
@@ -110,6 +98,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
     
     private func calculateMaximumScale() -> CGFloat {
+        // maximum scale is fixed to 2.0 for now. This may be overriden to perform a more sophisticated computation
         return 2.0
     }
     
@@ -152,7 +141,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    //MARK: UIScrollViewDelegate
+    // MARK: UIScrollViewDelegate
     
     public func scrollViewDidZoom(scrollView: UIScrollView) {
         setPictoCenter()
