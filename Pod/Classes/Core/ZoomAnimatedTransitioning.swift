@@ -52,8 +52,11 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
     func animateZoomInTransition(transitionContext: UIViewControllerContextTransitioning) {
         let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! FullScreenSlideshowViewController
-        let transitionView: UIImageView = UIImageView(image: self.referenceSlideshowView.currentSlideshowItem!.imageView.image)
+        let transitionBackgroundView = UIView(frame: transitionContext.containerView()!.frame)
+        transitionBackgroundView.backgroundColor = toViewController.backgroundColor
+        transitionContext.containerView()!.addSubview(transitionBackgroundView)
         
+        let transitionView: UIImageView = UIImageView(image: self.referenceSlideshowView.currentSlideshowItem!.imageView.image)
         transitionView.contentMode = UIViewContentMode.ScaleAspectFill
         transitionView.clipsToBounds = true
         transitionView.frame = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.currentSlideshowItem!.bounds, fromView: self.referenceSlideshowView.currentSlideshowItem)
@@ -74,6 +77,7 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
             }, completion: {(finished: Bool) in
                 fromViewController.view.alpha = 1
                 transitionView.removeFromSuperview()
+                transitionBackgroundView.removeFromSuperview()
                 transitionContext.containerView()!.addSubview(toViewController.view)
                 transitionContext.completeTransition(true)
         })
@@ -106,6 +110,10 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
             transitionViewFinalFrame = CGRectOffset(transitionViewFinalFrame, 0, 20)
         }
         
+        let transitionBackgroundView = UIView(frame: transitionContext.containerView()!.frame)
+        transitionBackgroundView.backgroundColor = fromViewController.backgroundColor
+        transitionContext.containerView()!.addSubview(transitionBackgroundView)
+        
         let transitionView: UIImageView = UIImageView(image: fromViewController.slideshow.currentSlideshowItem!.imageView.image)
         transitionView.contentMode = UIViewContentMode.ScaleAspectFill
         transitionView.clipsToBounds = true
@@ -120,6 +128,7 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
             }, completion: {(finished: Bool) in
                 self.referenceSlideshowView.alpha = 1
                 transitionView.removeFromSuperview()
+                transitionBackgroundView.removeFromSuperview()
                 transitionContext.completeTransition(true)
         })
     }
