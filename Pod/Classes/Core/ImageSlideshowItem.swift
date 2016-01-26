@@ -133,6 +133,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
             setPictoCenter()
         }
         
+        self.contentSize = imageView.frame.size        
         self.maximumZoomScale = calculateMaximumScale()
     }
     
