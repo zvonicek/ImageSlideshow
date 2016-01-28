@@ -124,7 +124,9 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         
         var i = 0
         for view in self.slideshowItems {
-            view.zoomOut()
+            if !view.zoomInInitially {
+                view.zoomOut()
+            }
             view.frame = CGRectMake(scrollView.frame.size.width * CGFloat(i), 0, scrollView.frame.size.width, scrollView.frame.size.height)
             i++
         }
@@ -138,7 +140,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
             view.removeFromSuperview()
         }
         self.slideshowItems = []
-                
+        
         var i = 0
         for image in scrollViewImages {
             let item = ImageSlideshowItem(image: image, zoomEnabled: self.zoomEnabled)

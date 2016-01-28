@@ -14,6 +14,10 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     public var gestureRecognizer: UITapGestureRecognizer?
     
     public let zoomEnabled: Bool
+    public var zoomInInitially = false
+    
+    //
+    private var lastFrame = CGRectZero
     
     init(image: InputSource, zoomEnabled: Bool) {
         self.zoomEnabled = zoomEnabled
@@ -134,7 +138,13 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
             setPictoCenter()
         }
         
-        self.contentSize = imageView.frame.size        
+        // if self.frame was changed and zoomInInitially enabled, zoom in
+        if lastFrame != self.frame && zoomInInitially {
+            self.setZoomScale(maximumZoomScale, animated: false)
+        }
+        lastFrame = self.frame
+        
+        self.contentSize = imageView.frame.size
         self.maximumZoomScale = calculateMaximumScale()
     }
     

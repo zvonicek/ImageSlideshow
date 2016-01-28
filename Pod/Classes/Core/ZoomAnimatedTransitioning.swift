@@ -52,6 +52,7 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
     func animateZoomInTransition(transitionContext: UIViewControllerContextTransitioning) {
         let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! FullScreenSlideshowViewController
+        toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
         let transitionBackgroundView = UIView(frame: transitionContext.containerView()!.frame)
         transitionBackgroundView.backgroundColor = toViewController.backgroundColor
         transitionContext.containerView()!.addSubview(transitionBackgroundView)
@@ -63,10 +64,13 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         transitionView.frame = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.currentSlideshowItem!.bounds, fromView: self.referenceSlideshowView.currentSlideshowItem)
         transitionContext.containerView()!.addSubview(transitionView)
         
-        let finalFrame: CGRect = toViewController.slideshow.scrollView.frame
+        let finalFrame: CGRect = toViewController.view.frame
         var transitionViewFinalFrame = finalFrame;
         if let image = self.referenceSlideshowView.currentSlideshowItem!.imageView.image {
             transitionViewFinalFrame = image.tgr_aspectFitRectForSize(finalFrame.size)
+        }
+        if let item = toViewController.slideshow.currentSlideshowItem where item.zoomInInitially {
+            transitionViewFinalFrame.size = CGSizeMake(transitionViewFinalFrame.size.width * item.maximumZoomScale, transitionViewFinalFrame.size.height * item.maximumZoomScale);
         }
         
         let duration: NSTimeInterval = self.transitionDuration(transitionContext)
@@ -75,6 +79,7 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         UIView.animateWithDuration(duration, delay:0, usingSpringWithDamping:0.7, initialSpringVelocity:0, options: UIViewAnimationOptions.CurveLinear, animations: {
             fromViewController.view.alpha = 0
             transitionView.frame = transitionViewFinalFrame
+            transitionView.center = CGPointMake(CGRectGetMidX(finalFrame), CGRectGetMidY(finalFrame))
             }, completion: {(finished: Bool) in
                 fromViewController.view.alpha = 1
                 transitionView.removeFromSuperview()
