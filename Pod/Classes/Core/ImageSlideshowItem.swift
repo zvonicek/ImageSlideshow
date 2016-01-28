@@ -9,11 +9,15 @@ import UIKit
 
 public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
-    var imageView = UIImageView()
-    let zoomEnabled: Bool
+    public let imageView = UIImageView()
+    public let image: InputSource
+    public var gestureRecognizer: UITapGestureRecognizer?
+    
+    public let zoomEnabled: Bool
     
     init(image: InputSource, zoomEnabled: Bool) {
         self.zoomEnabled = zoomEnabled
+        self.image = image
         
         super.init(frame: CGRectNull)
         
@@ -33,9 +37,10 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.maximumZoomScale = calculateMaximumScale()
         
         // tap gesture recognizer
-        let tap = UITapGestureRecognizer(target: self, action: "tapZoom")
-        tap.numberOfTapsRequired = 2
-        imageView.addGestureRecognizer(tap)
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: "tapZoom")
+        tapRecognizer.numberOfTapsRequired = 2
+        imageView.addGestureRecognizer(tapRecognizer)
+        gestureRecognizer = tapRecognizer
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -109,12 +114,8 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         contentInset = UIEdgeInsets(top: intendVertical, left: intendHorizon, bottom: intendVertical, right: intendHorizon)
     }
     
-    private func isFullScreen() -> Bool{
-        if (imageView.frame.width >= screenSize().width && imageView.frame.height >= screenSize().height){
-            return true
-        } else {
-            return false
-        }
+    private func isFullScreen() -> Bool {
+        return imageView.frame.width >= screenSize().width && imageView.frame.height >= screenSize().height
     }
     
     override public func layoutSubviews() {
