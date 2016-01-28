@@ -9,7 +9,11 @@ import UIKit
 
 public class FullScreenSlideshowViewController: UIViewController {
     
-    public var slideshow = ImageSlideshow()
+    public var slideshow: ImageSlideshow = {
+        let slideshow = ImageSlideshow()
+        slideshow.zoomEnabled = true
+        return slideshow
+    }()
     public var closeButton = UIButton()
     
     public var pageSelected: ((page: Int) -> ())?
@@ -17,7 +21,11 @@ public class FullScreenSlideshowViewController: UIViewController {
     public var inputs: [InputSource]?
     
     public var backgroundColor = UIColor.blackColor()
-    public var zoomEnabled = true
+    public var zoomEnabled = true {
+        didSet {
+            slideshow.zoomEnabled = zoomEnabled
+        }
+    }
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +35,6 @@ public class FullScreenSlideshowViewController: UIViewController {
         // slideshow view configuration
         slideshow.frame = self.view.frame
         slideshow.backgroundColor = backgroundColor
-        slideshow.zoomEnabled = zoomEnabled
         slideshow.contentScaleMode = UIViewContentMode.ScaleAspectFit
         slideshow.pageControlPosition = PageControlPosition.InsideScrollView
         slideshow.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
