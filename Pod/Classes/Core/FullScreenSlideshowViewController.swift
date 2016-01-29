@@ -12,6 +12,12 @@ public class FullScreenSlideshowViewController: UIViewController {
     public var slideshow: ImageSlideshow = {
         let slideshow = ImageSlideshow()
         slideshow.zoomEnabled = true
+        slideshow.contentScaleMode = UIViewContentMode.ScaleAspectFit
+        slideshow.pageControlPosition = PageControlPosition.InsideScrollView
+        // turns off the timer
+        slideshow.slideshowInterval = 0
+        slideshow.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        
         return slideshow
     }()
     public var closeButton = UIButton()
@@ -35,11 +41,6 @@ public class FullScreenSlideshowViewController: UIViewController {
         // slideshow view configuration
         slideshow.frame = self.view.frame
         slideshow.backgroundColor = backgroundColor
-        slideshow.contentScaleMode = UIViewContentMode.ScaleAspectFit
-        slideshow.pageControlPosition = PageControlPosition.InsideScrollView
-        slideshow.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-        // turns off the timer
-        slideshow.slideshowInterval = 0
         
         if let inputs = inputs {
             slideshow.setImageInputs(inputs)
