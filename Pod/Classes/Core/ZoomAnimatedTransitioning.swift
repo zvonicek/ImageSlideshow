@@ -11,6 +11,7 @@ import UIKit
 public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     let referenceSlideshowView: ImageSlideshow
+    var referenceSlideshowViewFrame: CGRect?
     
     public init(slideshowView: ImageSlideshow) {
         self.referenceSlideshowView = slideshowView
@@ -18,20 +19,22 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
     }
     
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ZoomAnimatedTransitioning(referenceSlideshowView: referenceSlideshowView)
+        return ZoomAnimatedTransitioning(referenceSlideshowView: referenceSlideshowView, parent: self)
     }
     
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ZoomAnimatedTransitioning(referenceSlideshowView: referenceSlideshowView)
+        return ZoomAnimatedTransitioning(referenceSlideshowView: referenceSlideshowView, parent: self)
     }
 }
 
 class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
     
     var referenceSlideshowView: ImageSlideshow
+    var parent: ZoomAnimatedTransitioningDelegate
     
-    init(referenceSlideshowView: ImageSlideshow) {
+    init(referenceSlideshowView: ImageSlideshow, parent: ZoomAnimatedTransitioningDelegate) {
         self.referenceSlideshowView = referenceSlideshowView
+        self.parent = parent
         super.init()
     }
     
@@ -63,6 +66,7 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         transitionView.clipsToBounds = true
         transitionView.frame = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.currentSlideshowItem!.bounds, fromView: self.referenceSlideshowView.currentSlideshowItem)
         transitionContext.containerView()!.addSubview(transitionView)
+        self.parent.referenceSlideshowViewFrame = transitionView.frame
         
         let finalFrame: CGRect = toViewController.view.frame
         var transitionViewFinalFrame = finalFrame;
@@ -105,14 +109,16 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         transitionViewInitialFrame = transitionContext.containerView()!.convertRect(transitionViewInitialFrame, fromView: fromViewController.slideshow.currentSlideshowItem)
         
         let referenceImageView = self.referenceSlideshowView.currentSlideshowItem!.imageView
-        var transitionViewFinalFrame: CGRect = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.scrollView.bounds, fromView: self.referenceSlideshowView.scrollView)
+        let referenceSlideshowViewFrame = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.scrollView.bounds, fromView: self.referenceSlideshowView.scrollView)
+        var transitionViewFinalFrame = referenceSlideshowViewFrame
         
         // do a frame scaling when AspectFit content mode enabled
         if let image = fromViewController.slideshow.currentSlideshowItem!.imageView.image where self.referenceSlideshowView.contentScaleMode == UIViewContentMode.ScaleAspectFit {
             transitionViewFinalFrame = transitionContext.containerView()!.convertRect(frameForImage(image, inImageViewAspectFit: referenceImageView), fromView: referenceImageView)
         }
         
-        if UIApplication.sharedApplication().statusBarHidden && !toViewController.prefersStatusBarHidden() && toViewController.isKindOfClass(UINavigationController) {
+        // fixes the problem when the referenceSlideshowViewFrame was shifted during change of the status bar hidden state
+        if UIApplication.sharedApplication().statusBarHidden && !toViewController.prefersStatusBarHidden() && referenceSlideshowViewFrame.origin.y != parent.referenceSlideshowViewFrame?.origin.y {
             transitionViewFinalFrame = CGRectOffset(transitionViewFinalFrame, 0, 20)
         }
         
