@@ -16,7 +16,7 @@ import UIKit
 public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     public let scrollView = UIScrollView()
-    public let pageControl = UIPageControl()
+    public let pageControl = CustomPageControl()
     
     // state properties
     
@@ -245,6 +245,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         } else {
             currentPage = page
         }
+        NSNotificationCenter.defaultCenter().postNotificationName("actionCarousel", object: nil, userInfo: ["message" : currentPage])
     }
     
     // MARK: UIScrollViewDelegate
@@ -273,5 +274,77 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
                 scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x + regularContentOffset, 0)
             }
         }
+    }
+}
+
+public class CustomPageControl: UIPageControl {
+    //change to needed images names
+    let activeImage = UIImage(named: "page_control_active")!
+    let inactiveImage = UIImage(named: "page_control_noactive")!
+    
+    var starPosition: Int = 0 {
+        didSet {
+            updateDots()
+        }
+    }
+    var plusPosition = 0
+    
+    let ratio = CGFloat(0.6)
+    
+    dynamic override public var currentPage: Int {
+        didSet {
+            updateDots()
+        }
+    }
+    
+    override public var numberOfPages: Int {
+        didSet {
+            updateDots()
+        }
+    }
+    
+    private func updateDots() {
+        
+        pageIndicatorTintColor = UIColor.clearColor()
+        currentPageIndicatorTintColor = UIColor.clearColor()
+        backgroundColor = UIColor.clearColor()
+        
+        
+        for i in 0..<subviews.count {
+            let dot = imageViewForSubview(subviews[i])
+            if i == currentPage {
+                dot.image = activeImage
+            }
+            else {
+                dot.image = inactiveImage
+            }
+        }
+    }
+    
+    private func imageViewForSubview(view : UIView) -> UIImageView {
+        var dot: UIImageView!
+        if view.isKindOfClass(UIView) {
+            for subview in view.subviews {
+                if subview.isKindOfClass(UIImageView) {
+                    dot = subview as? UIImageView
+                    break
+                }
+            }
+            if dot == nil {
+                dot = UIImageView(frame: CGRectMake(0, 0, CGRectGetWidth(view.frame) * 1.1, CGRectGetHeight(view.frame) * ratio))
+                dot.contentMode = .ScaleAspectFit
+                view.addSubview(dot)
+            }
+        } else {
+            dot = view as? UIImageView
+        }
+        return dot
+    }
+    
+    override public func awakeFromNib() {
+        super.awakeFromNib()
+        pageIndicatorTintColor = UIColor.clearColor()
+        currentPageIndicatorTintColor = UIColor.clearColor()
+        backgroundColor = UIColor.clearColor()
     }
 }
