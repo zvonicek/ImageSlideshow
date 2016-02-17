@@ -93,7 +93,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         self.clipsToBounds = true
         
         // scroll view configuration
-        scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 50.0)
+        scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 47.0)
         scrollView.delegate = self
         scrollView.pagingEnabled = true
         scrollView.bounces = true
@@ -110,15 +110,15 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     override public func layoutSubviews() {
         pageControl.hidden = pageControlPosition == .Hidden
-        pageControl.frame = CGRectMake(0, 0, self.frame.size.width, 10)
-        pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 12.0)
+        pageControl.frame = CGRectMake(0, -200, self.frame.size.width, 20)
+        pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 55.0)
         
         layoutScrollView()
     }
     
     /// updates frame of the scroll view and its inner items
     func layoutScrollView() {
-        let scrollViewBottomPadding: CGFloat = self.pageControlPosition == .UnderScrollView ? 30.0 : 0.0
+        let scrollViewBottomPadding: CGFloat = self.pageControlPosition == .UnderScrollView ? 30.0 : 75.0
         scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - scrollViewBottomPadding)
         scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * CGFloat(scrollViewImages.count), scrollView.frame.size.height)
         
