@@ -16,7 +16,6 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     public let zoomEnabled: Bool
     public var zoomInInitially = false
     
-    //
     private var lastFrame = CGRectZero
     
     init(image: InputSource, zoomEnabled: Bool) {
@@ -28,7 +27,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         image.setToImageView(imageView)
         
         imageView.clipsToBounds = true
-        imageView.userInteractionEnabled = true
+        imageView.userInteractionEnabled = false
         
         setPictoCenter()
         
@@ -36,6 +35,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.delegate = self
         self.showsVerticalScrollIndicator = false
         self.showsHorizontalScrollIndicator = false
+        self.scrollEnabled = false
         self.addSubview(imageView)
         self.minimumZoomScale = 1.0
         self.maximumZoomScale = calculateMaximumScale()
@@ -45,6 +45,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         tapRecognizer.numberOfTapsRequired = 2
         imageView.addGestureRecognizer(tapRecognizer)
         gestureRecognizer = tapRecognizer
+        
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -149,7 +150,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
     
     func clearContentInsets(){
-        self.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     }
     
     // MARK: UIScrollViewDelegate

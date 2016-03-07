@@ -120,7 +120,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         case 480:
             pcPositionPadding = 58
         case 568 :
-            pcPositionPadding = 58
+            pcPositionPadding = 57
         case 667 :
             pcPositionPadding = 47
         case 736 :
@@ -128,8 +128,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         default :
             pcPositionPadding = 55
         }
-        
-        
+
         pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - pcPositionPadding)
         
         layoutScrollView()
