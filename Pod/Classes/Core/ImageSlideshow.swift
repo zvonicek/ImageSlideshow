@@ -74,6 +74,8 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     private var scrollViewImages = [InputSource]()
     public private(set) var slideshowItems = [ImageSlideshowItem]()
     
+    var lastPage : CGFloat = 0
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -111,7 +113,24 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     override public func layoutSubviews() {
         pageControl.hidden = pageControlPosition == .Hidden
         pageControl.frame = CGRectMake(0, -200, self.frame.size.width, 20)
-        pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 55.0)
+        
+        var pcPositionPadding : CGFloat = 45
+        
+        switch UIScreen.mainScreen().bounds.height {
+        case 480:
+            pcPositionPadding = 58
+        case 568 :
+            pcPositionPadding = 58
+        case 667 :
+            pcPositionPadding = 47
+        case 736 :
+            pcPositionPadding = 35
+        default :
+            pcPositionPadding = 55
+        }
+        
+        
+        pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - pcPositionPadding)
         
         layoutScrollView()
     }
@@ -119,7 +138,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     /// updates frame of the scroll view and its inner items
     func layoutScrollView() {
         let scrollViewBottomPadding: CGFloat = self.pageControlPosition == .UnderScrollView ? 30.0 : 75.0
-        scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - scrollViewBottomPadding)
+        scrollView.frame = CGRectMake(0, 0, self.frame.size.width , self.frame.size.height - scrollViewBottomPadding)
         scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * CGFloat(scrollViewImages.count), scrollView.frame.size.height)
         
         var i = 0
@@ -245,7 +264,6 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         } else {
             currentPage = page
         }
-        NSNotificationCenter.defaultCenter().postNotificationName("actionCarousel", object: nil, userInfo: ["message" : currentPage])
     }
     
     // MARK: UIScrollViewDelegate
@@ -272,6 +290,28 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
                 scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x - regularContentOffset, 0)
             } else if (scrollView.contentOffset.x < 0) {
                 scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x + regularContentOffset, 0)
+            }
+            
+            var previousPage : CGFloat = 0
+            let pageWidth = scrollView.frame.size.width
+            let fractionalPage = scrollView.contentOffset.x / pageWidth
+            
+            let page = round(fractionalPage)
+            
+            if (previousPage != page) {
+                if (lastPage != page ) {
+                    NSNotificationCenter.defaultCenter().postNotificationName("actionCarousel", object: nil, userInfo: ["message" : page-1])
+                    lastPage = page
+                }
+                // Page has changed, do your thing!
+                // ...
+                // Finally, update previous page
+                previousPage = page
+            }
+            else if previousPage == 0 && lastPage != CGFloat(images.count ) {
+                NSNotificationCenter.defaultCenter().postNotificationName("actionCarousel", object: nil, userInfo: ["message" : images.count - 1])
+                lastPage = CGFloat(images.count )
+                previousPage = CGFloat(images.count)
             }
         }
     }
@@ -307,8 +347,7 @@ public class CustomPageControl: UIPageControl {
         
         pageIndicatorTintColor = UIColor.clearColor()
         currentPageIndicatorTintColor = UIColor.clearColor()
-        backgroundColor = UIColor.clearColor()
-        
+        //backgroundColor = UIColor.clearColor()
         
         for i in 0..<subviews.count {
             let dot = imageViewForSubview(subviews[i])
