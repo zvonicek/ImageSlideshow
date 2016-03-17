@@ -182,6 +182,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         }
         
         reloadScrollView()
+        layoutScrollView()
         setTimerIfNeeded()
     }
     
