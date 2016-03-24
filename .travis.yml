@@ -4,6 +4,8 @@
 
 language: objective-c
 # cache: cocoapods
+rvm:
+  - 2.2.2
 podfile: Example/Podfile
 before_install:
 - gem install cocoapods # Since Travis is not always on latest version 
