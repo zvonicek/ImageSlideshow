@@ -41,7 +41,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.maximumZoomScale = calculateMaximumScale()
         
         // tap gesture recognizer
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "tapZoom")
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ImageSlideshowItem.tapZoom))
         tapRecognizer.numberOfTapsRequired = 2
         imageView.addGestureRecognizer(tapRecognizer)
         gestureRecognizer = tapRecognizer
