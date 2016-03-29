@@ -39,7 +39,7 @@ Image slideshow is a Swift library providing customizable image slideshow with c
 
   s.subspec 'AFURL' do |afnetworking|
     afnetworking.dependency 'ImageSlideshow/Core'
-    afnetworking.dependency 'AFNetworking', '~> 2.3'
+    afnetworking.dependency 'AFNetworking', '~> 3.0'
     afnetworking.source_files = 'Pod/Classes/InputSources/AFURLSource.swift'
   end
 
