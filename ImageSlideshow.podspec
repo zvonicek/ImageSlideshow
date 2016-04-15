@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "ImageSlideshow"
-  s.version          = "0.3.1"
+  s.version          = "0.4.0"
   s.summary          = "Image slideshow written in Swift with circular scrolling, timer and full screen viewer"
 
 # This description is used to generate tags and improve search results.
@@ -39,7 +39,7 @@ Image slideshow is a Swift library providing customizable image slideshow with c
 
   s.subspec 'AFURL' do |afnetworking|
     afnetworking.dependency 'ImageSlideshow/Core'
-    afnetworking.dependency 'AFNetworking', '~> 2.3'
+    afnetworking.dependency 'AFNetworking', '~> 3.0'
     afnetworking.source_files = 'Pod/Classes/InputSources/AFURLSource.swift'
   end
 
