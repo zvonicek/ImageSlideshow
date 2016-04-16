@@ -30,8 +30,8 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
     }
     
     func handleSwipe(gesture: UIPanGestureRecognizer) {
-        let percent = gesture.translationInView(gesture.view!).y / 200.0
-        
+        let percent = min(max(gesture.translationInView(gesture.view!).y / 200.0, 0.0), 1.0)
+        print(percent)
         if gesture.state == .Began {
             interactionController = UIPercentDrivenInteractiveTransition()
             referenceSlideshowController?.dismissViewControllerAnimated(true, completion: nil)
