@@ -110,6 +110,10 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
     }
     
     func animateZoomInTransition(transitionContext: UIViewControllerContextTransitioning) {
+        
+        // Pauses slideshow
+        self.referenceSlideshowView.pauseTimerIfNeeded()
+        
         let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! FullScreenSlideshowViewController
         toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
@@ -203,6 +207,8 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
                     self.referenceSlideshowView.alpha = 1
                     fromViewController.view.removeFromSuperview()
                     UIApplication.sharedApplication().keyWindow?.removeGestureRecognizer(self.parent.gestureRecognizer)
+                    // Unpauses slideshow
+                    self.referenceSlideshowView.unpauseTimerIfNeeded()
                 } else {
                     fromViewController.view.hidden = false
                     self.referenceSlideshowView.alpha = 0
