@@ -202,7 +202,7 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         
         let duration: NSTimeInterval = self.transitionDuration(transitionContext)
         
-        UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+        UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             toViewController.view.alpha = 1
             transitionView.frame = transitionViewFinalFrame
             }, completion: {(finished: Bool) in
