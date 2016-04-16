@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         
         ctr.initialPage = slideshow.scrollViewPage
         ctr.inputs = slideshow.images
-        self.transitionDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow);
+        self.transitionDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
         ctr.transitioningDelegate = self.transitionDelegate!
         self.presentViewController(ctr, animated: true, completion: nil)
     }
