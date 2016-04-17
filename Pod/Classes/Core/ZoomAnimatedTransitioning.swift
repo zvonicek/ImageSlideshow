@@ -77,6 +77,10 @@ extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
             return false
         }
         
+        if let currentItem = referenceSlideshowController?.slideshow.currentSlideshowItem where currentItem.isZoomed() {
+            return false
+        }
+        
         let translation = panGestureRecognizer.translationInView(panGestureRecognizer.view!).y
         // If panning from bottom to top transition must not begin
         if translation < 0 {
