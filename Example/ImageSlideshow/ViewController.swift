@@ -55,7 +55,9 @@ class ViewController: UIViewController {
         ctr.initialPage = slideshow.scrollViewPage
         ctr.inputs = slideshow.images
         self.transitionDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
-        ctr.transitioningDelegate = self.transitionDelegate!
+        // Uncomment if you want disable the slide-to-dismiss feature
+        // self.transitionDelegate?.slideToDismissEnabled = false
+        ctr.transitioningDelegate = self.transitionDelegate
         self.presentViewController(ctr, animated: true, completion: nil)
     }
 }
