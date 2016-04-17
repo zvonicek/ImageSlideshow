@@ -33,7 +33,7 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
     }
     
     func handleSwipe(gesture: UIPanGestureRecognizer) {
-        let percent = min(max(gesture.translationInView(gesture.view!).y / 200.0, 0.0), 1.0)
+        let percent = min(max(fabs(gesture.translationInView(gesture.view!).y) / 200.0, 0.0), 1.0)
         
         if gesture.state == .Began {
             interactionController = UIPercentDrivenInteractiveTransition()
@@ -85,12 +85,6 @@ extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
         }
         
         if let currentItem = referenceSlideshowController?.slideshow.currentSlideshowItem where currentItem.isZoomed() {
-            return false
-        }
-        
-        let translation = panGestureRecognizer.translationInView(panGestureRecognizer.view!).y
-        // If panning from bottom to top transition must not begin
-        if translation < 0 {
             return false
         }
         
