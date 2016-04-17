@@ -16,6 +16,9 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
     var gestureRecognizer: UIPanGestureRecognizer!
     private var interactionController: UIPercentDrivenInteractiveTransition?
     
+    /// Enables or disables swipe-to-dismiss
+    public var slideToDismissEnabled: Bool = true
+    
     public init(slideshowView: ImageSlideshow, slideshowController: FullScreenSlideshowViewController) {
         self.referenceSlideshowView = slideshowView
         self.referenceSlideshowController = slideshowController
@@ -74,6 +77,10 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
 extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer else {
+            return false
+        }
+        
+        if !slideToDismissEnabled {
             return false
         }
         
