@@ -33,6 +33,8 @@ public class FullScreenSlideshowViewController: UIViewController {
         }
     }
     
+    private var isInit = true
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,7 +65,10 @@ public class FullScreenSlideshowViewController: UIViewController {
     override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        slideshow.setScrollViewPage(self.initialPage, animated: false)
+        if isInit {
+            isInit = false
+            slideshow.setScrollViewPage(self.initialPage, animated: false)
+        }
     }
     
     func close() {

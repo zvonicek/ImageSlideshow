@@ -211,6 +211,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     }
     
     func slideshowTick(timer: NSTimer) {
+        
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         var nextPage = page + 1
         
@@ -246,6 +247,17 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         } else {
             currentPage = page
         }
+    }
+    
+    /// Stops slideshow timer
+    public func pauseTimerIfNeeded() {
+        slideshowTimer?.invalidate()
+        slideshowTimer = nil
+    }
+    
+    /// Restarts slideshow timer
+    public func unpauseTimerIfNeeded() {
+        setTimerIfNeeded()
     }
     
     // MARK: UIScrollViewDelegate

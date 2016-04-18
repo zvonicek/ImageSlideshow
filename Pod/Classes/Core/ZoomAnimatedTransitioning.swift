@@ -11,11 +11,50 @@ import UIKit
 public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     let referenceSlideshowView: ImageSlideshow
+    var referenceSlideshowController: FullScreenSlideshowViewController?
     var referenceSlideshowViewFrame: CGRect?
+    var gestureRecognizer: UIPanGestureRecognizer!
+    private var interactionController: UIPercentDrivenInteractiveTransition?
     
-    public init(slideshowView: ImageSlideshow) {
+    /// Enables or disables swipe-to-dismiss
+    public var slideToDismissEnabled: Bool = true
+    
+    public init(slideshowView: ImageSlideshow, slideshowController: FullScreenSlideshowViewController) {
         self.referenceSlideshowView = slideshowView
+        self.referenceSlideshowController = slideshowController
+        
         super.init()
+        
+        // Pan gesture recognizer for interactive dismiss
+        gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ZoomAnimatedTransitioningDelegate.handleSwipe(_:)))
+        gestureRecognizer.delegate = self
+        // Append it to a window otherwise it will be canceled during the transition
+        UIApplication.sharedApplication().keyWindow?.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    func handleSwipe(gesture: UIPanGestureRecognizer) {
+        let percent = min(max(fabs(gesture.translationInView(gesture.view!).y) / 200.0, 0.0), 1.0)
+        
+        if gesture.state == .Began {
+            interactionController = UIPercentDrivenInteractiveTransition()
+            referenceSlideshowController?.dismissViewControllerAnimated(true, completion: nil)
+        } else if gesture.state == .Changed {
+            interactionController?.updateInteractiveTransition(percent)
+        } else if gesture.state == .Ended || gesture.state == .Cancelled || gesture.state == .Failed {
+            
+            if percent > 0.5 {
+                if let pageSelected = referenceSlideshowController?.pageSelected, let slideshow = referenceSlideshowController?.slideshow {
+                    pageSelected(page: slideshow.scrollViewPage)
+                }
+                
+                interactionController?.finishInteractiveTransition()
+                
+            } else {
+                interactionController?.cancelInteractiveTransition()
+            }
+            
+            interactionController = nil
+        }
     }
     
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -24,6 +63,34 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
     
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ZoomAnimatedTransitioning(referenceSlideshowView: referenceSlideshowView, parent: self)
+    }
+    
+    public func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactionController
+    }
+    
+    public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactionController
+    }
+}
+
+extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer else {
+            return false
+        }
+        
+        if !slideToDismissEnabled {
+            return false
+        }
+        
+        if let currentItem = referenceSlideshowController?.slideshow.currentSlideshowItem where currentItem.isZoomed() {
+            return false
+        }
+        
+        // Also when panning horizontally
+        let velocity = panGestureRecognizer.velocityInView(self.referenceSlideshowView)
+        return fabs(velocity.y) > fabs(velocity.x);
     }
 }
 
@@ -53,6 +120,10 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
     }
     
     func animateZoomInTransition(transitionContext: UIViewControllerContextTransitioning) {
+        
+        // Pauses slideshow
+        self.referenceSlideshowView.pauseTimerIfNeeded()
+        
         let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! FullScreenSlideshowViewController
         toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
@@ -132,17 +203,31 @@ class ZoomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning
         transitionView.clipsToBounds = true
         transitionView.frame = transitionViewInitialFrame
         transitionContext.containerView()!.addSubview(transitionView)
-        fromViewController.view.removeFromSuperview()
+        fromViewController.view.hidden = true
+        
         let duration: NSTimeInterval = self.transitionDuration(transitionContext)
         
-        UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+        UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             toViewController.view.alpha = 1
             transitionView.frame = transitionViewFinalFrame
             }, completion: {(finished: Bool) in
-                self.referenceSlideshowView.alpha = 1
+                let completed = !transitionContext.transitionWasCancelled()
+                
+                if completed {
+                    self.referenceSlideshowView.alpha = 1
+                    fromViewController.view.removeFromSuperview()
+                    UIApplication.sharedApplication().keyWindow?.removeGestureRecognizer(self.parent.gestureRecognizer)
+                    // Unpauses slideshow
+                    self.referenceSlideshowView.unpauseTimerIfNeeded()
+                } else {
+                    fromViewController.view.hidden = false
+                    self.referenceSlideshowView.alpha = 0
+                }
+                
                 transitionView.removeFromSuperview()
                 transitionBackgroundView.removeFromSuperview()
-                transitionContext.completeTransition(true)
+                
+                transitionContext.completeTransition(completed)
         })
     }
     

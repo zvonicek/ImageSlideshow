@@ -113,8 +113,8 @@ func click() {
   ctr.initialPage = slideshow.scrollViewPage
   // set the inputs
   ctr.inputs = slideshow.images
-  self.transitionDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow);
-  ctr.transitioningDelegate = self.transitionDelegate!
+  self.transitionDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
+  ctr.transitioningDelegate = self.transitionDelegate
   self.presentViewController(ctr, animated: true, completion: nil)
 }
 ```
