@@ -123,31 +123,37 @@ extension ZoomInAnimator: UIViewControllerAnimatedTransitioning {
         // Pauses slideshow
         self.referenceSlideshowView.pauseTimerIfNeeded()
         
+        let containerView = transitionContext.containerView()!
+        
         let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! FullScreenSlideshowViewController
-        toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
-        let transitionBackgroundView = UIView(frame: transitionContext.containerView()!.frame)
-        transitionBackgroundView.backgroundColor = toViewController.backgroundColor
-        transitionContext.containerView()!.addSubview(transitionBackgroundView)
-        transitionContext.containerView()!.sendSubviewToBack(transitionBackgroundView)
         
-        let transitionView: UIImageView = UIImageView(image: self.referenceSlideshowView.currentSlideshowItem!.imageView.image)
+        toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
+        
+        let transitionBackgroundView = UIView(frame: containerView.frame)
+        transitionBackgroundView.backgroundColor = toViewController.backgroundColor
+        containerView.addSubview(transitionBackgroundView)
+        containerView.sendSubviewToBack(transitionBackgroundView)
+        
+        let transitionView: UIImageView = UIImageView(image: referenceSlideshowView.currentSlideshowItem!.imageView.image)
         transitionView.contentMode = UIViewContentMode.ScaleAspectFill
         transitionView.clipsToBounds = true
-        transitionView.frame = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.currentSlideshowItem!.bounds, fromView: self.referenceSlideshowView.currentSlideshowItem)
-        transitionContext.containerView()!.addSubview(transitionView)
+        transitionView.frame = containerView.convertRect(referenceSlideshowView.currentSlideshowItem!.bounds, fromView: referenceSlideshowView.currentSlideshowItem)
+        containerView.addSubview(transitionView)
         self.parent.referenceSlideshowViewFrame = transitionView.frame
         
         let finalFrame: CGRect = toViewController.view.frame
         var transitionViewFinalFrame = finalFrame;
-        if let image = self.referenceSlideshowView.currentSlideshowItem!.imageView.image {
+        
+        if let image = referenceSlideshowView.currentSlideshowItem!.imageView.image {
             transitionViewFinalFrame = image.tgr_aspectFitRectForSize(finalFrame.size)
         }
+        
         if let item = toViewController.slideshow.currentSlideshowItem where item.zoomInInitially {
             transitionViewFinalFrame.size = CGSizeMake(transitionViewFinalFrame.size.width * item.maximumZoomScale, transitionViewFinalFrame.size.height * item.maximumZoomScale);
         }
         
-        let duration: NSTimeInterval = self.transitionDuration(transitionContext)
+        let duration: NSTimeInterval = transitionDuration(transitionContext)
         self.referenceSlideshowView.alpha = 0
         
         UIView.animateWithDuration(duration, delay:0, usingSpringWithDamping:0.7, initialSpringVelocity:0, options: UIViewAnimationOptions.CurveLinear, animations: {
@@ -155,11 +161,11 @@ extension ZoomInAnimator: UIViewControllerAnimatedTransitioning {
             transitionView.frame = transitionViewFinalFrame
             transitionView.center = CGPointMake(CGRectGetMidX(finalFrame), CGRectGetMidY(finalFrame))
         }, completion: {(finished: Bool) in
-                fromViewController.view.alpha = 1
-                transitionView.removeFromSuperview()
-                transitionBackgroundView.removeFromSuperview()
-                transitionContext.containerView()!.addSubview(toViewController.view)
-                transitionContext.completeTransition(true)
+            fromViewController.view.alpha = 1
+            transitionView.removeFromSuperview()
+            transitionBackgroundView.removeFromSuperview()
+            containerView.addSubview(toViewController.view)
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         })
     }
 }
@@ -175,11 +181,12 @@ extension ZoomOutAnimator: UIViewControllerAnimatedTransitioning {
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let fromViewController: FullScreenSlideshowViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! FullScreenSlideshowViewController
+        let containerView = transitionContext.containerView()!
         
         toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
         toViewController.view.alpha = 0
-        transitionContext.containerView()!.addSubview(toViewController.view)
-        transitionContext.containerView()!.sendSubviewToBack(toViewController.view)
+        containerView.addSubview(toViewController.view)
+        containerView.sendSubviewToBack(toViewController.view)
         
         var transitionViewInitialFrame = fromViewController.slideshow.currentSlideshowItem!.imageView.frame
         
@@ -187,15 +194,15 @@ extension ZoomOutAnimator: UIViewControllerAnimatedTransitioning {
             transitionViewInitialFrame = image.tgr_aspectFitRectForSize(fromViewController.slideshow.currentSlideshowItem!.imageView.frame.size)
         }
         
-        transitionViewInitialFrame = transitionContext.containerView()!.convertRect(transitionViewInitialFrame, fromView: fromViewController.slideshow.currentSlideshowItem)
+        transitionViewInitialFrame = containerView.convertRect(transitionViewInitialFrame, fromView: fromViewController.slideshow.currentSlideshowItem)
         
-        let referenceImageView = self.referenceSlideshowView.currentSlideshowItem!.imageView
-        let referenceSlideshowViewFrame = transitionContext.containerView()!.convertRect(self.referenceSlideshowView.scrollView.bounds, fromView: self.referenceSlideshowView.scrollView)
+        let referenceImageView = referenceSlideshowView.currentSlideshowItem!.imageView
+        let referenceSlideshowViewFrame = containerView.convertRect(referenceSlideshowView.scrollView.bounds, fromView: referenceSlideshowView.scrollView)
         var transitionViewFinalFrame = referenceSlideshowViewFrame
         
         // do a frame scaling when AspectFit content mode enabled
-        if let image = fromViewController.slideshow.currentSlideshowItem!.imageView.image where self.referenceSlideshowView.contentScaleMode == UIViewContentMode.ScaleAspectFit {
-            transitionViewFinalFrame = transitionContext.containerView()!.convertRect(frameForImage(image, inImageViewAspectFit: referenceImageView), fromView: referenceImageView)
+        if fromViewController.slideshow.currentSlideshowItem?.imageView.image != nil && referenceSlideshowView.contentScaleMode == UIViewContentMode.ScaleAspectFit {
+            transitionViewFinalFrame = containerView.convertRect(referenceImageView.aspectToFitFrame(), fromView: referenceImageView)
         }
         
         // fixes the problem when the referenceSlideshowViewFrame was shifted during change of the status bar hidden state
@@ -203,19 +210,19 @@ extension ZoomOutAnimator: UIViewControllerAnimatedTransitioning {
             transitionViewFinalFrame = CGRectOffset(transitionViewFinalFrame, 0, 20)
         }
         
-        let transitionBackgroundView = UIView(frame: transitionContext.containerView()!.frame)
+        let transitionBackgroundView = UIView(frame: containerView.frame)
         transitionBackgroundView.backgroundColor = fromViewController.backgroundColor
-        transitionContext.containerView()!.addSubview(transitionBackgroundView)
-        transitionContext.containerView()!.sendSubviewToBack(transitionBackgroundView)
+        containerView.addSubview(transitionBackgroundView)
+        containerView.sendSubviewToBack(transitionBackgroundView)
         
         let transitionView: UIImageView = UIImageView(image: fromViewController.slideshow.currentSlideshowItem!.imageView.image)
         transitionView.contentMode = UIViewContentMode.ScaleAspectFill
         transitionView.clipsToBounds = true
         transitionView.frame = transitionViewInitialFrame
-        transitionContext.containerView()!.addSubview(transitionView)
+        containerView.addSubview(transitionView)
         fromViewController.view.hidden = true
         
-        let duration: NSTimeInterval = self.transitionDuration(transitionContext)
+        let duration: NSTimeInterval = transitionDuration(transitionContext)
         
         UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             toViewController.view.alpha = 1
@@ -239,22 +246,5 @@ extension ZoomOutAnimator: UIViewControllerAnimatedTransitioning {
             
             transitionContext.completeTransition(completed)
         })
-    }
-    
-    func frameForImage(image: UIImage, inImageViewAspectFit imageView: UIImageView) -> CGRect {
-        let imageRatio: CGFloat = image.size.width / image.size.height
-        let viewRatio: CGFloat = imageView.frame.size.width / imageView.frame.size.height
-        
-        if imageRatio < viewRatio {
-            let scale: CGFloat = imageView.frame.size.height / image.size.height
-            let width: CGFloat = scale * image.size.width
-            let topLeftX: CGFloat = (imageView.frame.size.width - width) * 0.5
-            return CGRectMake(topLeftX, 0, width, imageView.frame.size.height)
-        } else {
-            let scale: CGFloat = imageView.frame.size.width / image.size.width
-            let height: CGFloat = scale * image.size.height
-            let topLeftY: CGFloat = (imageView.frame.size.height - height) * 0.5
-            return CGRectMake(0, topLeftY, imageView.frame.size.width, height)
-        }
     }
 }
