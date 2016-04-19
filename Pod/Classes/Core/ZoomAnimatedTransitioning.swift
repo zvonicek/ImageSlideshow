@@ -42,7 +42,11 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
             interactionController?.updateInteractiveTransition(percent)
         } else if gesture.state == .Ended || gesture.state == .Cancelled || gesture.state == .Failed {
             
-            if percent > 0.5 {
+            let velocity = gesture.velocityInView(self.referenceSlideshowView)
+            
+            if fabs(velocity.y) > 500 {
+                interactionController?.finishInteractiveTransition()
+            } else if percent > 0.5 {
                 if let pageSelected = referenceSlideshowController?.pageSelected, let slideshow = referenceSlideshowController?.slideshow {
                     pageSelected(page: slideshow.scrollViewPage)
                 }
