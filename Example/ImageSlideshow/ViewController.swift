@@ -37,7 +37,7 @@ class ViewController: UIViewController {
 //        
         slideshow.setImageInputs([AlamofireSource(urlString: "https://thumbs.dreamstime.com/z/flysch-rocks-barrika-beach-sunset-58426273.jpg")!, AlamofireSource(urlString: "https://thumbs.dreamstime.com/z/man-surfboard-beautiful-foggy-beach-boy-running-golden-sunrise-daytona-florida-58532550.jpg")!, AlamofireSource(urlString: "https://thumbs.dreamstime.com/z/woman-putting-mask-her-face-black-cloak-sitting-ground-58291716.jpg")!])
         
-        let recognizer = UITapGestureRecognizer(target: self, action: "click")
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.click))
         slideshow.addGestureRecognizer(recognizer)
     }
     
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
             self.slideshow.setScrollViewPage(page, animated: false)
         }
         
-        ctr.initialPage = slideshow.scrollViewPage
+        ctr.initialImageIndex = slideshow.scrollViewPage
         ctr.inputs = slideshow.images
         self.transitionDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
         // Uncomment if you want disable the slide-to-dismiss feature

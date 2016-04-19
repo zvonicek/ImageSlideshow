@@ -20,8 +20,8 @@ public class ImageSource: NSObject, InputSource {
     }
     
     public init?(imageString: String) {
-        if let imageObj = UIImage(named: imageString) {
-            self.image = imageObj
+        if let image = UIImage(named: imageString) {
+            self.image = image
             super.init()
         } else {
             // this may be simplified in Swift 2.2, which fixes the failable initializer compiler issues
@@ -31,6 +31,6 @@ public class ImageSource: NSObject, InputSource {
     }
     
     @objc public func setToImageView(imageView: UIImageView) {
-        imageView.image = self.image
+        imageView.image = image
     }
 }
