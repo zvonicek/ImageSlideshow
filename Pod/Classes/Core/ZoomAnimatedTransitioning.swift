@@ -96,9 +96,7 @@ extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
             return false
         }
         
-        // Also when panning horizontally
-        let velocity = panGestureRecognizer.velocityInView(self.referenceSlideshowView)
-        return fabs(velocity.y) > fabs(velocity.x);
+        return true
     }
 }
 
