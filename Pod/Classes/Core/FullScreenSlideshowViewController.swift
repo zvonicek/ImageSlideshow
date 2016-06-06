@@ -20,13 +20,18 @@ public class FullScreenSlideshowViewController: UIViewController {
         
         return slideshow
     }()
-    public var closeButton = UIButton()
     
+    public var closeButton = UIButton()
     public var pageSelected: ((page: Int) -> ())?
-    public var initialPage: Int = 0
+    
+    /// Index of initial image
+    public var initialImageIndex: Int = 0
     public var inputs: [InputSource]?
     
+    /// Background color
     public var backgroundColor = UIColor.blackColor()
+    
+    /// Enables/disable zoom
     public var zoomEnabled = true {
         didSet {
             slideshow.zoomEnabled = zoomEnabled
@@ -38,24 +43,24 @@ public class FullScreenSlideshowViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = backgroundColor
+        view.backgroundColor = backgroundColor
         
         // slideshow view configuration
-        slideshow.frame = self.view.frame
+        slideshow.frame = view.frame
         slideshow.backgroundColor = backgroundColor
         
         if let inputs = inputs {
             slideshow.setImageInputs(inputs)
         }
         
-        slideshow.frame = self.view.frame
-        self.view.addSubview(slideshow);
+        slideshow.frame = view.frame
+        view.addSubview(slideshow);
         
         // close button configuration
         closeButton.frame = CGRectMake(10, 20, 40, 40)
         closeButton.setImage(UIImage(named: "Frameworks/ImageSlideshow.framework/ImageSlideshow.bundle/ic_cross_white@2x"), forState: UIControlState.Normal)
         closeButton.addTarget(self, action: #selector(FullScreenSlideshowViewController.close), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(closeButton)
+        view.addSubview(closeButton)
     }
     
     override public func prefersStatusBarHidden() -> Bool {
@@ -67,7 +72,7 @@ public class FullScreenSlideshowViewController: UIViewController {
         
         if isInit {
             isInit = false
-            slideshow.setScrollViewPage(self.initialPage, animated: false)
+            slideshow.setScrollViewPage(initialImageIndex, animated: false)
         }
     }
     
@@ -77,6 +82,6 @@ public class FullScreenSlideshowViewController: UIViewController {
             pageSelected(page: slideshow.scrollViewPage)
         }
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
