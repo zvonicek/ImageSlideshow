@@ -1,6 +1,6 @@
 # Change log
 
-## [0.5](https://github.com/AFNetworking/AFNetworking/releases/tag/0.5) (??/06/2016)
+## [0.5](https://github.com/zvonicek/ImageSlideshow/releases/tag/0.5.0) (09/06/2016)
 
 The version 0.5 cleans up the code, adds interactive fullscreen dismiss and fixes few minor issues (thanks again, @kafejo) 
 This version also contains several background compatibility breaks, so please keep this in mind when upgrading to it.
