@@ -11,7 +11,7 @@ import UIKit
 public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     let referenceSlideshowView: ImageSlideshow
-    var referenceSlideshowController: FullScreenSlideshowViewController?
+    var referenceSlideshowController: FullScreenSlideshowViewController
     var referenceSlideshowViewFrame: CGRect?
     var gestureRecognizer: UIPanGestureRecognizer!
     private var interactionController: UIPercentDrivenInteractiveTransition?
@@ -37,7 +37,7 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
         
         if gesture.state == .Began {
             interactionController = UIPercentDrivenInteractiveTransition()
-            referenceSlideshowController?.dismissViewControllerAnimated(true, completion: nil)
+            referenceSlideshowController.dismissViewControllerAnimated(true, completion: nil)
         } else if gesture.state == .Changed {
             interactionController?.updateInteractiveTransition(percent)
         } else if gesture.state == .Ended || gesture.state == .Cancelled || gesture.state == .Failed {
@@ -45,14 +45,14 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
             let velocity = gesture.velocityInView(referenceSlideshowView)
             
             if fabs(velocity.y) > 500 {
-                if let pageSelected = referenceSlideshowController?.pageSelected, let slideshow = referenceSlideshowController?.slideshow {
-                    pageSelected(page: slideshow.scrollViewPage)
+                if let pageSelected = referenceSlideshowController.pageSelected {
+                    pageSelected(page: referenceSlideshowController.slideshow.scrollViewPage)
                 }
                 
                 interactionController?.finishInteractiveTransition()
             } else if percent > 0.5 {
-                if let pageSelected = referenceSlideshowController?.pageSelected, let slideshow = referenceSlideshowController?.slideshow {
-                    pageSelected(page: slideshow.scrollViewPage)
+                if let pageSelected = referenceSlideshowController.pageSelected {
+                    pageSelected(page: referenceSlideshowController.slideshow.scrollViewPage)
                 }
                 
                 interactionController?.finishInteractiveTransition()
@@ -91,8 +91,8 @@ extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
         if !slideToDismissEnabled {
             return false
         }
-        
-        if let currentItem = referenceSlideshowController?.slideshow.currentSlideshowItem where currentItem.isZoomed() {
+
+        if let currentItem = referenceSlideshowController.slideshow.currentSlideshowItem where currentItem.isZoomed() {
             return false
         }
         
