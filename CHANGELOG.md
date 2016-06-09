@@ -7,6 +7,7 @@ This version also contains several background compatibility breaks, so please ke
 
 ### New Features
 - Interactive dismiss transition on full screen controller
+- A possibility to open full screen controller from plain UIImageView
 
 ### API changes
 - ImageSlideshow: `currentPage` renamed to `currentItemIndex`
