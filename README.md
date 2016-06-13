@@ -1,6 +1,5 @@
 # ImageSlideshow
 
-[![CI Status](http://img.shields.io/travis/zvonicek/ImageSlideshow.svg?style=flat)](https://travis-ci.org/zvonicek/ImageSlideshow)
 [![Version](https://img.shields.io/cocoapods/v/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
 [![License](https://img.shields.io/cocoapods/l/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
 [![Platform](https://img.shields.io/cocoapods/p/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
