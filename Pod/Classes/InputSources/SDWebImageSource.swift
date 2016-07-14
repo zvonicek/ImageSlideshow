@@ -32,9 +32,6 @@ public class SDWebImageSource: NSObject, InputSource {
     }
     
     @objc public func setToImageView(imageView: UIImageView) {
-        imageView.sd_setImageWithURL(self.url, placeholderImage: self.placeholder, usingProgressView: nil)
-//        let imgV : UIImageView = UIImageView()
-//        imgV.sd_setImageWithURL(self.url, placeholderImage: self.placeholder, usingProgressView: nil)
-//        imageView.image = imgV.image;
+        imageView.sd_setImageWithURL(self.url, placeholderImage: self.placeholder)
     }
 }
