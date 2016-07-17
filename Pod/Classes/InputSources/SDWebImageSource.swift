@@ -6,6 +6,8 @@
 //
 //
 
+import SDWebImage
+
 public class SDWebImageSource: NSObject, InputSource {
     var url: NSURL!
     var placeholder: UIImage?
