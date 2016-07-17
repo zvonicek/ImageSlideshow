@@ -9,7 +9,7 @@
 import SDWebImage
 
 public class SDWebImageSource: NSObject, InputSource {
-    var url: NSURL!
+    var url: NSURL
     var placeholder: UIImage?
     
     public init(url: NSURL) {
@@ -28,7 +28,6 @@ public class SDWebImageSource: NSObject, InputSource {
             self.url = validUrl
             super.init()
         } else {
-            super.init()
             return nil
         }
     }
