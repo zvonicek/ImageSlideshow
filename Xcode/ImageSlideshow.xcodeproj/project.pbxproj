@@ -8,12 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		6E313C2F1D41339B005132DA /* ImageSlideshow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E313C2E1D41339B005132DA /* ImageSlideshow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6EDE52021D4296DE00DF4BEA /* ic_cross_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDE51F11D4296DE00DF4BEA /* ic_cross_white@2x.png */; };
+		6EDE52031D4296DE00DF4BEA /* ic_cross_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDE51F21D4296DE00DF4BEA /* ic_cross_white@3x.png */; };
+		6EDE52051D4296DE00DF4BEA /* FullScreenSlideshowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE51F61D4296DE00DF4BEA /* FullScreenSlideshowViewController.swift */; };
+		6EDE52061D4296DE00DF4BEA /* ImageSlideshow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE51F71D4296DE00DF4BEA /* ImageSlideshow.swift */; };
+		6EDE52071D4296DE00DF4BEA /* ImageSlideshowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE51F81D4296DE00DF4BEA /* ImageSlideshowItem.swift */; };
+		6EDE52081D4296DE00DF4BEA /* InputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE51F91D4296DE00DF4BEA /* InputSource.swift */; };
+		6EDE52091D4296DE00DF4BEA /* UIImage+AspectFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE51FA1D4296DE00DF4BEA /* UIImage+AspectFit.swift */; };
+		6EDE520A1D4296DE00DF4BEA /* UIImageView+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE51FB1D4296DE00DF4BEA /* UIImageView+Tools.swift */; };
+		6EDE520B1D4296DE00DF4BEA /* ZoomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE51FC1D4296DE00DF4BEA /* ZoomAnimatedTransitioning.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6E313C2B1D41339B005132DA /* ImageSlideshow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageSlideshow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E313C2E1D41339B005132DA /* ImageSlideshow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageSlideshow.h; sourceTree = "<group>"; };
 		6E313C301D41339B005132DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EDE51F11D4296DE00DF4BEA /* ic_cross_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cross_white@2x.png"; sourceTree = "<group>"; };
+		6EDE51F21D4296DE00DF4BEA /* ic_cross_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cross_white@3x.png"; sourceTree = "<group>"; };
+		6EDE51F61D4296DE00DF4BEA /* FullScreenSlideshowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenSlideshowViewController.swift; sourceTree = "<group>"; };
+		6EDE51F71D4296DE00DF4BEA /* ImageSlideshow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSlideshow.swift; sourceTree = "<group>"; };
+		6EDE51F81D4296DE00DF4BEA /* ImageSlideshowItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSlideshowItem.swift; sourceTree = "<group>"; };
+		6EDE51F91D4296DE00DF4BEA /* InputSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputSource.swift; sourceTree = "<group>"; };
+		6EDE51FA1D4296DE00DF4BEA /* UIImage+AspectFit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AspectFit.swift"; sourceTree = "<group>"; };
+		6EDE51FB1D4296DE00DF4BEA /* UIImageView+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Tools.swift"; sourceTree = "<group>"; };
+		6EDE51FC1D4296DE00DF4BEA /* ZoomAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		6EDE51FE1D4296DE00DF4BEA /* AFURLSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFURLSource.swift; sourceTree = "<group>"; };
+		6EDE51FF1D4296DE00DF4BEA /* AlamofireSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireSource.swift; sourceTree = "<group>"; };
+		6EDE52001D4296DE00DF4BEA /* SDWebImageSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDWebImageSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,10 +67,56 @@
 		6E313C2D1D41339B005132DA /* ImageSlideshow */ = {
 			isa = PBXGroup;
 			children = (
+				6EDE51EF1D4296DE00DF4BEA /* Assets */,
+				6EDE51F31D4296DE00DF4BEA /* Classes */,
 				6E313C2E1D41339B005132DA /* ImageSlideshow.h */,
 				6E313C301D41339B005132DA /* Info.plist */,
 			);
 			path = ImageSlideshow;
+			sourceTree = "<group>";
+		};
+		6EDE51EF1D4296DE00DF4BEA /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				6EDE51F11D4296DE00DF4BEA /* ic_cross_white@2x.png */,
+				6EDE51F21D4296DE00DF4BEA /* ic_cross_white@3x.png */,
+			);
+			name = Assets;
+			path = ../../Pod/Assets;
+			sourceTree = "<group>";
+		};
+		6EDE51F31D4296DE00DF4BEA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6EDE51F51D4296DE00DF4BEA /* Core */,
+				6EDE51FD1D4296DE00DF4BEA /* InputSources */,
+			);
+			name = Classes;
+			path = ../../Pod/Classes;
+			sourceTree = "<group>";
+		};
+		6EDE51F51D4296DE00DF4BEA /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				6EDE51F61D4296DE00DF4BEA /* FullScreenSlideshowViewController.swift */,
+				6EDE51F71D4296DE00DF4BEA /* ImageSlideshow.swift */,
+				6EDE51F81D4296DE00DF4BEA /* ImageSlideshowItem.swift */,
+				6EDE51F91D4296DE00DF4BEA /* InputSource.swift */,
+				6EDE51FA1D4296DE00DF4BEA /* UIImage+AspectFit.swift */,
+				6EDE51FB1D4296DE00DF4BEA /* UIImageView+Tools.swift */,
+				6EDE51FC1D4296DE00DF4BEA /* ZoomAnimatedTransitioning.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		6EDE51FD1D4296DE00DF4BEA /* InputSources */ = {
+			isa = PBXGroup;
+			children = (
+				6EDE51FE1D4296DE00DF4BEA /* AFURLSource.swift */,
+				6EDE51FF1D4296DE00DF4BEA /* AlamofireSource.swift */,
+				6EDE52001D4296DE00DF4BEA /* SDWebImageSource.swift */,
+			);
+			path = InputSources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,6 +187,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EDE52031D4296DE00DF4BEA /* ic_cross_white@3x.png in Resources */,
+				6EDE52021D4296DE00DF4BEA /* ic_cross_white@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +199,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EDE52061D4296DE00DF4BEA /* ImageSlideshow.swift in Sources */,
+				6EDE52081D4296DE00DF4BEA /* InputSource.swift in Sources */,
+				6EDE520A1D4296DE00DF4BEA /* UIImageView+Tools.swift in Sources */,
+				6EDE520B1D4296DE00DF4BEA /* ZoomAnimatedTransitioning.swift in Sources */,
+				6EDE52091D4296DE00DF4BEA /* UIImage+AspectFit.swift in Sources */,
+				6EDE52051D4296DE00DF4BEA /* FullScreenSlideshowViewController.swift in Sources */,
+				6EDE52071D4296DE00DF4BEA /* ImageSlideshowItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +250,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -217,7 +293,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -278,6 +354,7 @@
 				6E313C351D41339B005132DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
