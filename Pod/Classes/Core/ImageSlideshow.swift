@@ -101,10 +101,22 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         scrollView.bounces = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
-        scrollView.autoresizingMask = self.autoresizingMask
-        self.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
+        self.addSubview(scrollView)
         self.addSubview(pageControl)
+        
+        let horizontalConstraint = NSLayoutConstraint(item: scrollView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
+        self.addConstraint(horizontalConstraint)
+        
+        let verticalConstraint = NSLayoutConstraint(item: scrollView, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
+        self.addConstraint(verticalConstraint)
+        
+        let widthConstraint = NSLayoutConstraint(item: scrollView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0)
+        self.addConstraint(widthConstraint)
+        
+        let heightConstraint = NSLayoutConstraint(item: scrollView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0)
+        self.addConstraint(heightConstraint)
         
         setTimerIfNeeded()
         layoutScrollView()
