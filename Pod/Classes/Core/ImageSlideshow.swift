@@ -13,10 +13,15 @@ import UIKit
     case UnderScrollView
 }
 
+public protocol SlideShowDelegate {
+    func didStartSliding()
+}
+
 public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     public let scrollView = UIScrollView()
     public let pageControl = CustomPageControl()
+    public var slideshowDelegate: SlideShowDelegate?
     
     // state properties
     
@@ -140,7 +145,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         default :
             pcPositionPadding = 55
         }
-
+        
         pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - pcPositionPadding)
         
         layoutScrollView()
@@ -283,6 +288,10 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         if slideshowTimer?.valid != nil {
             slideshowTimer?.invalidate()
             slideshowTimer = nil
+        }
+        
+        if(slideshowDelegate != nil) {
+            slideshowDelegate!.didStartSliding()
         }
         
         setTimerIfNeeded()
