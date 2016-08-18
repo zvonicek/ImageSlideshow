@@ -45,7 +45,10 @@ You can instantiate Slideshow either in Storyboard / Interface Builder, or in co
 Images can be set by calling ```setImageInputs``` method on ```ImageSlideshow``` instance. Argument is an array of *InputSource*s. By default you may use ```ImageSource``` which takes ```UIImage```, but you can easily subclass ```InputSource``` and support your own input source.
 
 ```swift
-slideshow.setImageInputs([ImageSource(image: UIImage(named: "myImage"))!, ImageSource(image: UIImage(named: "myImage2"))!,])
+slideshow.setImageInputs([
+  ImageSource(image: UIImage(named: "myImage"))!, 
+  ImageSource(image: UIImage(named: "myImage2"))!
+])
 ```
 
 There are two more *InputSource*s available:
