@@ -97,7 +97,7 @@ It is possible to configure behaviour by setting numerous properties:
 As seen on sample image and example project, you may also use full-scren view. The controller can be presented manually as seen on the example. 
 
 ```swift
-var transitionDelegate: ZoomAnimatedTransitioningDelegate?
+var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
 
 override func viewDidLoad() {
   ...
@@ -116,8 +116,8 @@ func click() {
   ctr.initialImageIndex = slideshow.scrollViewPage
   // set the inputs
   ctr.inputs = slideshow.images
-  self.transitionDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
-  ctr.transitioningDelegate = self.transitionDelegate
+  self.slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
+  ctr.transitioningDelegate = self.slideshowTransitioningDelegate
   self.presentViewController(ctr, animated: true, completion: nil)
 }
 ```
