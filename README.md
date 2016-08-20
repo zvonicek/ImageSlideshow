@@ -51,39 +51,44 @@ slideshow.setImageInputs([
 ])
 ```
 
-There are two more *InputSource*s available:
+There are three more *InputSource*s available:
 
 #### AlamofireImage
-
-*AlamofireSource* subspec for loading image from an URL via *AlamofireImage*. To use this add the Alamofire subspec to your Podfile.
 
 ```ruby
 pod "ImageSlideshow/Alamofire"
 ``` 
 
-An image from arbitrary URL is then loaded by *AlamofireSource* initialization.
-
+Used by creating a new `AlamofireSource` instance:
 ```swift
-AlamofireSource(urlString: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Trencin_hdr_001.jpg")
+AlamofireSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
 ```
 
 #### AFNetworking
-
-*AFURL* subspec for loading image from an URL via *AFNetworking*. To use this add the AFURL subspec to your Podfile.
 
 ```ruby
 pod "ImageSlideshow/AFURL"
 ``` 
 
-An image from arbitrary URL is then loaded by *AFURLSource* initialization.
-
+Used by creating a new `AFURLSource` instance:
 ```swift
-AFURLSource(urlString: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Trencin_hdr_001.jpg")
+AFURLSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
+```
+
+#### SDWebImage
+
+```ruby
+pod "ImageSlideshow/SDWebImage"
+``` 
+
+Used by creating a new `SDWebImageSource` instance:
+```swift
+SDWebImageSource(urlString: "httpshttps://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
 ```
 
 ### Configuration
 
-It is possible to configure behaviour by setting numerous properties: 
+Behaviour is configurable by those properties:
 
 - ```slideshowInterval``` - in case you want automatic slideshow, set up the interval between sliding to next picture
 - ```zoomEnabled``` - enables zooming
@@ -94,7 +99,7 @@ It is possible to configure behaviour by setting numerous properties:
 
 ### Full Screen view
 
-As seen on sample image and example project, you may also use full-scren view. The controller can be presented manually as seen on the example. 
+There is also a possibility to open full-screen image view using attached `FullScreenSlideshowViewController`. The controller is meant to be presented manually, as seen on the example:
 
 ```swift
 var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
@@ -124,7 +129,7 @@ func click() {
 
 ## Author
 
-Petr Zvoníček, zvonicek@gmail.com
+Petr Zvoníček
 
 ## License
 
