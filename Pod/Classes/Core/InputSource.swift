@@ -9,10 +9,10 @@
 import Foundation
 
 @objc public protocol InputSource {
-    func setToImageView(imageView: UIImageView);
+    func setToImageView(_ imageView: UIImageView);
 }
 
-public class ImageSource: NSObject, InputSource {
+open class ImageSource: NSObject, InputSource {
     var image: UIImage!
     
     public init(image: UIImage) {
@@ -30,7 +30,7 @@ public class ImageSource: NSObject, InputSource {
         }
     }
     
-    @objc public func setToImageView(imageView: UIImageView) {
+    @objc open func setToImageView(_ imageView: UIImageView) {
         imageView.image = image
     }
 }

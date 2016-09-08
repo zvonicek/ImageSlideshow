@@ -22,23 +22,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        slideshow.backgroundColor = UIColor.whiteColor()
+        slideshow.backgroundColor = UIColor.white
         slideshow.slideshowInterval = 5.0
-        slideshow.pageControlPosition = PageControlPosition.UnderScrollView
-        slideshow.pageControl.currentPageIndicatorTintColor = UIColor.lightGrayColor();
-        slideshow.pageControl.pageIndicatorTintColor = UIColor.blackColor();
-        slideshow.contentScaleMode = UIViewContentMode.ScaleAspectFill
+        slideshow.pageControlPosition = PageControlPosition.underScrollView
+        slideshow.pageControl.currentPageIndicatorTintColor = UIColor.lightGray;
+        slideshow.pageControl.pageIndicatorTintColor = UIColor.black;
+        slideshow.contentScaleMode = UIViewContentMode.scaleAspectFill
 
         // try out other sources such as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource`
         slideshow.setImageInputs(localSource)
 
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.click))
         slideshow.addGestureRecognizer(recognizer)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
     }
     
     func click() {
@@ -53,7 +48,7 @@ class ViewController: UIViewController {
         // Uncomment if you want disable the slide-to-dismiss feature on full screen preview 
         // self.transitionDelegate?.slideToDismissEnabled = false
         ctr.transitioningDelegate = slideshowTransitioningDelegate
-        self.presentViewController(ctr, animated: true, completion: nil)
+        self.present(ctr, animated: true, completion: nil)
     }
 }
 
