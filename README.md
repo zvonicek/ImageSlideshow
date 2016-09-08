@@ -10,6 +10,7 @@ iOS / Swift image slideshow with circular scrolling, timer and full screen viewe
 
 ![](http://cl.ly/image/2v193I0G0h0Z/ImageSlideshow2.gif)
 
+
 This component is under development. Description and brief documentation will follow with future versions. The API will be subject of change.
 
 Roadmap for 1.0:
@@ -25,7 +26,10 @@ Roadmap for 1.0:
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
+## Swift 2.3 and Swift 3 support
+
+Version 0.5 currently supports Swift 2.2. Code compatible with newer versions can be found in branches *swift-2.3* and *swift-3*. Currently only ImageSlideshow itself and AFNetworking extension is supported, support for Alamofire and SDWebImage will be added shortly. Eventually, the swift-3 branch will be merged into master and released as an update.
+
 
 ## Installation
 
