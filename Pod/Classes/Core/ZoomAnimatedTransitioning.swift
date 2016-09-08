@@ -110,7 +110,7 @@ public class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransi
 
 extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer else {
+        guard let _ = gestureRecognizer as? UIPanGestureRecognizer else {
             return false
         }
         

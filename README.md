@@ -45,7 +45,10 @@ You can instantiate Slideshow either in Storyboard / Interface Builder, or in co
 Images can be set by calling ```setImageInputs``` method on ```ImageSlideshow``` instance. Argument is an array of *InputSource*s. By default you may use ```ImageSource``` which takes ```UIImage```, but you can easily subclass ```InputSource``` and support your own input source.
 
 ```swift
-slideshow.setImageInputs([ImageSource(image: UIImage(named: "myImage"))!, ImageSource(image: UIImage(named: "myImage2"))!,])
+slideshow.setImageInputs([
+  ImageSource(image: UIImage(named: "myImage"))!, 
+  ImageSource(image: UIImage(named: "myImage2"))!
+])
 ```
 
 There are two more *InputSource*s available:
@@ -94,7 +97,7 @@ It is possible to configure behaviour by setting numerous properties:
 As seen on sample image and example project, you may also use full-scren view. The controller can be presented manually as seen on the example. 
 
 ```swift
-var transitionDelegate: ZoomAnimatedTransitioningDelegate?
+var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
 
 override func viewDidLoad() {
   ...
@@ -110,11 +113,11 @@ func click() {
   }
   
   // set the initial page
-  ctr.initialPage = slideshow.scrollViewPage
+  ctr.initialImageIndex = slideshow.scrollViewPage
   // set the inputs
   ctr.inputs = slideshow.images
-  self.transitionDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
-  ctr.transitioningDelegate = self.transitionDelegate
+  self.slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
+  ctr.transitioningDelegate = self.slideshowTransitioningDelegate
   self.presentViewController(ctr, animated: true, completion: nil)
 }
 ```
