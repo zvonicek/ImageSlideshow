@@ -7,10 +7,11 @@
 
 import UIKit
 
-@objc public enum PageControlPosition: Int {
+public enum PageControlPosition {
     case Hidden
     case InsideScrollView
     case UnderScrollView
+    case Custom(padding: CGFloat)
     
     var bottomPadding: CGFloat {
         switch self {
@@ -18,6 +19,8 @@ import UIKit
             return 0.0
         case .UnderScrollView:
             return 30.0
+        case .Custom(let padding):
+            return padding
         }
     }
 }
@@ -92,7 +95,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     private var slideshowTimer: NSTimer?
     private var scrollViewImages = [InputSource]()
-    
+
     // MARK: - Life cycle
     
     override public init(frame: CGRect) {
@@ -131,8 +134,12 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     override public func layoutSubviews() {
         super.layoutSubviews()
-        
-        pageControl.hidden = pageControlPosition == .Hidden
+
+        if case .Hidden = self.pageControlPosition {
+            pageControl.hidden = true
+        } else {
+            pageControl.hidden = false
+        }
         pageControl.frame = CGRectMake(0, 0, frame.size.width, 10)
         pageControl.center = CGPointMake(frame.size.width / 2, frame.size.height - 12.0)
         
