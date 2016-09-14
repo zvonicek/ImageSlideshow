@@ -10,6 +10,7 @@ import UIKit
 public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     public let imageView = UIImageView()
+    public let captionLabel = UILabel()
     public let image: InputSource
     public var gestureRecognizer: UITapGestureRecognizer?
     
@@ -18,11 +19,13 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     //
     private var lastFrame = CGRectZero
+    private let captionEnabled: Bool
     
     // MARK: - Life cycle
     
-    init(image: InputSource, zoomEnabled: Bool) {
+    init(image: InputSource, zoomEnabled: Bool, captionEnabled: Bool) {
         self.zoomEnabled = zoomEnabled
+        self.captionEnabled = captionEnabled
         self.image = image
         
         super.init(frame: CGRectNull)
@@ -32,6 +35,10 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         imageView.clipsToBounds = true
         imageView.userInteractionEnabled = true
         
+        captionLabel.numberOfLines = 0
+        captionLabel.font = UIFont.systemFontOfSize(10)
+        captionLabel.text = image.caption
+        
         setPictoCenter()
         
         // scroll view configuration
@@ -39,6 +46,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         addSubview(imageView)
+        addSubview(captionLabel)
         minimumZoomScale = 1.0
         maximumZoomScale = calculateMaximumScale()
         
@@ -56,8 +64,19 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     override public func layoutSubviews() {
         super.layoutSubviews()
         
+        var imageViewSize = frame.size
+        var captionLabelFrame = CGRectZero
+        
+        if captionEnabled && image.caption != nil {
+            let captionLabelHeight = (image.caption! as NSString).boundingRectWithSize(CGSize(width: frame.size.width-32, height: 0), options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName: captionLabel.font], context: nil).size.height+8
+            imageViewSize = CGSize(width: imageViewSize.width, height: imageViewSize.height-captionLabelHeight)
+            captionLabelFrame = CGRect(x: 8, y: imageViewSize.height, width: frame.size.width-32, height: captionLabelHeight)
+        }
+
+        captionLabel.frame = captionLabelFrame
+        
         if !zoomEnabled {
-            imageView.frame.size = frame.size;
+            imageView.frame.size = imageViewSize
         } else if !isZoomed() {
             imageView.frame.size = calculatePictureSize()
             setPictoCenter()
@@ -99,7 +118,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
     
     private func screenSize() -> CGSize {
-        return CGSize(width: frame.width, height: frame.height)
+        return CGSize(width: frame.width, height: frame.height-captionLabel.frame.size.height)
     }
     
     private func calculatePictureFrame() {

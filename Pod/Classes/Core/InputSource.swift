@@ -9,10 +9,12 @@
 import Foundation
 
 @objc public protocol InputSource {
+    var caption: String? { get set }
     func setToImageView(imageView: UIImageView);
 }
 
 public class ImageSource: NSObject, InputSource {
+    public var caption: String?
     var image: UIImage!
     
     public init(image: UIImage) {

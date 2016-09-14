@@ -93,6 +93,16 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         }
     }
     
+    // wether to show or hide caption
+    public var captionEnabled = false {
+        didSet {
+            reloadScrollView()
+            layoutScrollView()
+        }
+    }
+    // font to use for captions
+    public var captionFont: UIFont?
+    
     private var slideshowTimer: NSTimer?
     private var scrollViewImages = [InputSource]()
 
@@ -141,7 +151,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
             pageControl.hidden = false
         }
         pageControl.frame = CGRectMake(0, 0, frame.size.width, 10)
-        pageControl.center = CGPointMake(frame.size.width / 2, frame.size.height - 12.0)
+        pageControl.center = CGPointMake(frame.size.width / 2, frame.size.height - (self.captionEnabled ? 42.0 : 12.0))
         
         layoutScrollView()
     }
@@ -172,7 +182,10 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: self.zoomEnabled)
+            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, captionEnabled: captionEnabled)
+            if let captionFont = self.captionFont {
+                item.captionLabel.font = captionFont
+            }
             item.imageView.contentMode = self.contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)
@@ -191,7 +204,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     public func setImageInputs(inputs: [InputSource]) {
         self.images = inputs
-        self.pageControl.numberOfPages = inputs.count;
+        self.pageControl.numberOfPages = inputs.count
         
         // in circular mode we add dummy first and last image to enable smooth scrolling
         if circular && images.count > 1 {
