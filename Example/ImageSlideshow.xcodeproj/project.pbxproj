@@ -14,6 +14,14 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		D0A566591D93316700ECA047 /* ImageSlideshow_framework.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A566571D93316700ECA047 /* ImageSlideshow_framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0A566651D93318700ECA047 /* FullScreenSlideshowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A5665E1D93318700ECA047 /* FullScreenSlideshowViewController.swift */; };
+		D0A566661D93318700ECA047 /* ImageSlideshow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A5665F1D93318700ECA047 /* ImageSlideshow.swift */; };
+		D0A566671D93318700ECA047 /* ImageSlideshowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A566601D93318700ECA047 /* ImageSlideshowItem.swift */; };
+		D0A566681D93318700ECA047 /* InputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A566611D93318700ECA047 /* InputSource.swift */; };
+		D0A566691D93318700ECA047 /* UIImage+AspectFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A566621D93318700ECA047 /* UIImage+AspectFit.swift */; };
+		D0A5666A1D93318700ECA047 /* UIImageView+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A566631D93318700ECA047 /* UIImageView+Tools.swift */; };
+		D0A5666B1D93318700ECA047 /* ZoomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A566641D93318700ECA047 /* ZoomAnimatedTransitioning.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +50,16 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		749E212B852A3FE6757C1D36 /* ImageSlideshow.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ImageSlideshow.podspec; path = ../ImageSlideshow.podspec; sourceTree = "<group>"; };
 		8AA07A6EDAC622F1407E6C80 /* Pods_ImageSlideshow_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageSlideshow_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0A566551D93316700ECA047 /* ImageSlideshow_framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageSlideshow_framework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0A566571D93316700ECA047 /* ImageSlideshow_framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageSlideshow_framework.h; sourceTree = "<group>"; };
+		D0A566581D93316700ECA047 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0A5665E1D93318700ECA047 /* FullScreenSlideshowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenSlideshowViewController.swift; sourceTree = "<group>"; };
+		D0A5665F1D93318700ECA047 /* ImageSlideshow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSlideshow.swift; sourceTree = "<group>"; };
+		D0A566601D93318700ECA047 /* ImageSlideshowItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSlideshowItem.swift; sourceTree = "<group>"; };
+		D0A566611D93318700ECA047 /* InputSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputSource.swift; sourceTree = "<group>"; };
+		D0A566621D93318700ECA047 /* UIImage+AspectFit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AspectFit.swift"; sourceTree = "<group>"; };
+		D0A566631D93318700ECA047 /* UIImageView+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Tools.swift"; sourceTree = "<group>"; };
+		D0A566641D93318700ECA047 /* ZoomAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		FD45C56C18E7B8EC08371B86 /* Pods-ImageSlideshow_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSlideshow_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSlideshow_Example/Pods-ImageSlideshow_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +79,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D0A566511D93316700ECA047 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -70,6 +95,7 @@
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for ImageSlideshow */,
 				607FACE81AFB9204008FA782 /* Tests */,
+				D0A566561D93316700ECA047 /* ImageSlideshow_framework */,
 				607FACD11AFB9204008FA782 /* Products */,
 				67EF8AB7524DB4FF7F66A17E /* Pods */,
 				88C40B0495D05599E2889C22 /* Frameworks */,
@@ -81,6 +107,7 @@
 			children = (
 				607FACD01AFB9204008FA782 /* ImageSlideshow_Example.app */,
 				607FACE51AFB9204008FA782 /* ImageSlideshow_Tests.xctest */,
+				D0A566551D93316700ECA047 /* ImageSlideshow_framework.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,7 +178,43 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D0A566561D93316700ECA047 /* ImageSlideshow_framework */ = {
+			isa = PBXGroup;
+			children = (
+				D0A5665D1D93318700ECA047 /* Core */,
+				D0A566571D93316700ECA047 /* ImageSlideshow_framework.h */,
+				D0A566581D93316700ECA047 /* Info.plist */,
+			);
+			path = ImageSlideshow_framework;
+			sourceTree = "<group>";
+		};
+		D0A5665D1D93318700ECA047 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				D0A5665E1D93318700ECA047 /* FullScreenSlideshowViewController.swift */,
+				D0A5665F1D93318700ECA047 /* ImageSlideshow.swift */,
+				D0A566601D93318700ECA047 /* ImageSlideshowItem.swift */,
+				D0A566611D93318700ECA047 /* InputSource.swift */,
+				D0A566621D93318700ECA047 /* UIImage+AspectFit.swift */,
+				D0A566631D93318700ECA047 /* UIImageView+Tools.swift */,
+				D0A566641D93318700ECA047 /* ZoomAnimatedTransitioning.swift */,
+			);
+			name = Core;
+			path = ../../Pod/Classes/Core;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D0A566521D93316700ECA047 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0A566591D93316700ECA047 /* ImageSlideshow_framework.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		607FACCF1AFB9204008FA782 /* ImageSlideshow_Example */ = {
@@ -192,6 +255,24 @@
 			productReference = 607FACE51AFB9204008FA782 /* ImageSlideshow_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D0A566541D93316700ECA047 /* ImageSlideshow_framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0A5665C1D93316700ECA047 /* Build configuration list for PBXNativeTarget "ImageSlideshow_framework" */;
+			buildPhases = (
+				D0A566501D93316700ECA047 /* Sources */,
+				D0A566511D93316700ECA047 /* Frameworks */,
+				D0A566521D93316700ECA047 /* Headers */,
+				D0A566531D93316700ECA047 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImageSlideshow_framework;
+			productName = ImageSlideshow_framework;
+			productReference = D0A566551D93316700ECA047 /* ImageSlideshow_framework.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -210,6 +291,11 @@
 						CreatedOnToolsVersion = 6.3.1;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
+					D0A566541D93316700ECA047 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 5VWB99DS38;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "ImageSlideshow" */;
@@ -227,6 +313,7 @@
 			targets = (
 				607FACCF1AFB9204008FA782 /* ImageSlideshow_Example */,
 				607FACE41AFB9204008FA782 /* ImageSlideshow_Tests */,
+				D0A566541D93316700ECA047 /* ImageSlideshow_framework */,
 			);
 		};
 /* End PBXProject section */
@@ -243,6 +330,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		607FACE31AFB9204008FA782 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0A566531D93316700ECA047 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -314,6 +408,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0A566501D93316700ECA047 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0A566661D93318700ECA047 /* ImageSlideshow.swift in Sources */,
+				D0A566681D93318700ECA047 /* InputSource.swift in Sources */,
+				D0A5666A1D93318700ECA047 /* UIImageView+Tools.swift in Sources */,
+				D0A5666B1D93318700ECA047 /* ZoomAnimatedTransitioning.swift in Sources */,
+				D0A566691D93318700ECA047 /* UIImage+AspectFit.swift in Sources */,
+				D0A566651D93318700ECA047 /* FullScreenSlideshowViewController.swift in Sources */,
+				D0A566671D93318700ECA047 /* ImageSlideshowItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +598,66 @@
 			};
 			name = Release;
 		};
+		D0A5665A1D93316700ECA047 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5VWB99DS38;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = ImageSlideshow_framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.zvo.ImageSlideshow-framework";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D0A5665B1D93316700ECA047 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5VWB99DS38;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ImageSlideshow_framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.zvo.ImageSlideshow-framework";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -519,6 +687,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D0A5665C1D93316700ECA047 /* Build configuration list for PBXNativeTarget "ImageSlideshow_framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0A5665A1D93316700ECA047 /* Debug */,
+				D0A5665B1D93316700ECA047 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

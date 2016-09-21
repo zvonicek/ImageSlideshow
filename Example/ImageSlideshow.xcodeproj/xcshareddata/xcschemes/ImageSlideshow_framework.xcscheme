@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E313C2A1D41339B005132DA"
-               BuildableName = "ImageSlideshow.framework"
-               BlueprintName = "ImageSlideshow"
+               BlueprintIdentifier = "D0A566541D93316700ECA047"
+               BuildableName = "ImageSlideshow_framework.framework"
+               BlueprintName = "ImageSlideshow_framework"
                ReferencedContainer = "container:ImageSlideshow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E313C2A1D41339B005132DA"
-            BuildableName = "ImageSlideshow.framework"
-            BlueprintName = "ImageSlideshow"
+            BlueprintIdentifier = "D0A566541D93316700ECA047"
+            BuildableName = "ImageSlideshow_framework.framework"
+            BlueprintName = "ImageSlideshow_framework"
             ReferencedContainer = "container:ImageSlideshow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E313C2A1D41339B005132DA"
-            BuildableName = "ImageSlideshow.framework"
-            BlueprintName = "ImageSlideshow"
+            BlueprintIdentifier = "D0A566541D93316700ECA047"
+            BuildableName = "ImageSlideshow_framework.framework"
+            BlueprintName = "ImageSlideshow_framework"
             ReferencedContainer = "container:ImageSlideshow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
