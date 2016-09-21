@@ -27,13 +27,15 @@ public class AlamofireSource: NSObject, InputSource {
         }
     }
     
-    public func setToImageView(imageView: UIImageView) {
-        Alamofire.request(.GET, self.url)
-            .responseImage { response in
-                if let image = response.result.value {
-                    imageView.image = image
-                }
-        }
+    public func setToImageView(_ imageView: UIImageView) {
+      if let urlString = self.url.absoluteString {
+          Alamofire.request(urlString)
+              .responseImage { response in
+                  if let image = response.result.value {
+                      imageView.image = image
+                  }
+          }
+      }
     }
     
 }
