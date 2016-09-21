@@ -8,10 +8,10 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   ImageSlideshow:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  ImageSlideshow: 933e24f8767948b27a81d40c0b616afb724120e3
+  ImageSlideshow: 60c568c70cd58b4fbaa7aa97e8d5ca5a0d3da8fc
 
 PODFILE CHECKSUM: 8310fe78018387f716de8da445c4ae331a806e13
 
