@@ -28,7 +28,7 @@ public class AlamofireSource: NSObject, InputSource {
     }
     
     public func setToImageView(_ imageView: UIImageView) {
-        Alamofire.request(self.url, method: .post)
+        Alamofire.request(self.url)
             .responseImage { response in
                 if let image = response.result.value {
                     imageView.image = image
