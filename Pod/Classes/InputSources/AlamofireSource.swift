@@ -28,7 +28,7 @@ public class AlamofireSource: NSObject, InputSource {
     }
     
     public func setToImageView(_ imageView: UIImageView) {
-      if urlString = self.url.absoluteString {
+      if let urlString = self.url.absoluteString {
           Alamofire.request(urlString)
               .responseImage { response in
                   if let image = response.result.value {
