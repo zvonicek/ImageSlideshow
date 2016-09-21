@@ -28,16 +28,23 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Swift 2.3 and Swift 3 support
 
-Version 0.5 currently supports Swift 2.2. Code compatible with newer versions can be found in branches *swift-2.3* and *swift-3*. Currently only ImageSlideshow itself and AFNetworking extension is supported, support for Alamofire and SDWebImage will be added shortly. Eventually, the swift-3 branch will be merged into master and released as an update.
-
+Version 0.6 supports both Swift 2.2 and Swift 2.3. Code compatible with Swift 3 can be found in experimental branch *swift-3*. 
 
 ## Installation
 
+### CocoaPods
 ImageSlideshow is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ImageSlideshow', '~> 0.5'
+pod 'ImageSlideshow', '~> 0.6'
+```
+
+### Carthage
+To integrate ImageSlideshow into your Xcode project using Carthage, specify it in your Cartfile: 
+
+```ruby
+github "zvonicek/ImageSlideshow" ~> 0.6
 ```
 
 ## Usage
