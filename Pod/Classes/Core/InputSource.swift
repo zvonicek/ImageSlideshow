@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 
 @objc public protocol InputSource {
     func setToImageView(imageView: UIImageView);
