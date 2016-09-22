@@ -1,55 +1,18 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
-  - Alamofire (3.4.1)
-  - AlamofireImage (2.4.1):
-    - Alamofire (~> 3.3)
-  - ImageSlideshow (0.5.0):
-    - ImageSlideshow/Core (= 0.5.0)
-  - ImageSlideshow/AFURL (0.5.0):
-    - AFNetworking (~> 3.0)
-    - ImageSlideshow/Core
-  - ImageSlideshow/Alamofire (0.5.0):
-    - AlamofireImage (~> 2.0)
-    - ImageSlideshow/Core
-  - ImageSlideshow/Core (0.5.0)
-  - ImageSlideshow/SDWebImage (0.5.0):
-    - ImageSlideshow/Core
-    - SDWebImage (~> 3.7)
-  - SDWebImage (3.8.1):
-    - SDWebImage/Core (= 3.8.1)
-  - SDWebImage/Core (3.8.1)
+  - ImageSlideshow (0.5.1):
+    - ImageSlideshow/Core (= 0.5.1)
+  - ImageSlideshow/Core (0.5.1)
 
 DEPENDENCIES:
   - ImageSlideshow (from `../`)
-  - ImageSlideshow/AFURL (from `../`)
-  - ImageSlideshow/Alamofire (from `../`)
-  - ImageSlideshow/SDWebImage (from `../`)
 
 EXTERNAL SOURCES:
   ImageSlideshow:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
-  ImageSlideshow: 34b746c9167c157aa5e5acd4218f0d0c8bd716a4
-  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  ImageSlideshow: 933e24f8767948b27a81d40c0b616afb724120e3
 
-PODFILE CHECKSUM: a94d7b77ef01f0c6c58c41ee6200364996537539
+PODFILE CHECKSUM: 8310fe78018387f716de8da445c4ae331a806e13
 
 COCOAPODS: 1.0.1

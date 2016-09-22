@@ -14,7 +14,7 @@ extension UIImageView {
         
         guard let image = image else {
             assertionFailure("No image found!")
-            return CGRectZero
+            return CGRect.zero
         }
         
         let imageRatio: CGFloat = image.size.width / image.size.height
@@ -24,12 +24,12 @@ extension UIImageView {
             let scale: CGFloat = frame.size.height / image.size.height
             let width: CGFloat = scale * image.size.width
             let topLeftX: CGFloat = (frame.size.width - width) * 0.5
-            return CGRectMake(topLeftX, 0, width, frame.size.height)
+            return CGRect(x: topLeftX, y: 0, width: width, height: frame.size.height)
         } else {
             let scale: CGFloat = frame.size.width / image.size.width
             let height: CGFloat = scale * image.size.height
             let topLeftY: CGFloat = (frame.size.height - height) * 0.5
-            return CGRectMake(0, topLeftY, frame.size.width, height)
+            return CGRect(x: 0, y: topLeftY, width: frame.size.width, height: height)
         }
     }
 }

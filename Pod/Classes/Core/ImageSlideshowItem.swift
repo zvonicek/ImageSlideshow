@@ -7,19 +7,19 @@
 
 import UIKit
 
-public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
+open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
-    public let imageView = UIImageView()
-    public let captionLabel = UILabel()
-    public let image: InputSource
-    public var gestureRecognizer: UITapGestureRecognizer?
+    open let imageView = UIImageView()
+    open let captionLabel = UILabel()
+    open let image: InputSource
+    open var gestureRecognizer: UITapGestureRecognizer?
     
-    public let zoomEnabled: Bool
-    public var zoomInInitially = false
+    open let zoomEnabled: Bool
+    open var zoomInInitially = false
     
     //
-    private var lastFrame = CGRectZero
-    private let captionEnabled: Bool
+    fileprivate var lastFrame = CGRect.zero
+    fileprivate let captionEnabled: Bool
     
     // MARK: - Life cycle
     
@@ -28,15 +28,15 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.captionEnabled = captionEnabled
         self.image = image
         
-        super.init(frame: CGRectNull)
+        super.init(frame: CGRect.null)
         
         image.setToImageView(imageView)
         
         imageView.clipsToBounds = true
-        imageView.userInteractionEnabled = true
+        imageView.isUserInteractionEnabled = true
         
         captionLabel.numberOfLines = 0
-        captionLabel.font = UIFont.systemFontOfSize(10)
+        captionLabel.font = UIFont.systemFont(ofSize: 10)
         captionLabel.text = image.caption
         
         setPictoCenter()
@@ -61,14 +61,14 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
         var imageViewSize = frame.size
-        var captionLabelFrame = CGRectZero
+        var captionLabelFrame = CGRect.zero
         
         if captionEnabled && image.caption != nil {
-            let captionLabelHeight = (image.caption! as NSString).boundingRectWithSize(CGSize(width: frame.size.width-32, height: 0), options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName: captionLabel.font], context: nil).size.height+8
+            let captionLabelHeight = (image.caption! as NSString).boundingRect(with: CGSize(width: frame.size.width-32, height: 0), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: captionLabel.font], context: nil).size.height+8
             imageViewSize = CGSize(width: imageViewSize.width, height: imageViewSize.height-captionLabelHeight)
             captionLabelFrame = CGRect(x: 8, y: imageViewSize.height, width: frame.size.width-32, height: captionLabelHeight)
         }
@@ -117,11 +117,11 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         }
     }
     
-    private func screenSize() -> CGSize {
+    fileprivate func screenSize() -> CGSize {
         return CGSize(width: frame.width, height: frame.height-captionLabel.frame.size.height)
     }
     
-    private func calculatePictureFrame() {
+    fileprivate func calculatePictureFrame() {
         let boundsSize: CGSize = bounds.size
         var frameToCenter: CGRect = imageView.frame
         
@@ -140,7 +140,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         imageView.frame = frameToCenter
     }
     
-    private func calculatePictureSize() -> CGSize {
+    fileprivate func calculatePictureSize() -> CGSize {
         if let image = imageView.image {
             let picSize = image.size
             let picRatio = picSize.width / picSize.height
@@ -156,12 +156,12 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         }
     }
     
-    private func calculateMaximumScale() -> CGFloat {
+    fileprivate func calculateMaximumScale() -> CGFloat {
         // maximum scale is fixed to 2.0 for now. This may be overriden to perform a more sophisticated computation
         return 2.0
     }
     
-    private func setPictoCenter(){
+    fileprivate func setPictoCenter(){
         var intendHorizon = (screenSize().width - imageView.frame.width ) / 2
         var intendVertical = (screenSize().height - imageView.frame.height ) / 2
         intendHorizon = intendHorizon > 0 ? intendHorizon : 0
@@ -169,7 +169,7 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         contentInset = UIEdgeInsets(top: intendVertical, left: intendHorizon, bottom: intendVertical, right: intendHorizon)
     }
     
-    private func isFullScreen() -> Bool {
+    fileprivate func isFullScreen() -> Bool {
         return imageView.frame.width >= screenSize().width && imageView.frame.height >= screenSize().height
     }
     
@@ -179,11 +179,11 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     // MARK: UIScrollViewDelegate
     
-    public func scrollViewDidZoom(scrollView: UIScrollView) {
+    open func scrollViewDidZoom(_ scrollView: UIScrollView) {
         setPictoCenter()
     }
     
-    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return zoomEnabled ? imageView : nil;
     }
     
