@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D0A566541D93316700ECA047"
-               BuildableName = "ImageSlideshow_framework.framework"
+               BuildableName = "ImageSlideshow.framework"
                BlueprintName = "ImageSlideshow_framework"
                ReferencedContainer = "container:ImageSlideshow.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0A566541D93316700ECA047"
-            BuildableName = "ImageSlideshow_framework.framework"
+            BuildableName = "ImageSlideshow.framework"
             BlueprintName = "ImageSlideshow_framework"
             ReferencedContainer = "container:ImageSlideshow.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0A566541D93316700ECA047"
-            BuildableName = "ImageSlideshow_framework.framework"
+            BuildableName = "ImageSlideshow.framework"
             BlueprintName = "ImageSlideshow_framework"
             ReferencedContainer = "container:ImageSlideshow.xcodeproj">
          </BuildableReference>
