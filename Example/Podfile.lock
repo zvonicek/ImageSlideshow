@@ -1,18 +1,27 @@
 PODS:
+  - Alamofire (4.0.1)
+  - AlamofireImage (3.0.0):
+    - Alamofire (~> 4.0)
   - ImageSlideshow (0.6):
     - ImageSlideshow/Core (= 0.6)
+  - ImageSlideshow/Alamofire (0.6):
+    - AlamofireImage (~> 3.0)
+    - ImageSlideshow/Core
   - ImageSlideshow/Core (0.6)
 
 DEPENDENCIES:
   - ImageSlideshow (from `../`)
+  - ImageSlideshow/Alamofire (from `../`)
 
 EXTERNAL SOURCES:
   ImageSlideshow:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ImageSlideshow: 06bfd96b5e56264d2d9d38262b73e32034b85288
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  AlamofireImage: 6594aa1139a67dcd36cde6da79ea4e5b318e60fb
+  ImageSlideshow: 714e370cdd0ab74e8124be755c8de7f06b9d5240
 
-PODFILE CHECKSUM: 8310fe78018387f716de8da445c4ae331a806e13
+PODFILE CHECKSUM: 752eb045ee5eb367c5373e9f9b7e33a13030792a
 
 COCOAPODS: 1.1.0.rc.2

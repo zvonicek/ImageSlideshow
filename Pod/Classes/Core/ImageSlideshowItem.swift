@@ -26,8 +26,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.image = image
         
         super.init(frame: CGRect.null)
-        
-        image.setToImageView(imageView)
+
+        image.set(to: imageView)
         
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true

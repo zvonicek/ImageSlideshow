@@ -4,7 +4,7 @@ use_frameworks!
 target 'ImageSlideshow_Example' do
     pod "ImageSlideshow", :path => "../"
 #    pod "ImageSlideshow/AFURL", :path => "../"
-#    pod "ImageSlideshow/Alamofire", :path => "../"
+    pod "ImageSlideshow/Alamofire", :path => "../"
 #    pod "ImageSlideshow/SDWebImage", :path => "../"
 end
 
