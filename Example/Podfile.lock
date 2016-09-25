@@ -1,7 +1,7 @@
 PODS:
-  - ImageSlideshow (0.5.1):
-    - ImageSlideshow/Core (= 0.5.1)
-  - ImageSlideshow/Core (0.5.1)
+  - ImageSlideshow (0.6):
+    - ImageSlideshow/Core (= 0.6)
+  - ImageSlideshow/Core (0.6)
 
 DEPENDENCIES:
   - ImageSlideshow (from `../`)
@@ -11,8 +11,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ImageSlideshow: 933e24f8767948b27a81d40c0b616afb724120e3
+  ImageSlideshow: 06bfd96b5e56264d2d9d38262b73e32034b85288
 
 PODFILE CHECKSUM: 8310fe78018387f716de8da445c4ae331a806e13
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.2
