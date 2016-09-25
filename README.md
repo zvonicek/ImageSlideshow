@@ -126,7 +126,7 @@ override func viewDidLoad() {
 func click() {
   let ctr = FullScreenSlideshowViewController()
   // called when full-screen VC dismissed and used to set the page to our original slideshow
-  ctr.pageSelected = {(page: Int) in
+  ctr.pageSelected = { page in
     self.slideshow.setScrollViewPage(page, animated: false)
   }
   
