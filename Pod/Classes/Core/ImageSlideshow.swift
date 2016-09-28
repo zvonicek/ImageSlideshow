@@ -22,6 +22,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     public let scrollView = UIScrollView()
     public let pageControl = CustomPageControl()
     public var slideshowDelegate: SlideShowDelegate?
+    public var contentInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     
     // state properties
     
@@ -162,7 +163,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
             if !view.zoomInInitially {
                 view.zoomOut()
             }
-            view.frame = CGRectMake(scrollView.frame.size.width * CGFloat(i), 0, scrollView.frame.size.width, scrollView.frame.size.height)
+            view.frame = CGRectMake(scrollView.frame.size.width * CGFloat(i) + contentInsets.left, contentInsets.top, scrollView.frame.size.width - (contentInsets.left + contentInsets.right), scrollView.frame.size.height  - (contentInsets.top + contentInsets.bottom))
             i++
         }
         
