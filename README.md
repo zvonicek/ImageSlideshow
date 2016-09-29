@@ -19,8 +19,8 @@ Roadmap for 1.0:
 - ~~Create test project~~
 - ~~Create CocoaPod~~
 - ~~Fix initial bugs~~
-- Polish API
-- Write brief documentation
+- ~~Polish API~~
+- Improve documentation
 - Improve the example project to demonstrate all the features
 - ~~*InputSource* subclass for *Alamofire* (yay!)~~
 
@@ -30,7 +30,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Swift 2.3 and Swift 3 support
 
-Version 0.6 supports both Swift 2.2 and Swift 2.3. Code compatible with Swift 3 can be found in experimental branch *swift-3*. 
+Version 0.6 supports both Swift 2.2 and Swift 2.3. Code fully compatible with Swift 3 can be found in branch *swift-3* and will be oficially released in a future update.
 
 ## Installation
 
