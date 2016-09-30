@@ -99,6 +99,15 @@ Used by creating a new `SDWebImageSource` instance:
 SDWebImageSource(urlString: "httpshttps://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
 ```
 
+#### Kingfisher
+
+```ruby
+pod "ImageSlideshow/Kingfisher"
+```
+Used by creating a new `KingfisherSource` instance:
+```swift
+KingfisherSource(urlString: "httpshttps://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
+```
 ### Configuration
 
 Behaviour is configurable by those properties:
