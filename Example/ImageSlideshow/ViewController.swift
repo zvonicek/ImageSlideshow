@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         slideshow.contentScaleMode = UIViewContentMode.scaleAspectFill
 
         // try out other sources such as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource` or `kingfisherSource`
-        slideshow.setImageInputs(kingfisherSource)
+        slideshow.setImageInputs(localSource)
 
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.click))
         slideshow.addGestureRecognizer(recognizer)
