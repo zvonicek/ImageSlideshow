@@ -29,7 +29,8 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     public let scrollView = UIScrollView()
     public let pageControl = UIPageControl()
-    
+    @objc public var customBottomPadding : CGFloat = -1
+
     // MARK: - State properties
     
     /// Page control position
@@ -148,7 +149,15 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     /// updates frame of the scroll view and its inner items
     func layoutScrollView() {
-        let scrollViewBottomPadding: CGFloat = pageControlPosition.bottomPadding
+        let scrollViewBottomPadding: CGFloat
+        if customBottomPadding > 0
+        {
+            scrollViewBottomPadding = customBottomPadding
+        }
+        else
+        {
+            scrollViewBottomPadding = pageControlPosition.bottomPadding
+        }
         scrollView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height - scrollViewBottomPadding)
         scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * CGFloat(scrollViewImages.count), scrollView.frame.size.height)
         
