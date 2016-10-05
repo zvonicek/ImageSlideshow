@@ -130,24 +130,8 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     override public func layoutSubviews() {
         pageControl.hidden = pageControlPosition == .Hidden
-        pageControl.frame = CGRectMake(0, -200, self.frame.size.width, 20)
-        
-        var pcPositionPadding : CGFloat = 45
-        
-        switch UIScreen.mainScreen().bounds.height {
-        case 480:
-            pcPositionPadding = 58
-        case 568 :
-            pcPositionPadding = 57
-        case 667 :
-            pcPositionPadding = 47
-        case 736 :
-            pcPositionPadding = 35
-        default :
-            pcPositionPadding = 55
-        }
-        
-        pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - pcPositionPadding)
+        pageControl.frame = CGRectMake(0, 0, self.frame.size.width, 20)
+        pageControl.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 12)
         
         layoutScrollView()
     }
