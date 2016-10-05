@@ -127,26 +127,26 @@ There is also a possibility to open full-screen image view using attached `FullS
 var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
 
 override func viewDidLoad() {
-  ...
+  //...
   let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.click))
   slideshow.addGestureRecognizer(gestureRecognizer)
 }
 
 func click() {
-        let ctr = FullScreenSlideshowViewController()
-        // called when full-screen VC dismissed and used to set the page to our original slideshow
-        ctr.pageSelected = {(page: Int) in
-            self.slideshow.setScrollViewPage(page, animated: false)
-        }
-        
-        // set the initial page
-        ctr.initialImageIndex = slideshow.scrollViewPage
-        // set the inputs
-        ctr.inputs = slideshow.images
-        self.slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
-        ctr.transitioningDelegate = self.slideshowTransitioningDelegate
-        self.present(ctr, animated: true, completion: nil)
-    }
+  let ctr = FullScreenSlideshowViewController()
+  // called when full-screen VC dismissed and used to set the page to our original slideshow
+  ctr.pageSelected = {(page: Int) in
+    self.slideshow.setScrollViewPage(page, animated: false)
+  }
+
+  // set the initial page
+  ctr.initialImageIndex = slideshow.scrollViewPage
+  // set the inputs
+  ctr.inputs = slideshow.images
+  self.slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
+  ctr.transitioningDelegate = self.slideshowTransitioningDelegate
+  self.present(ctr, animated: true, completion: nil)
+}
 ```
 
 ## Author
