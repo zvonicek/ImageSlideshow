@@ -6,11 +6,11 @@
 //
 //
 
-import Foundation
+import UIKit
 
 @objc public protocol InputSource {
     var caption: String? { get set }
-    func setToImageView(_ imageView: UIImageView);
+    func set(to imageView: UIImageView);
 }
 
 open class ImageSource: NSObject, InputSource {
@@ -31,8 +31,8 @@ open class ImageSource: NSObject, InputSource {
             return nil
         }
     }
-    
-    @objc open func setToImageView(_ imageView: UIImageView) {
+
+    @objc public func set(to imageView: UIImageView) {
         imageView.image = image
     }
 }

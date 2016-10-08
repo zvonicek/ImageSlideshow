@@ -1,13 +1,14 @@
 //
-//  AFURLSource.swift
+//  KingfisherSource.swift
 //  ImageSlideshow
 //
-//  Created by Petr Zvoníček on 30.07.15.
+//  Created by feiin
+//
 //
 
-import AFNetworking
+import Kingfisher
 
-public class AFURLSource: NSObject, InputSource {
+public class KingfisherSource: NSObject, InputSource {
     var url: URL
     var placeholder: UIImage?
     
@@ -32,8 +33,6 @@ public class AFURLSource: NSObject, InputSource {
     }
 
     @objc public func set(to imageView: UIImageView) {
-        imageView.setImageWith(URLRequest(url: url), placeholderImage: self.placeholder, success: { (_, _, image: UIImage) in
-            imageView.image = image
-            }, failure: nil)
+        imageView.kf.setImage(with: self.url, placeholder: self.placeholder)
     }
 }

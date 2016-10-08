@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "ImageSlideshow"
-  s.version          = "0.5.1"
+  s.version          = "0.6"
   s.summary          = "Image slideshow written in Swift with circular scrolling, timer and full screen viewer"
 
 # This description is used to generate tags and improve search results.
@@ -45,14 +45,21 @@ Image slideshow is a Swift library providing customizable image slideshow with c
 
   s.subspec 'Alamofire' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
-    subspec.dependency 'AlamofireImage', '~> 2.0'
+    subspec.dependency 'AlamofireImage', '~> 3.0'
     subspec.source_files = 'Pod/Classes/InputSources/AlamofireSource.swift'
+    subspec.platform     = :ios, '9.0'
   end
 
   s.subspec 'SDWebImage' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
     subspec.dependency 'SDWebImage', '~> 3.7'
     subspec.source_files = 'Pod/Classes/InputSources/SDWebImageSource.swift'
+  end
+
+  s.subspec 'Kingfisher' do |subspec|
+    subspec.dependency 'ImageSlideshow/Core'
+    subspec.dependency 'Kingfisher', '~> 3.0'
+    subspec.source_files = 'Pod/Classes/InputSources/KingfisherSource.swift'
   end
 
   s.default_subspec = 'Core'
