@@ -15,25 +15,27 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     public let zoomEnabled: Bool
     public var zoomInInitially = false
-    
+    public var doubleTap:(()->())?
+
     //
     private var lastFrame = CGRectZero
-    
+
     // MARK: - Life cycle
     
-    init(image: InputSource, zoomEnabled: Bool) {
+    init(image: InputSource, zoomEnabled: Bool, doubleTap:(()->())?) {
         self.zoomEnabled = zoomEnabled
         self.image = image
-        
+        self.doubleTap = doubleTap
+
         super.init(frame: CGRectNull)
-        
+
         image.setToImageView(imageView)
-        
+
         imageView.clipsToBounds = true
         imageView.userInteractionEnabled = true
-        
+
         setPictoCenter()
-        
+
         // scroll view configuration
         delegate = self
         showsVerticalScrollIndicator = false
@@ -85,12 +87,16 @@ public class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     func isZoomed() -> Bool {
         return self.zoomScale != self.minimumZoomScale
     }
-    
+
     func zoomOut() {
         self.setZoomScale(minimumZoomScale, animated: false)
     }
-    
+
     func tapZoom() {
+        if let _ = doubleTap {
+            doubleTap!()
+        }
+
         if isZoomed() {
             self.setZoomScale(minimumZoomScale, animated: true)
         } else {
