@@ -32,11 +32,12 @@ class ViewController: UIViewController {
         slideshow.pageControl.pageIndicatorTintColor = UIColor.blackColor();
         slideshow.contentScaleMode = UIViewContentMode.ScaleAspectFill
 
+        slideshow.singleTap = {
+            self.slideshow.presentFullScreenController(self)
+        }
+
         // try out other sources such as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource` or `kingfisherSource`
         slideshow.setImageInputs(localSource)
-
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.click))
-        slideshow.addGestureRecognizer(recognizer)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -45,18 +46,6 @@ class ViewController: UIViewController {
     }
     
     func click() {
-        let ctr = FullScreenSlideshowViewController()
-        ctr.pageSelected = {(page: Int) in
-            self.slideshow.setScrollViewPage(page, animated: false)
-        }
-        
-        ctr.initialImageIndex = slideshow.scrollViewPage
-        ctr.inputs = slideshow.images
-        slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
-        // Uncomment if you want disable the slide-to-dismiss feature on full screen preview 
-        // self.transitionDelegate?.slideToDismissEnabled = false
-        ctr.transitioningDelegate = slideshowTransitioningDelegate
-        self.presentViewController(ctr, animated: true, completion: nil)
     }
 }
 
