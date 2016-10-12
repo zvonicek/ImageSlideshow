@@ -29,7 +29,12 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
     
     public let scrollView = UIScrollView()
     public let pageControl = UIPageControl()
-    
+
+    public var singleTap:(()->())?
+    public var doubleTap:(()->())?
+    var singleTapGestureRecognizer : UITapGestureRecognizer?
+    var doubleTapGestureRecognizer : UITapGestureRecognizer?
+
     // MARK: - State properties
     
     /// Page control position
@@ -127,9 +132,32 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         addSubview(scrollView)
         
         addSubview(pageControl)
-        
+
+
+        doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapActivated))
+        doubleTapGestureRecognizer?.numberOfTapsRequired = 2
+        self.addGestureRecognizer(doubleTapGestureRecognizer!)
+
+        singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(singleTapActivated))
+        singleTapGestureRecognizer?.numberOfTapsRequired = 1
+        self.addGestureRecognizer(singleTapGestureRecognizer!)
+
+        singleTapGestureRecognizer?.requireGestureRecognizerToFail(doubleTapGestureRecognizer!)
+
         setTimerIfNeeded()
         layoutScrollView()
+    }
+
+    func doubleTapActivated() {
+        if let _ = doubleTap {
+            doubleTap!()
+        }
+    }
+
+    func singleTapActivated() {
+        if let _ = singleTap {
+            singleTap!()
+        }
     }
 
     public func presentFullScreenController(fromController:UIViewController) {
@@ -188,7 +216,7 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: self.zoomEnabled)
+            let item = ImageSlideshowItem(image: image, zoomEnabled: self.zoomEnabled, doubleTap: self.doubleTap)
             item.imageView.contentMode = self.contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)
