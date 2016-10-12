@@ -131,6 +131,22 @@ public class ImageSlideshow: UIView, UIScrollViewDelegate {
         setTimerIfNeeded()
         layoutScrollView()
     }
+
+    public func presentFullScreenController(fromController:UIViewController) {
+        let ctr = FullScreenSlideshowViewController()
+        ctr.pageSelected = {(page: Int) in
+            self.setScrollViewPage(page, animated: false)
+        }
+        
+        ctr.initialImageIndex = scrollViewPage
+        ctr.inputs = images
+        let slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: ctr)
+        // Uncomment if you want disable the slide-to-dismiss feature on full screen preview
+        // self.transitionDelegate?.slideToDismissEnabled = false
+        ctr.transitioningDelegate = slideshowTransitioningDelegate
+
+        fromController.presentViewController(ctr, animated: true, completion: nil)
+    }
     
     override public func layoutSubviews() {
         super.layoutSubviews()
