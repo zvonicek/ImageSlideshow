@@ -24,8 +24,6 @@ open class ImageSource: NSObject, InputSource {
             self.image = image
             super.init()
         } else {
-            // this may be simplified in Swift 2.2, which fixes the failable initializer compiler issues
-            super.init()
             return nil
         }
     }
