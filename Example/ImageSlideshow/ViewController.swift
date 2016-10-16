@@ -41,10 +41,10 @@ class ViewController: UIViewController {
     func click() {
         let ctr = FullScreenSlideshowViewController()
         ctr.pageSelected = {(page: Int) in
-            self.slideshow.setScrollViewPage(page, animated: false)
+            self.slideshow.setCurrentPage(page, animated: false)
         }
-        
-        ctr.initialImageIndex = slideshow.scrollViewPage
+
+        ctr.initialPage = slideshow.currentPage
         ctr.inputs = slideshow.images
         slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
         // Uncomment if you want disable the slide-to-dismiss feature on full screen preview 
