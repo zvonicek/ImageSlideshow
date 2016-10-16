@@ -44,8 +44,12 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
     open fileprivate(set) var currentPage: Int = 0 {
         didSet {
             pageControl.currentPage = currentPage;
+            currentPageChanged?(currentPage)
         }
     }
+
+    /// Called on each currentPage change
+    open var currentPageChanged: ((_ page: Int) -> ())?
     
     /// Currenlty displayed slideshow item
     open var currentSlideshowItem: ImageSlideshowItem? {
