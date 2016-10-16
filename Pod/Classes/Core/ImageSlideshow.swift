@@ -40,10 +40,10 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
         }
     }
     
-    /// Current item index
-    open fileprivate(set) var currentItemIndex: Int = 0 {
+    /// Current page
+    open fileprivate(set) var currentPage: Int = 0 {
         didSet {
-            pageControl.currentPage = currentItemIndex;
+            pageControl.currentPage = currentPage;
         }
     }
     
@@ -160,7 +160,7 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
             view.frame = CGRect(x: scrollView.frame.size.width * CGFloat(index), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
         }
         
-        setCurrentPage(currentItemIndex, animated: false)
+        setCurrentPage(currentPage, animated: false)
     }
     
     /// reloads scroll view with latest slideshowItems
@@ -266,15 +266,15 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
         if circular {
             if page == 0 {
                 // first page contains the last image
-                currentItemIndex = Int(images.count) - 1
+                currentPage = Int(images.count) - 1
             } else if page == scrollViewImages.count - 1 {
                 // last page contains the first image
-                currentItemIndex = 0
+                currentPage = 0
             } else {
-                currentItemIndex = page - 1
+                currentPage = page - 1
             }
         } else {
-            currentItemIndex = page
+            currentPage = page
         }
     }
     
