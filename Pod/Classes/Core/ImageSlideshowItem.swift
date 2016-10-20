@@ -16,7 +16,6 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     open let zoomEnabled: Bool
     open var zoomInInitially = false
     
-    //
     fileprivate var lastFrame = CGRect.zero
     
     // MARK: - Life cycle
@@ -150,11 +149,11 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         contentInset = UIEdgeInsets(top: intendVertical, left: intendHorizon, bottom: intendVertical, right: intendHorizon)
     }
     
-    fileprivate func isFullScreen() -> Bool {
+    private func isFullScreen() -> Bool {
         return imageView.frame.width >= screenSize().width && imageView.frame.height >= screenSize().height
     }
     
-    func clearContentInsets(){
+    func clearContentInsets() {
         contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     

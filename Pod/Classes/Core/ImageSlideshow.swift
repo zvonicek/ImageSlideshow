@@ -25,7 +25,7 @@ public enum PageControlPosition {
     }
 }
 
-open class ImageSlideshow: UIView, UIScrollViewDelegate {
+open class ImageSlideshow: UIView {
     
     open let scrollView = UIScrollView()
     open let pageControl = UIPageControl()
@@ -156,7 +156,7 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
         scrollView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height - scrollViewBottomPadding)
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(scrollViewImages.count), height: scrollView.frame.size.height)
         
-        for (index ,view) in self.slideshowItems.enumerated() {
+        for (index, view) in self.slideshowItems.enumerated() {
             
             if !view.zoomInInitially {
                 view.zoomOut()
@@ -292,10 +292,11 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
     open func unpauseTimerIfNeeded() {
         setTimerIfNeeded()
     }
-    
-    // MARK: UIScrollViewDelegate
-    
-    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+}
+
+extension ImageSlideshow: UIScrollViewDelegate {
+
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if slideshowTimer?.isValid != nil {
             slideshowTimer?.invalidate()
             slideshowTimer = nil
@@ -303,13 +304,14 @@ open class ImageSlideshow: UIView, UIScrollViewDelegate {
         
         setTimerIfNeeded()
     }
-    
-    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         setCurrentPageForScrollViewPage(page);
     }
     
-    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+
         if circular {
             let regularContentOffset = scrollView.frame.size.width * CGFloat(images.count)
             
