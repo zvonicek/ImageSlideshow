@@ -9,7 +9,7 @@
 import UIKit
 
 @objc public protocol InputSource {
-    func set(to imageView: UIImageView);
+    func load(to imageView: UIImageView, with callback: @escaping (_ image: UIImage) -> ())
 }
 
 open class ImageSource: NSObject, InputSource {
@@ -28,7 +28,8 @@ open class ImageSource: NSObject, InputSource {
         }
     }
 
-    @objc public func set(to imageView: UIImageView) {
+    public func load(to imageView: UIImageView, with callback: @escaping (UIImage) -> ()) {
         imageView.image = image
+        callback(image)
     }
 }

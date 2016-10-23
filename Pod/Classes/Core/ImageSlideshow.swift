@@ -25,6 +25,11 @@ public enum PageControlPosition {
     }
 }
 
+public enum ImagePreload {
+    case fixed(offset: Int)
+    case all
+}
+
 open class ImageSlideshow: UIView {
     
     open let scrollView = UIScrollView()
@@ -43,8 +48,11 @@ open class ImageSlideshow: UIView {
     /// Current page
     open fileprivate(set) var currentPage: Int = 0 {
         didSet {
-            pageControl.currentPage = currentPage;
-            currentPageChanged?(currentPage)
+            if oldValue != currentPage {
+                pageControl.currentPage = currentPage
+                currentPageChanged?(currentPage)
+                loadImages(for: currentPage)
+            }
         }
     }
 
@@ -87,7 +95,10 @@ open class ImageSlideshow: UIView {
             setTimerIfNeeded()
         }
     }
-    
+
+    /// Image preload configuration, can be sed to .fixed to enable lazy load or .all
+    open var preload = ImagePreload.all
+
     /// Content mode of each image in the slideshow
     open var contentScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit {
         didSet {
@@ -157,7 +168,6 @@ open class ImageSlideshow: UIView {
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(scrollViewImages.count), height: scrollView.frame.size.height)
         
         for (index, view) in self.slideshowItems.enumerated() {
-            
             if !view.zoomInInitially {
                 view.zoomOut()
             }
@@ -167,8 +177,9 @@ open class ImageSlideshow: UIView {
         setCurrentPage(currentPage, animated: false)
     }
     
-    /// reloads scroll view with latest slideshowItems
+    /// reloads scroll view with latest slideshow items
     func reloadScrollView() {
+        // remove previous slideshow items
         for view in self.slideshowItems {
             view.removeFromSuperview()
         }
@@ -189,6 +200,25 @@ open class ImageSlideshow: UIView {
         } else {
             scrollViewPage = 0
         }
+
+        loadImages(for: 0)
+    }
+
+    private func loadImages(for page: Int) {
+        let totalCount = slideshowItems.count
+
+        for i in 0...totalCount-1 {
+            let item = slideshowItems[i]
+            switch self.preload {
+            case .all:
+                item.loadImage()
+            case .fixed(let offset):
+                // load image if page is in range of loadOffset, else release image
+                let shouldLoad = abs(page-i) <= offset || abs(page-i) > totalCount-offset
+                shouldLoad ? item.loadImage() : item.releaseImage()
+            }
+        }
+
     }
     
     // MARK: - Image setting
@@ -244,7 +274,6 @@ open class ImageSlideshow: UIView {
     }
     
     func slideshowTick(_ timer: Timer) {
-        
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         var nextPage = page + 1
         
@@ -310,8 +339,6 @@ extension ImageSlideshow: UIScrollViewDelegate {
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-
         if circular {
             let regularContentOffset = scrollView.frame.size.width * CGFloat(images.count)
             

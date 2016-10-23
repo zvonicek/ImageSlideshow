@@ -32,7 +32,11 @@ public class KingfisherSource: NSObject, InputSource {
         }
     }
 
-    @objc public func set(to imageView: UIImageView) {
-        imageView.kf.setImage(with: self.url, placeholder: self.placeholder)
+    @objc public func load(to imageView: UIImageView, with callback: @escaping (UIImage) -> ()) {
+        imageView.kf.setImage(with: self.url, placeholder: self.placeholder, options: nil, progressBlock: nil) { (image, _, _, _) in
+            if let image = image {
+                callback(image)
+            }
+        }
     }
 }
