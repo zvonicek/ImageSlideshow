@@ -10,7 +10,13 @@ import UIKit
 import ImageSlideshow
 
 class ViewController: UIViewController {
-    
+
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+        }
+    }
+
     @IBOutlet var slideshow: ImageSlideshow!
     var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
 
