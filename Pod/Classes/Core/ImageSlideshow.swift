@@ -150,6 +150,9 @@ open class ImageSlideshow: UIView {
     override open func layoutSubviews() {
         super.layoutSubviews()
 
+        // fixes the case when automaticallyAdjustsScrollViewInsets on parenting view controller is set to true
+        scrollView.contentInset = UIEdgeInsets.zero
+
         if case .hidden = self.pageControlPosition {
             pageControl.isHidden = true
         } else {
