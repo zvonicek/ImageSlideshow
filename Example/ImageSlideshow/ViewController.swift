@@ -10,7 +10,13 @@ import UIKit
 import ImageSlideshow
 
 class ViewController: UIViewController {
-    
+
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+        }
+    }
+
     @IBOutlet var slideshow: ImageSlideshow!
     var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
 
@@ -34,23 +40,12 @@ class ViewController: UIViewController {
         // try out other sources such as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource` or `kingfisherSource`
         slideshow.setImageInputs(localSource)
 
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.click))
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap))
         slideshow.addGestureRecognizer(recognizer)
     }
     
-    func click() {
-        let ctr = FullScreenSlideshowViewController()
-        ctr.pageSelected = {(page: Int) in
-            self.slideshow.setScrollViewPage(page, animated: false)
-        }
-        
-        ctr.initialImageIndex = slideshow.scrollViewPage
-        ctr.inputs = slideshow.images
-        slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
-        // Uncomment if you want disable the slide-to-dismiss feature on full screen preview 
-        // self.transitionDelegate?.slideToDismissEnabled = false
-        ctr.transitioningDelegate = slideshowTransitioningDelegate
-        self.present(ctr, animated: true, completion: nil)
+    func didTap() {
+        slideshow.presentFullScreenController(from: self)
     }
 }
 

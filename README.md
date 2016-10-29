@@ -12,25 +12,13 @@ iOS / Swift image slideshow with circular scrolling, timer and full screen viewe
 
 ![](http://cl.ly/image/2v193I0G0h0Z/ImageSlideshow2.gif)
 
-
-This component is under development. Description and brief documentation will follow with future versions. The API will be subject of change.
-
-Roadmap for 1.0:
-- ~~Create test project~~
-- ~~Create CocoaPod~~
-- ~~Fix initial bugs~~
-- ~~Polish API~~
-- Improve documentation
-- Improve the example project to demonstrate all the features
-- ~~*InputSource* subclass for *Alamofire* (yay!)~~
-
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Swift 2.3 and Swift 3 support
 
-Version 0.6 supports both Swift 2.2 and Swift 2.3. Code fully compatible with Swift 3 can be found in branch *swift-3* and will be oficially released in a future update.
+Version 1.0-beta.1 supports Swift 3. For Swift 2.2 and Swift 2.3 compatible code use version 0.6 or branch *swift-2.3*. 
 
 ## Installation
 
@@ -39,14 +27,14 @@ ImageSlideshow is available through [CocoaPods](http://cocoapods.org). To instal
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ImageSlideshow', '~> 0.6'
+pod 'ImageSlideshow', '~> 1.0.0-beta.1'
 ```
 
 ### Carthage
 To integrate ImageSlideshow into your Xcode project using Carthage, specify it in your Cartfile: 
 
 ```ruby
-github "zvonicek/ImageSlideshow" ~> 0.6
+github "zvonicek/ImageSlideshow" ~> 1.0.0-beta.1
 ```
 
 ## Usage
@@ -127,33 +115,20 @@ Behaviour is configurable by those properties:
 
 ### Full Screen view
 
-There is also a possibility to open full-screen image view using attached `FullScreenSlideshowViewController`. The controller is meant to be presented manually, as seen on the example:
+There is also a possibility to open full-screen image view using attached `FullScreenSlideshowViewController`. The simplest way is to call:
 
 ```swift
-var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
-
 override func viewDidLoad() {
-  //...
-  let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.click))
+  let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap))
   slideshow.addGestureRecognizer(gestureRecognizer)
 }
 
-func click() {
-  let ctr = FullScreenSlideshowViewController()
-  // called when full-screen VC dismissed and used to set the page to our original slideshow
-  ctr.pageSelected = { page in
-    self.slideshow.setScrollViewPage(page, animated: false)
-  }
-
-  // set the initial page
-  ctr.initialImageIndex = slideshow.scrollViewPage
-  // set the inputs
-  ctr.inputs = slideshow.images
-  self.slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
-  ctr.transitioningDelegate = self.slideshowTransitioningDelegate
-  self.present(ctr, animated: true, completion: nil)
+func didTap() {
+  slideshow.presentFullScreenController(from: self)
 }
 ```
+
+`FullScreenSlideshowViewController` can also be instantiated and configured manually if more advanced behavior is needed.
 
 ## Author
 
