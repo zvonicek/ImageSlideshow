@@ -40,23 +40,12 @@ class ViewController: UIViewController {
         // try out other sources such as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource` or `kingfisherSource`
         slideshow.setImageInputs(localSource)
 
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.click))
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap))
         slideshow.addGestureRecognizer(recognizer)
     }
     
-    func click() {
-        let ctr = FullScreenSlideshowViewController()
-        ctr.pageSelected = {(page: Int) in
-            self.slideshow.setCurrentPage(page, animated: false)
-        }
-
-        ctr.initialPage = slideshow.currentPage
-        ctr.inputs = slideshow.images
-        slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
-        // Uncomment if you want disable the slide-to-dismiss feature on full screen preview 
-        // self.transitionDelegate?.slideToDismissEnabled = false
-        ctr.transitioningDelegate = slideshowTransitioningDelegate
-        self.present(ctr, animated: true, completion: nil)
+    func didTap() {
+        slideshow.presentFullScreenController(from: self)
     }
 }
 

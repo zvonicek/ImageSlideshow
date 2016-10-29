@@ -111,6 +111,8 @@ open class ImageSlideshow: UIView {
     fileprivate var slideshowTimer: Timer?
     fileprivate var scrollViewImages = [InputSource]()
 
+    open fileprivate(set) var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
+
     // MARK: - Life cycle
     
     override public init(frame: CGRect) {
@@ -323,6 +325,23 @@ open class ImageSlideshow: UIView {
     /// Restarts slideshow timer
     open func unpauseTimerIfNeeded() {
         setTimerIfNeeded()
+    }
+
+    /// Open full screen slideshow
+    @discardableResult
+    open func presentFullScreenController(from controller:UIViewController) -> FullScreenSlideshowViewController {
+        let fullscreen = FullScreenSlideshowViewController()
+        fullscreen.pageSelected = {(page: Int) in
+            self.setCurrentPage(page, animated: false)
+        }
+
+        fullscreen.initialPage = self.currentPage
+        fullscreen.inputs = self.images
+        slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
+        fullscreen.transitioningDelegate = slideshowTransitioningDelegate
+        controller.present(fullscreen, animated: true, completion: nil)
+
+        return fullscreen
     }
 }
 
