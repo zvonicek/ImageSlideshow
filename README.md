@@ -82,13 +82,7 @@ AFURLSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab4918
 pod "ImageSlideshow/SDWebImage"
 ``` 
 
-#### Kingfisher
-
-```ruby
-pod "ImageSlideshow/Kingfisher"
-``` 
-
-Used by creating a new `KingfisherSource` instance:
+Used by creating a new `SDWebImageSource` instance:
 ```swift
 SDWebImageSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
 ```
@@ -102,6 +96,7 @@ Used by creating a new `KingfisherSource` instance:
 ```swift
 KingfisherSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
 ```
+
 ### Configuration
 
 Behaviour is configurable by those properties:
