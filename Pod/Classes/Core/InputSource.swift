@@ -9,10 +9,10 @@
 import UIKit
 
 @objc public protocol InputSource {
-    func setToImageView(imageView: UIImageView);
+    func set(to imageView: UIImageView);
 }
 
-public class ImageSource: NSObject, InputSource {
+open class ImageSource: NSObject, InputSource {
     var image: UIImage!
     
     public init(image: UIImage) {
@@ -29,8 +29,8 @@ public class ImageSource: NSObject, InputSource {
             return nil
         }
     }
-    
-    @objc public func setToImageView(imageView: UIImageView) {
+
+    @objc public func set(to imageView: UIImageView) {
         imageView.image = image
     }
 }

@@ -102,9 +102,18 @@ pod "ImageSlideshow/Kingfisher"
 
 Used by creating a new `KingfisherSource` instance:
 ```swift
-KingfisherSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
+SDWebImageSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
 ```
 
+#### Kingfisher
+
+```ruby
+pod "ImageSlideshow/Kingfisher"
+```
+Used by creating a new `KingfisherSource` instance:
+```swift
+KingfisherSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
+```
 ### Configuration
 
 Behaviour is configurable by those properties:
@@ -124,8 +133,8 @@ There is also a possibility to open full-screen image view using attached `FullS
 var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
 
 override func viewDidLoad() {
-  ...
-  let gestureRecognizer = UITapGestureRecognizer(target: self, action: "openFullScreen")
+  //...
+  let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.click))
   slideshow.addGestureRecognizer(gestureRecognizer)
 }
 
@@ -135,14 +144,14 @@ func click() {
   ctr.pageSelected = { page in
     self.slideshow.setScrollViewPage(page, animated: false)
   }
-  
+
   // set the initial page
   ctr.initialImageIndex = slideshow.scrollViewPage
   // set the inputs
   ctr.inputs = slideshow.images
   self.slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: slideshow, slideshowController: ctr)
   ctr.transitioningDelegate = self.slideshowTransitioningDelegate
-  self.presentViewController(ctr, animated: true, completion: nil)
+  self.present(ctr, animated: true, completion: nil)
 }
 ```
 

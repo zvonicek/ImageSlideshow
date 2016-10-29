@@ -2,7 +2,7 @@
 //  ImageSlideshow_framework.h
 //  ImageSlideshow_framework
 //
-//  Created by Petr Zvoníček on 21.09.16.
+//  Created by Petr Zvoníček on 25.09.16.
 //  Copyright © 2016 CocoaPods. All rights reserved.
 //
 
