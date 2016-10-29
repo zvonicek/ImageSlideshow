@@ -2,7 +2,7 @@
 
 ## 1.0 (?)
 
-Version 1.0 aims to improve stability and brings couple of new features.
+Version 1.0 aims to improve stability and brings couple of new features. Also contains few backward complatibility breaking changes.
 
 ## New Features
 - New input source for Kingfisher (thanks @feiin)
@@ -16,6 +16,7 @@ Version 1.0 aims to improve stability and brings couple of new features.
 
 ## API changes
 - `currentItemIndex` was renamed to `currentPage`
+- `set` function from `InputSource` protocol was renamed to `load` and have a new closure parameter called on image load
 
 
 ## [0.6](https://github.com/zvonicek/ImageSlideshow/releases/tag/0.6.0) (21/06/2016)
