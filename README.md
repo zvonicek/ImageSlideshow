@@ -34,7 +34,7 @@ pod 'ImageSlideshow', '~> 1.0.0-beta.1'
 To integrate ImageSlideshow into your Xcode project using Carthage, specify it in your Cartfile: 
 
 ```ruby
-github "zvonicek/ImageSlideshow" ~> 1.0.0-beta.1
+github "zvonicek/ImageSlideshow" "1.0.0-beta.1"
 ```
 
 ## Usage
