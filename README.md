@@ -112,6 +112,8 @@ Behaviour is configurable by those properties:
 - ```pageControlPosition``` - configures position of UIPageControll (hidden, inside scroll view or under scroll view)
 - ```contentScaleMode``` - configures the scaling (UIViewContentMode.ScaleAspectFit by default)
 - ```draggingEnabled``` - enables dragging
+- ```currentPageChanged``` - closure called on page change
+- ```preload``` - image preloading configuration (all images are preloaded by default)
 
 ### Full Screen view
 
