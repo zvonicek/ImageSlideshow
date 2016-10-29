@@ -210,7 +210,7 @@ open class ImageSlideshow: UIView {
     private func loadImages(for page: Int) {
         let totalCount = slideshowItems.count
 
-        for i in 0...totalCount-1 {
+        for i in 0..<totalCount {
             let item = slideshowItems[i]
             switch self.preload {
             case .all:
