@@ -48,8 +48,9 @@ open class ImageSlideshow: UIView {
     /// Current page
     open fileprivate(set) var currentPage: Int = 0 {
         didSet {
+            pageControl.currentPage = currentPage
+
             if oldValue != currentPage {
-                pageControl.currentPage = currentPage
                 currentPageChanged?(currentPage)
                 loadImages(for: currentPage)
             }
