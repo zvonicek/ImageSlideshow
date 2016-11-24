@@ -59,6 +59,12 @@ open class ImageSlideshow: UIView {
 
     /// Called on each currentPage change
     open var currentPageChanged: ((_ page: Int) -> ())?
+	
+	/// Called on scrollViewWillBeginDragging
+	open var slideShowWillBeginDraging: (() -> ())?
+	
+	/// Called on scrollViewDidEndDecelerating
+	open var slideShowDidEndDecelerating: ((_ page: Int) -> ())?
     
     /// Currenlty displayed slideshow item
     open var currentSlideshowItem: ImageSlideshowItem? {
@@ -353,12 +359,14 @@ extension ImageSlideshow: UIScrollViewDelegate {
             slideshowTimer?.invalidate()
             slideshowTimer = nil
         }
-        
         setTimerIfNeeded()
+		slideShowWillBeginDraging?()
     }
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+
         setCurrentPageForScrollViewPage(page);
+		slideShowDidEndDecelerating?(page)
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
