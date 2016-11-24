@@ -360,13 +360,13 @@ extension ImageSlideshow: UIScrollViewDelegate {
             slideshowTimer = nil
         }
         setTimerIfNeeded()
-		slideShowWillBeginDraging?()
+		willBeginDraging?()
     }
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
 
         setCurrentPageForScrollViewPage(page);
-		slideShowDidEndDecelerating?()
+		didEndDecelerating?()
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
