@@ -64,7 +64,7 @@ open class ImageSlideshow: UIView {
 	open var willBeginDragging: (() -> ())?
 	
 	/// Called on scrollViewDidEndDecelerating
-	open var didEndDecelerating: ((_ page: Int) -> ())?
+	open var didEndDecelerating: (() -> ())?
     
     /// Currenlty displayed slideshow item
     open var currentSlideshowItem: ImageSlideshowItem? {
@@ -366,7 +366,7 @@ extension ImageSlideshow: UIScrollViewDelegate {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
 
         setCurrentPageForScrollViewPage(page);
-		slideShowDidEndDecelerating?(currentPage)
+		slideShowDidEndDecelerating?()
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
