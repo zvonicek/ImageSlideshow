@@ -108,6 +108,8 @@ Behaviour is configurable by those properties:
 - ```contentScaleMode``` - configures the scaling (UIViewContentMode.ScaleAspectFit by default)
 - ```draggingEnabled``` - enables dragging
 - ```currentPageChanged``` - closure called on page change
+- ```willBeginDragging``` - closure called on scrollViewWillBeginDragging
+- ```didEndDecelerating``` - closure called on scrollViewDidEndDecelerating
 - ```preload``` - image preloading configuration (all images are preloaded by default)
 
 ### Full Screen view
@@ -129,7 +131,7 @@ func didTap() {
 
 ## Author
 
-Petr Zvoníček
+Petr Zvoníček
 
 ## License
 
