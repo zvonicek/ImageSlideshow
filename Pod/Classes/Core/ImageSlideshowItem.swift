@@ -16,8 +16,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     open let zoomEnabled: Bool
     open var zoomInInitially = false
     
-    //
     fileprivate var lastFrame = CGRect.zero
+    fileprivate var imageReleased = false
     
     // MARK: - Life cycle
     
@@ -27,8 +27,6 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         
         super.init(frame: CGRect.null)
 
-        image.set(to: imageView)
-        
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         
@@ -78,6 +76,22 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         
         contentSize = imageView.frame.size
         maximumZoomScale = calculateMaximumScale()
+    }
+
+    /// Request to load image to imageView
+    func loadImage() {
+        if self.imageView.image == nil {
+            imageReleased = false
+            image.load(to: self.imageView) { image in
+                // set image to nil if there was a release request during the image load
+                self.imageView.image = self.imageReleased ? nil : image
+            }
+        }
+    }
+
+    func releaseImage() {
+        imageReleased = true
+        self.imageView.image = nil
     }
 
     // MARK: - Image zoom & size
@@ -150,11 +164,11 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         contentInset = UIEdgeInsets(top: intendVertical, left: intendHorizon, bottom: intendVertical, right: intendHorizon)
     }
     
-    fileprivate func isFullScreen() -> Bool {
+    private func isFullScreen() -> Bool {
         return imageView.frame.width >= screenSize().width && imageView.frame.height >= screenSize().height
     }
     
-    func clearContentInsets(){
+    func clearContentInsets() {
         contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     

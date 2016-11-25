@@ -25,7 +25,7 @@ open class FullScreenSlideshowViewController: UIViewController {
     open var pageSelected: ((_ page: Int) -> ())?
     
     /// Index of initial image
-    open var initialImageIndex: Int = 0
+    open var initialPage: Int = 0
     open var inputs: [InputSource]?
     
     /// Background color
@@ -72,14 +72,14 @@ open class FullScreenSlideshowViewController: UIViewController {
         
         if isInit {
             isInit = false
-            slideshow.setScrollViewPage(initialImageIndex, animated: false)
+            slideshow.setCurrentPage(initialPage, animated: false)
         }
     }
     
     func close() {
         // if pageSelected closure set, send call it with current page
         if let pageSelected = pageSelected {
-            pageSelected(slideshow.scrollViewPage)
+            pageSelected(slideshow.currentPage)
         }
         
         dismiss(animated: true, completion: nil)
