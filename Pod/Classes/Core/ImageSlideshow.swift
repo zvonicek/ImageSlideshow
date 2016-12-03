@@ -357,8 +357,8 @@ extension ImageSlideshow: UIScrollViewDelegate {
         setTimerIfNeeded()
     }
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
-        setCurrentPageForScrollViewPage(page);
+        let page = Int(scrollView.contentOffset.x) / Int(scrollView.frame.size.width)
+        setCurrentPageForScrollViewPage(page)
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
