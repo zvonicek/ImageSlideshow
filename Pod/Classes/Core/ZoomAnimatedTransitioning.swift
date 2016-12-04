@@ -21,7 +21,12 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
     
     /// Enables or disables swipe-to-dismiss interactive transition
     open var slideToDismissEnabled: Bool = true
-    
+
+    /**
+     Init the transitioning delegate with a source ImageSlideshow
+     - parameter slideshowView: ImageSlideshow instance to animate the transition from
+     - parameter slideshowController: FullScreenViewController instance to animate the transition to
+     */
     public init(slideshowView: ImageSlideshow, slideshowController: FullScreenSlideshowViewController) {
         self.referenceSlideshowView = slideshowView
         self.referenceSlideshowController = slideshowController
@@ -31,6 +36,11 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
         initialize()
     }
 
+    /**
+     Init the transitioning delegate with a source ImageView
+     - parameter imageView: UIImageView instance to animate the transition from
+     - parameter slideshowController: FullScreenViewController instance to animate the transition to
+     */
     public init(imageView: UIImageView, slideshowController: FullScreenSlideshowViewController) {
         self.referenceImageView = imageView
         self.referenceSlideshowController = slideshowController
@@ -84,7 +94,7 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
             interactionController = nil
         }
     }
-    
+
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if let reference = referenceSlideshowView {
             return ZoomInAnimator(referenceSlideshowView: reference, parent: self)

@@ -9,6 +9,12 @@
 import UIKit
 
 @objc public protocol InputSource {
+    /**
+     Load image from the source to image view.
+     - parameter imageView: The image view to load the image into.
+     - parameter callback: Callback called after the image was set to the image view.
+     - parameter image: Image that was set to the image view.
+     */
     func load(to imageView: UIImageView, with callback: @escaping (_ image: UIImage) -> ())
 }
 

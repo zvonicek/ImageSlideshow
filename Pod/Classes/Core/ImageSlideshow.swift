@@ -346,7 +346,6 @@ open class ImageSlideshow: UIView {
         return fullscreen
     }
 
-    public func pageControlValueChanged() {
         self.setCurrentPage(pageControl.currentPage, animated: true)
     }
 }
