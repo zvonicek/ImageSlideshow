@@ -112,6 +112,7 @@ open class ImageSlideshow: UIView {
     fileprivate var slideshowTimer: Timer?
     fileprivate var scrollViewImages = [InputSource]()
 
+    /// Transitioning delegate to manage the transition to full screen controller
     open fileprivate(set) var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
 
     // MARK: - Life cycle
@@ -229,7 +230,11 @@ open class ImageSlideshow: UIView {
     }
     
     // MARK: - Image setting
-    
+
+    /**
+     Set image inputs into the image slideshow
+     - parameter inputs: Array of InputSource instances.
+     */
     open func setImageInputs(_ inputs: [InputSource]) {
         self.images = inputs
         self.pageControl.numberOfPages = inputs.count;
@@ -257,20 +262,30 @@ open class ImageSlideshow: UIView {
     }
     
     // MARK: paging methods
-    
-    open func setCurrentPage(_ currentPage: Int, animated: Bool) {
-        var pageOffset = currentPage
+
+    /**
+     Change the current page
+     - parameter newPage: new page
+     - parameter animated: true if animate the change
+     */
+    open func setCurrentPage(_ newPage: Int, animated: Bool) {
+        var pageOffset = newPage
         if circular {
             pageOffset += 1
         }
         
         self.setScrollViewPage(pageOffset, animated: animated)
     }
-    
-    open func setScrollViewPage(_ scrollViewPage: Int, animated: Bool) {
+
+    /**
+     Change the scroll view page. This may differ from `currentPage` as circular slider has two more dummy pages at indexes 0 and n-1 used to fluently scroll between first and last item.
+     - parameter newScrollViewPage: new scroll view page
+     - parameter animated: true if animate the change
+     */
+    open func setScrollViewPage(_ newScrollViewPage: Int, animated: Bool) {
         if scrollViewPage < scrollViewImages.count {
-            self.scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width * CGFloat(scrollViewPage), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: animated)
-            self.setCurrentPageForScrollViewPage(scrollViewPage)
+            self.scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width * CGFloat(newScrollViewPage), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: animated)
+            self.setCurrentPageForScrollViewPage(newScrollViewPage)
         }
     }
     
@@ -329,7 +344,11 @@ open class ImageSlideshow: UIView {
         setTimerIfNeeded()
     }
 
-    /// Open full screen slideshow
+    /**
+     Open full screen slideshow
+     - parameter controller: Controller to present the full screen controller from
+     - returns: FullScreenSlideshowViewController instance
+     */
     @discardableResult
     open func presentFullScreenController(from controller:UIViewController) -> FullScreenSlideshowViewController {
         let fullscreen = FullScreenSlideshowViewController()
@@ -346,6 +365,7 @@ open class ImageSlideshow: UIView {
         return fullscreen
     }
 
+    @objc private func pageControlValueChanged() {
         self.setCurrentPage(pageControl.currentPage, animated: true)
     }
 }
@@ -360,6 +380,7 @@ extension ImageSlideshow: UIScrollViewDelegate {
         
         setTimerIfNeeded()
     }
+    
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x) / Int(scrollView.frame.size.width)
         setCurrentPageForScrollViewPage(page)
