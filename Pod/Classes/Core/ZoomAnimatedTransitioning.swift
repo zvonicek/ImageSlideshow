@@ -206,6 +206,7 @@ extension ZoomInAnimator: UIViewControllerAnimatedTransitioning {
             transitionView?.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)
         }, completion: {(finished: Bool) in
             fromViewController.view.alpha = 1
+            self.referenceImageView?.alpha = 1
             transitionView?.removeFromSuperview()
             transitionBackgroundView.removeFromSuperview()
             containerView.addSubview(toViewController.view)
@@ -247,6 +248,8 @@ extension ZoomOutAnimator: UIViewControllerAnimatedTransitioning {
 
         var transitionViewFinalFrame: CGRect
         if let referenceImageView = referenceImageView {
+            referenceImageView.alpha = 0
+
             let referenceSlideshowViewFrame = containerView.convert(referenceImageView.bounds, from: referenceImageView)
             transitionViewFinalFrame = referenceSlideshowViewFrame
 

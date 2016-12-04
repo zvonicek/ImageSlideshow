@@ -334,10 +334,6 @@ open class ImageSlideshow: UIView {
     open func presentFullScreenController(from controller:UIViewController) -> FullScreenSlideshowViewController {
         let fullscreen = FullScreenSlideshowViewController()
         fullscreen.pageSelected = {(page: Int) in
-            // Before setting the new page, make sure that the current page image view is made visible again (altered by ZoomAnimator)
-            if let ci = self.currentSlideshowItem {
-                ci.imageView.alpha = 1.0
-            }
             self.setCurrentPage(page, animated: false)
         }
 
