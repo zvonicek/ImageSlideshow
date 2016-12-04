@@ -13,7 +13,8 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
     open var referenceImageView: UIImageView?
     /// parent slideshow view used for animated transition
     open var referenceSlideshowView: ImageSlideshow?
-    let referenceSlideshowController: FullScreenSlideshowViewController
+    // must be weak because FullScreenSlideshowViewController has strong reference to its transitioning delegate
+    weak var referenceSlideshowController: FullScreenSlideshowViewController?
     var referenceSlideshowViewFrame: CGRect?
     var gestureRecognizer: UIPanGestureRecognizer!
     fileprivate var interactionController: UIPercentDrivenInteractiveTransition?
@@ -48,6 +49,10 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
     }
     
     func handleSwipe(_ gesture: UIPanGestureRecognizer) {
+        guard let referenceSlideshowController = referenceSlideshowController else {
+            return
+        }
+
         let percent = min(max(fabs(gesture.translation(in: gesture.view!).y) / 200.0, 0.0), 1.0)
         
         if gesture.state == .began {
@@ -119,7 +124,7 @@ extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
             return false
         }
 
-        if let currentItem = referenceSlideshowController.slideshow.currentSlideshowItem , currentItem.isZoomed() {
+        if let currentItem = referenceSlideshowController?.slideshow.currentSlideshowItem, currentItem.isZoomed() {
             return false
         }
         
