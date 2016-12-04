@@ -279,13 +279,13 @@ extension ZoomOutAnimator: UIViewControllerAnimatedTransitioning {
         fromViewController.view.isHidden = true
         
         let duration: TimeInterval = transitionDuration(using: transitionContext)
-        
-        UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions(), animations: {
+        let animations = {
             toViewController.view.alpha = 1
             transitionView.frame = transitionViewFinalFrame
-        }, completion: {(finished: Bool) in
+        }
+        let completion = { (_: Any) in
             let completed = !transitionContext.transitionWasCancelled
-            
+
             if completed {
                 self.referenceImageView?.alpha = 1
                 fromViewController.view.removeFromSuperview()
@@ -296,11 +296,18 @@ extension ZoomOutAnimator: UIViewControllerAnimatedTransitioning {
                 fromViewController.view.isHidden = false
                 self.referenceImageView?.alpha = 0
             }
-            
+
             transitionView.removeFromSuperview()
             transitionBackgroundView.removeFromSuperview()
-            
+
             transitionContext.completeTransition(completed)
-        })
+        }
+
+        // Working around iOS 10 bug in UIView.animate causing a glitch in interrupted interactive transition 
+        if #available(iOS 10.0, *) {
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: UIViewAnimationOptions(), animations: animations, completion: completion)
+        } else {
+            UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions(), animations: animations, completion: completion)
+        }
     }
 }
