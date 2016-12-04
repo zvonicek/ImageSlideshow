@@ -145,6 +145,7 @@ open class ImageSlideshow: UIView {
         addSubview(scrollView)
         
         addSubview(pageControl)
+        pageControl.addTarget(self, action: Selector("pageControlValueChanged"), for: .valueChanged)
         
         setTimerIfNeeded()
         layoutScrollView()
@@ -347,6 +348,10 @@ open class ImageSlideshow: UIView {
         controller.present(fullscreen, animated: true, completion: nil)
 
         return fullscreen
+    }
+
+    public func pageControlValueChanged() {
+        self.setCurrentPage(pageControl.currentPage, animated: true)
     }
 }
 
