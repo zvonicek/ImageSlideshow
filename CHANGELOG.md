@@ -5,14 +5,20 @@
 Version 1.0 aims to improve stability and brings couple of new features. Also contains few backward complatibility breaking changes.
 
 ## New Features
-- New input source for Kingfisher (thanks @feiin)
+- New input source for Kingfisher (@feiin)
 - Add `currentPageChanged` closure to notify about page change (#54)
 - Add possibility to lazy load and release images (#42)
 - Easier way to present `FullScreenSlideshowViewController` (#72)
+- Documentation improvements
 
 ## Fixes
 - Fix the case when containing VC automatically adjusts scrollview insets (#71)
 - Fix crash during transition when no images set (#74) 
+- Rounding error fix for page calculation (#90, @mjrehder)
+- Fix for black image when using fullscreen zoom (#92, @mjrehder)
+- Change page on UIPageControl page change (#80)
+- iOS 10 interactive transition interruption fix (5d5f22f)
+- Memory fixes
 
 ## API changes
 - `currentItemIndex` was renamed to `currentPage`
