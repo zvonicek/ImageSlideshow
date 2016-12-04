@@ -9,15 +9,16 @@
 import UIKit
 
 open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
-
-    var referenceImageView: UIImageView?
-    var referenceSlideshowView: ImageSlideshow?
+    /// parent image view used for animated transition
+    open var referenceImageView: UIImageView?
+    /// parent slideshow view used for animated transition
+    open var referenceSlideshowView: ImageSlideshow?
     let referenceSlideshowController: FullScreenSlideshowViewController
     var referenceSlideshowViewFrame: CGRect?
     var gestureRecognizer: UIPanGestureRecognizer!
     fileprivate var interactionController: UIPercentDrivenInteractiveTransition?
     
-    /// Enables or disables swipe-to-dismiss
+    /// Enables or disables swipe-to-dismiss interactive transition
     open var slideToDismissEnabled: Bool = true
     
     public init(slideshowView: ImageSlideshow, slideshowController: FullScreenSlideshowViewController) {
