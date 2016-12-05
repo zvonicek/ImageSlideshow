@@ -31,6 +31,13 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         imageView.isUserInteractionEnabled = true
         
         setPictoCenter()
+		
+		//set up the button
+		let screenWidth = UIScreen.mainScreen().bounds.width
+        let saveImageButtonWidth = saveImageButton.frame.width
+        saveImageButton.frame = CGRectMake(screenWidth - 50, 20, 40, 40)
+        saveImageButton.setBackgroundImage(UIImage(named: "options"), forState: UIControlState.Normal)
+        saveImageButton.addTarget(self, action: #selector(ImageSlideshowItem.saveImage), forControlEvents: UIControlEvents.TouchUpInside)
         
         // scroll view configuration
         delegate = self
@@ -64,6 +71,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         if isFullScreen() {
             clearContentInsets()
         } else {
+			addSaveImageButton()  //add the button to the image only when is fullscreen
             setPictoCenter()
         }
         
@@ -181,5 +189,29 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return zoomEnabled ? imageView : nil;
     }
+	
+	public func addSaveImageButton(){
+        
+        
+        imageView.addSubview(saveImageButton)
+
+    }
+	
+	func saveImage() {
+        
+         UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, "image:didFinishSavingWithError:contextInfo:", nil)  //save the image
+    }
+    func image(image: UIImage!, didFinishSavingWithError error: NSError!, contextInfo: AnyObject!) {
+        if (error != nil) {
+            // Something wrong happened.
+            print("not saved")
+        } else {
+            // Everything is alright. Here it has to be an alert that will notify the user that the image is saved.
+            // Tried but it was super hard. I will submit it though If anyone wants to try out.
+			// Possible to make other functions like "Delete Image", "Report Image" etc. That's why the icon is an "Options" icon.
+            
+        }
+    }
+
     
 }
