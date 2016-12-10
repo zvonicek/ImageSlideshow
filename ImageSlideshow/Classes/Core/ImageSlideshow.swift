@@ -166,7 +166,7 @@ open class ImageSlideshow: UIView {
         addSubview(scrollView)
         
         addSubview(pageControl)
-        pageControl.addTarget(self, action: Selector("pageControlValueChanged"), for: .valueChanged)
+        pageControl.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
         
         setTimerIfNeeded()
         layoutScrollView()
