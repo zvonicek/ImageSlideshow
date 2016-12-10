@@ -14,25 +14,25 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - Alamofire (4.0.1)
-  - AlamofireImage (3.1.0):
-    - Alamofire (~> 4.0)
-  - ImageSlideshow (0.6):
-    - ImageSlideshow/Core (= 0.6)
-  - ImageSlideshow/AFURL (0.6):
+  - Alamofire (4.2.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
+  - ImageSlideshow (1.0.0-beta.1):
+    - ImageSlideshow/Core (= 1.0.0-beta.1)
+  - ImageSlideshow/AFURL (1.0.0-beta.1):
     - AFNetworking (~> 3.0)
     - ImageSlideshow/Core
-  - ImageSlideshow/Alamofire (0.6):
+  - ImageSlideshow/Alamofire (1.0.0-beta.1):
     - AlamofireImage (~> 3.0)
     - ImageSlideshow/Core
-  - ImageSlideshow/Core (0.6)
-  - ImageSlideshow/Kingfisher (0.6):
+  - ImageSlideshow/Core (1.0.0-beta.1)
+  - ImageSlideshow/Kingfisher (1.0.0-beta.1):
     - ImageSlideshow/Core
     - Kingfisher (~> 3.0)
-  - ImageSlideshow/SDWebImage (0.6):
+  - ImageSlideshow/SDWebImage (1.0.0-beta.1):
     - ImageSlideshow/Core
     - SDWebImage (~> 3.7)
-  - Kingfisher (3.1.4)
+  - Kingfisher (3.2.2)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -50,12 +50,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
-  AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
-  ImageSlideshow: f4dc163508e8ca0368f78942b6e50f4046d823b6
-  Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  ImageSlideshow: 2acb2ad58fff053bcb344d30a31700b48dd8f58b
+  Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: c42cb03d5e4986ee56ac6d599bb0492e5c0a3472
+PODFILE CHECKSUM: 9f5f0235fb1728554054ee3ff7128ff5d4729418
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0.beta.1

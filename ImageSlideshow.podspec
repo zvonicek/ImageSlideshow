@@ -31,35 +31,35 @@ Image slideshow is a Swift library providing customizable image slideshow with c
   s.requires_arc = true
 
   s.subspec 'Core' do |core|
-    core.source_files = 'Pod/Classes/Core/**/*'
+    core.source_files = 'ImageSlideshow/Classes/Core/**/*'
     core.resource_bundles = {
-        'ImageSlideshow' => ['Pod/Assets/*.png']
+        'ImageSlideshow' => ['ImageSlideshow/Assets/*.png']
     }
   end
 
   s.subspec 'AFURL' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
     subspec.dependency 'AFNetworking', '~> 3.0'
-    subspec.source_files = 'Pod/Classes/InputSources/AFURLSource.swift'
+    subspec.source_files = 'ImageSlideshow/Classes/InputSources/AFURLSource.swift'
   end
 
   s.subspec 'Alamofire' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
     subspec.dependency 'AlamofireImage', '~> 3.0'
-    subspec.source_files = 'Pod/Classes/InputSources/AlamofireSource.swift'
+    subspec.source_files = 'ImageSlideshow/Classes/InputSources/AlamofireSource.swift'
     subspec.platform     = :ios, '9.0'
   end
 
   s.subspec 'SDWebImage' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
     subspec.dependency 'SDWebImage', '~> 3.7'
-    subspec.source_files = 'Pod/Classes/InputSources/SDWebImageSource.swift'
+    subspec.source_files = 'ImageSlideshow/Classes/InputSources/SDWebImageSource.swift'
   end
 
   s.subspec 'Kingfisher' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
     subspec.dependency 'Kingfisher', '~> 3.0'
-    subspec.source_files = 'Pod/Classes/InputSources/KingfisherSource.swift'
+    subspec.source_files = 'ImageSlideshow/Classes/InputSources/KingfisherSource.swift'
   end
 
   s.default_subspec = 'Core'
