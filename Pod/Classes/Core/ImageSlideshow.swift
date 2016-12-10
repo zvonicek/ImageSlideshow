@@ -322,13 +322,11 @@ open class ImageSlideshow: UIView {
         if !circular && page == scrollViewImages.count - 1 {
             nextPage = 0
         }
-        
-        self.scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width * CGFloat(nextPage), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: true)
-        
-        self.setCurrentPageForScrollViewPage(nextPage);
+
+        self.setScrollViewPage(nextPage, animated: true)
     }
     
-    open func setCurrentPageForScrollViewPage(_ page: Int) {
+    fileprivate func setCurrentPageForScrollViewPage(_ page: Int) {
         if scrollViewPage != page {
             // current page has changed, zoom out this image
             if slideshowItems.count > scrollViewPage {
