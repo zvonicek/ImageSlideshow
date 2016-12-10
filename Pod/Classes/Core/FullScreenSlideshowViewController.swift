@@ -20,12 +20,17 @@ open class FullScreenSlideshowViewController: UIViewController {
         
         return slideshow
     }()
-    
+
+    /// Close button 
     open var closeButton = UIButton()
+
+    /// Closure called on page selection
     open var pageSelected: ((_ page: Int) -> ())?
     
     /// Index of initial image
     open var initialPage: Int = 0
+
+    /// Input sources to 
     open var inputs: [InputSource]?
     
     /// Background color

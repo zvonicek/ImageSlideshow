@@ -7,20 +7,33 @@
 
 import UIKit
 
+/// Used to wrap a single slideshow item and allow zooming on it
 open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
-    
+
     open let imageView = UIImageView()
+
+    /// Input Source for the item
     open let image: InputSource
+
+    /// Guesture recognizer to detect double tap to zoom
     open var gestureRecognizer: UITapGestureRecognizer?
-    
+
+    /// Holds if the zoom feature is enabled
     open let zoomEnabled: Bool
+
+    /// If set to true image is initially zoomed in
     open var zoomInInitially = false
     
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
     
     // MARK: - Life cycle
-    
+
+    /**
+        Initializes a new ImageSlideshowItem
+        - parameter image: Input Source to load the image
+        - parameter zoomEnabled: holds if it should be possible to zoom-in the image
+    */
     init(image: InputSource, zoomEnabled: Bool) {
         self.zoomEnabled = zoomEnabled
         self.image = image
@@ -78,7 +91,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         maximumZoomScale = calculateMaximumScale()
     }
 
-    /// Request to load image to imageView
+    /// Request to load Image Source to Image View
     func loadImage() {
         if self.imageView.image == nil {
             imageReleased = false

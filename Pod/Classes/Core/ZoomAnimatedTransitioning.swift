@@ -13,8 +13,10 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
     open var referenceImageView: UIImageView?
     /// parent slideshow view used for animated transition
     open var referenceSlideshowView: ImageSlideshow?
+
     // must be weak because FullScreenSlideshowViewController has strong reference to its transitioning delegate
     weak var referenceSlideshowController: FullScreenSlideshowViewController?
+
     var referenceSlideshowViewFrame: CGRect?
     var gestureRecognizer: UIPanGestureRecognizer!
     fileprivate var interactionController: UIPercentDrivenInteractiveTransition?
@@ -23,9 +25,9 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
     open var slideToDismissEnabled: Bool = true
 
     /**
-     Init the transitioning delegate with a source ImageSlideshow
-     - parameter slideshowView: ImageSlideshow instance to animate the transition from
-     - parameter slideshowController: FullScreenViewController instance to animate the transition to
+        Init the transitioning delegate with a source ImageSlideshow
+        - parameter slideshowView: ImageSlideshow instance to animate the transition from
+        - parameter slideshowController: FullScreenViewController instance to animate the transition to
      */
     public init(slideshowView: ImageSlideshow, slideshowController: FullScreenSlideshowViewController) {
         self.referenceSlideshowView = slideshowView
@@ -37,9 +39,9 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
     }
 
     /**
-     Init the transitioning delegate with a source ImageView
-     - parameter imageView: UIImageView instance to animate the transition from
-     - parameter slideshowController: FullScreenViewController instance to animate the transition to
+        Init the transitioning delegate with a source ImageView
+        - parameter imageView: UIImageView instance to animate the transition from
+        - parameter slideshowController: FullScreenViewController instance to animate the transition to
      */
     public init(imageView: UIImageView, slideshowController: FullScreenSlideshowViewController) {
         self.referenceImageView = imageView

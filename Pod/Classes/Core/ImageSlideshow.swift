@@ -7,6 +7,13 @@
 
 import UIKit
 
+/** 
+    Used to represent position of the Page Control
+    - hidden: Page Control is hidden
+    - insideScrollView: Page Control is inside image slideshow
+    - underScrollView: Page Control is under image slideshow
+    - custom: Custom vertical padding, relative to "insideScrollView" position
+ */
 public enum PageControlPosition {
     case hidden
     case insideScrollView
@@ -25,14 +32,22 @@ public enum PageControlPosition {
     }
 }
 
+/// Used to represent image preload strategy
+///
+/// - fixed: preload only fixed number of images before and after the current image
+/// - all: preload all images in the slideshow
 public enum ImagePreload {
     case fixed(offset: Int)
     case all
 }
 
+/// Main view containing the Image Slideshow
 open class ImageSlideshow: UIView {
-    
+
+    /// Scroll View to wrap the slideshow
     open let scrollView = UIScrollView()
+
+    /// Page Control shown in the slideshow
     open let pageControl = UIPageControl()
     
     // MARK: - State properties
@@ -68,9 +83,14 @@ open class ImageSlideshow: UIView {
             return nil
         }
     }
-    
+
+    /// Current scroll view page. This may differ from `currentPage` as circular slider has two more dummy pages at indexes 0 and n-1 to provide fluent scrolling between first and last item.
     open fileprivate(set) var scrollViewPage: Int = 0
+
+    /// Input Sources loaded to slideshow
     open fileprivate(set) var images = [InputSource]()
+
+    /// Image Slideshow Items loaded to slideshow
     open fileprivate(set) var slideshowItems = [ImageSlideshowItem]()
     
     // MARK: - Preferences
@@ -278,7 +298,7 @@ open class ImageSlideshow: UIView {
     }
 
     /**
-     Change the scroll view page. This may differ from `currentPage` as circular slider has two more dummy pages at indexes 0 and n-1 used to fluently scroll between first and last item.
+     Change the scroll view page. This may differ from `setCurrentPage` as circular slider has two more dummy pages at indexes 0 and n-1 to provide fluent scrolling between first and last item.
      - parameter newScrollViewPage: new scroll view page
      - parameter animated: true if animate the change
      */
