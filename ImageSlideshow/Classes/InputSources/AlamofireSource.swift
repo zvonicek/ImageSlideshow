@@ -9,14 +9,19 @@
 import Alamofire
 import AlamofireImage
 
+/// Input Source to image using Alamofire
 public class AlamofireSource: NSObject, InputSource {
     var url: URL
-    
+
+    /// Initializes a new source with a URL
+    /// - parameter url: a url to be loaded
     public init(url: URL) {
         self.url = url
         super.init()
     }
 
+    /// Initializes a new source with a URL string
+    /// - parameter urlString: a string url to be loaded
     public init?(urlString: String) {
         if let validUrl = URL(string: urlString) {
             self.url = validUrl
