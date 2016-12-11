@@ -1,6 +1,6 @@
 # Change log
 
-## 1.0 (?)
+## [1.0.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.0.0) (11/12/2016)
 
 Version 1.0 aims to improve stability and brings couple of new features. Also contains few backward complatibility breaking changes.
 
