@@ -36,20 +36,13 @@ github "zvonicek/ImageSlideshow" "1.0.0"
 Version 1.0 supports Swift 3. For Swift 2.2 and Swift 2.3 compatible code use version 0.6 or branch *swift-2.3*. 
 
 
-## Usage
+## 🔨 How to use
 
 Add ImageSlideshow view to your view hiearchy either in Interface Builder or in code. 
 
 ### Loading images
 
 Set images by using ```setImageInputs``` method on ```ImageSlideshow``` instance with an array of *InputSource*s. By default you can use ```ImageSource``` which takes ```UIImage``` or few other *InputSource*s for most popular networking libraries. You can also create your own input source by implementing ```InputSource``` protocol.
-
-```swift
-slideshow.setImageInputs([
-  ImageSource(image: UIImage(named: "myImage"))!, 
-  ImageSource(image: UIImage(named: "myImage2"))!
-])
-```
 
 | Library                                                       | InputSource name | Pod                               |
 | ------------------------------------------------------------- |:----------------:| ---------------------------------:|
@@ -58,6 +51,15 @@ slideshow.setImageInputs([
 | [SDWebImage](https://github.com/rs/SDWebImage)                | SDWebImageSource | `pod "ImageSlideshow/SDWebImage"` |
 | [Kingfisher](https://github.com/onevcat/Kingfisher)           | KingfisherSource | `pod "ImageSlideshow/Kingfisher"` |
 
+
+```swift
+slideshow.setImageInputs([
+  ImageSource(image: UIImage(named: "myImage"))!, 
+  ImageSource(image: UIImage(named: "myImage2"))!,
+  AlamofireSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"),
+  KingfisherSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
+])
+```
 
 ### Configuration
 
