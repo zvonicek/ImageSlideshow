@@ -31,7 +31,14 @@ To integrate ImageSlideshow into your Xcode project using Carthage, specify it i
 github "zvonicek/ImageSlideshow" "1.0.0"
 ```
 
-###  Swift 2.3 and Swift 3 support
+Carthage does not include InputSources for external providers (due to dependency on those providers) so you need to grab the one you need from `ImageSlideshow/Classes/InputSources` manually.
+
+### Manually
+One possibility is to download a builded framework (ImageSlideshow.framework.zip) from [releases page](https://github.com/zvonicek/ImageSlideshow/releases/) and link it with your project (under`Linked Frameworks and Libraries` in your target). This is, however, currently problematic because of rapid Swift development -- the framework is builded for a single Swift version and may not work on previous/future versions.
+
+Alternatively can also grab the whole `ImageSlideshow` directory and copy it to your project. Be sure to remove those external Input Sources you don't need.
+
+**Note on Swift 2.3 and Swift 3 support**
 
 Version 1.0 supports Swift 3. For Swift 2.2 and Swift 2.3 compatible code use version 0.6 or branch *swift-2.3*. 
 
