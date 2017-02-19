@@ -31,7 +31,7 @@ public class AlamofireSource: NSObject, InputSource {
         }
     }
 
-    public func load(to imageView: UIImageView, with callback: @escaping (UIImage) -> ()) {
+    public func load(to imageView: UIImageView, with callback: @escaping (UIImage) -> Void) {
         imageView.af_setImage(withURL: self.url, placeholderImage: nil, filter: nil, progress: nil) { (response) in
             imageView.image = response.result.value
             if let value = response.result.value {
@@ -39,5 +39,5 @@ public class AlamofireSource: NSObject, InputSource {
             }
         }
     }
-    
+
 }

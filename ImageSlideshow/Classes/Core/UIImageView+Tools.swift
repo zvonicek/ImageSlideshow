@@ -9,17 +9,17 @@
 import UIKit
 
 extension UIImageView {
-    
+
     func aspectToFitFrame() -> CGRect {
-        
+
         guard let image = image else {
             assertionFailure("No image found!")
             return CGRect.zero
         }
-        
+
         let imageRatio: CGFloat = image.size.width / image.size.height
         let viewRatio: CGFloat = frame.size.width / frame.size.height
-        
+
         if imageRatio < viewRatio {
             let scale: CGFloat = frame.size.height / image.size.height
             let width: CGFloat = scale * image.size.width
