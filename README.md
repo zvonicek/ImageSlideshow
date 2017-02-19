@@ -73,13 +73,13 @@ slideshow.setImageInputs([
 Behaviour is configurable by those properties:
 
 - ```slideshowInterval``` - in case you want automatic slideshow, set up the interval between sliding to next picture
-- ```zoomEnabled``` - enables zooming
-- ```circular``` - enables circular scrolling
-- ```pageControlPosition``` - configures position of UIPageControll (hidden, inside scroll view or under scroll view)
-- ```contentScaleMode``` - configures the scaling (UIViewContentMode.ScaleAspectFit by default)
-- ```draggingEnabled``` - enables dragging
+- ```zoomEnabled``` - enables zooming (default `false`)
+- ```circular``` - enables circular scrolling (default `true`)
+- ```pageControlPosition``` - configures position of UIPageControl (default `insideScrollView`, also `hidden`, `underScrollView` or `custom`)
+- ```contentScaleMode``` - configures the scaling (default `ScaleAspectFit`)
+- ```draggingEnabled``` - enables dragging (default `true`)
 - ```currentPageChanged``` - closure called on page change
-- ```preload``` - image preloading configuration (all images are preloaded by default)
+- ```preload``` - image preloading configuration (`all` preloading default, also `fixed`)
 
 ### Full Screen view
 
