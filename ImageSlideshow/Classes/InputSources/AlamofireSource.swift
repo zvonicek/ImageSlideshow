@@ -1,6 +1,6 @@
 //
 //  AlamofireSource.swift
-//  Pods
+//  ImageSlideshow
 //
 //  Created by Petr Zvoníček on 14.01.16.
 //

@@ -62,6 +62,12 @@ Image slideshow is a Swift library providing customizable image slideshow with c
     subspec.source_files = 'ImageSlideshow/Classes/InputSources/KingfisherSource.swift'
   end
 
+  s.subspec 'Parse' do |subspec|
+    subspec.dependency 'ImageSlideshow/Core'
+    subspec.dependency 'Parse', '~> 1.14'
+    subspec.source_files = 'ImageSlideshow/Classes/InputSources/ParseSource.swift'
+  end
+
   s.default_subspec = 'Core'
 
 end
