@@ -13,7 +13,7 @@ public class ParseSource: NSObject, InputSource {
     var file: PFFile
     var placeholder: UIImage?
 
-    //@abstract Initializes a new source with URL and optionally a placeholder
+    /// Initializes a new source with URL and optionally a placeholder
     /// - parameter url: a url to be loaded
     /// - parameter placeholder: a placeholder used before image is loaded
     public init(file: PFFile, placeholder: UIImage? = nil) {
@@ -22,17 +22,11 @@ public class ParseSource: NSObject, InputSource {
         super.init()
     }
 
-
-    @objc public func load(to imageView: UIImageView, with callback: @escaping (UIImage) -> ()) {
-      // maybe  callback(self.placeholder!) while it loads
-      self.file.getDataInBackground {(imageData: Data?, error:Error?) in
-          if let e = error  {
-              print(e)
-          }
-          if let data = imageData {
-              if let img=UIImage(data:data){
-                callback(img!)
-              }
+    @objc public func load(to imageView: UIImageView, with callback: @escaping (UIImage) -> Void) {
+      self.file.getDataInBackground {(data: Data?, error: Error?) in
+        if let data = data, let image = UIImage(data: data) {
+            imageView.image = image
+            callback(image)
           }
         }
     }
