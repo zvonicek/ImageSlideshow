@@ -74,7 +74,7 @@ Behaviour is configurable by those properties:
 
 - ```slideshowInterval``` - in case you want automatic slideshow, set up the interval between sliding to next picture
 - ```zoomEnabled``` - enables zooming
-- ```circular``` - enables circular scrolling
+- ```circular``` - enables circular scrolling. Enabled by default, if you wanna disable it make sure you do it before calling `setImageInputs`
 - ```pageControlPosition``` - configures position of UIPageControll (hidden, inside scroll view or under scroll view)
 - ```contentScaleMode``` - configures the scaling (UIViewContentMode.ScaleAspectFit by default)
 - ```draggingEnabled``` - enables dragging
