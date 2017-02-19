@@ -67,7 +67,6 @@ open class ImageSlideshow: UIView {
 
             if oldValue != currentPage {
                 currentPageChanged?(currentPage)
-                loadImages(for: currentPage)
             }
         }
     }
@@ -229,10 +228,10 @@ open class ImageSlideshow: UIView {
             scrollViewPage = 0
         }
 
-        loadImages(for: 0)
+        loadImages(for: scrollViewPage)
     }
 
-    private func loadImages(for page: Int) {
+    private func loadImages(for scrollViewPage: Int) {
         let totalCount = slideshowItems.count
 
         for i in 0..<totalCount {
@@ -240,13 +239,15 @@ open class ImageSlideshow: UIView {
             switch self.preload {
             case .all:
                 item.loadImage()
-            case .fixed(let offset):
+            case .fixed(var offset):
+                // if circular scrolling is enabled and image is on the edge, a helper ("dummy") image on the other side needs to be loaded too
+                let circularEdgeLoad = circular && ((scrollViewPage == 0 && i == totalCount-3) || (scrollViewPage == 0 && i == totalCount-2) || (scrollViewPage == totalCount-2 && i == 1))
+
                 // load image if page is in range of loadOffset, else release image
-                let shouldLoad = abs(page-i) <= offset || abs(page-i) > totalCount-offset
+                let shouldLoad = abs(scrollViewPage-i) <= offset || abs(scrollViewPage-i) > totalCount-offset || circularEdgeLoad
                 shouldLoad ? item.loadImage() : item.releaseImage()
             }
         }
-
     }
 
     // MARK: - Image setting
@@ -334,6 +335,9 @@ open class ImageSlideshow: UIView {
             }
         }
 
+        if page != scrollViewPage {
+            loadImages(for: page)
+        }
         scrollViewPage = page
 
         if circular {
