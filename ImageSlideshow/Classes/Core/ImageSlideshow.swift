@@ -95,7 +95,13 @@ open class ImageSlideshow: UIView {
     // MARK: - Preferences
 
     /// Enables/disables infinite scrolling between images
-    open var circular = true
+    open var circular = true {
+        didSet {
+            if self.images.count > 0 {
+                self.setImageInputs(self.images)
+            }
+        }
+    }
 
     /// Enables/disables user interactions
     open var draggingEnabled = true {
