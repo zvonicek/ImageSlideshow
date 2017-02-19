@@ -251,7 +251,7 @@ open class ImageSlideshow: UIView {
             switch self.preload {
             case .all:
                 item.loadImage()
-            case .fixed(var offset):
+            case .fixed(let offset):
                 // if circular scrolling is enabled and image is on the edge, a helper ("dummy") image on the other side needs to be loaded too
                 let circularEdgeLoad = circular && ((scrollViewPage == 0 && i == totalCount-3) || (scrollViewPage == 0 && i == totalCount-2) || (scrollViewPage == totalCount-2 && i == 1))
 

@@ -5,7 +5,6 @@
 //  Created by Jaime Agudo Lopez on 14/01/2017.
 //
 
-import ImageSlideshow
 import Parse
 
 /// Input Source to image using Parse
