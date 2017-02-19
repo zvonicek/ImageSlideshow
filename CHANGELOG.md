@@ -1,5 +1,19 @@
 # Change log
 
+## [1.1.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.1.0) (19/02/2017)
+
+## New Features
+
+- Add `willBeginDragging` and `didEndDecelerating` callback closures (@El-Fitz)
+- Add Parse input source (@jaimeagudo)
+
+## Fixes
+
+- Fix image preload issue when scrolling between edges (#115)
+- Fix issue caused by disabling `circular` after setting input sources (#104)
+- Improve example project
+- Style fixes (@dogo)
+
 ## [1.0.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.0.0) (11/12/2016)
 
 Version 1.0 aims to improve stability and brings couple of new features. Also contains few backward complatibility breaking changes.
