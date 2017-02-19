@@ -81,6 +81,8 @@ Behaviour is configurable by those properties:
 - ```contentScaleMode``` - configures the scaling (default `ScaleAspectFit`)
 - ```draggingEnabled``` - enables dragging (default `true`)
 - ```currentPageChanged``` - closure called on page change
+- ```willBeginDragging``` - closure called on scrollViewWillBeginDragging
+- ```didEndDecelerating``` - closure called on scrollViewDidEndDecelerating
 - ```preload``` - image preloading configuration (default `all` preloading, also `fixed`)
 
 ### Full Screen view

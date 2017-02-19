@@ -72,7 +72,13 @@ open class ImageSlideshow: UIView {
     }
 
     /// Called on each currentPage change
-    open var currentPageChanged: ((_ page: Int) -> Void)?
+    open var currentPageChanged: ((_ page: Int) -> ())?
+
+    /// Called on scrollViewWillBeginDragging
+    open var willBeginDragging: (() -> ())?
+
+    /// Called on scrollViewDidEndDecelerating
+    open var didEndDecelerating: (() -> ())?
 
     /// Currenlty displayed slideshow item
     open var currentSlideshowItem: ImageSlideshowItem? {
@@ -407,11 +413,13 @@ extension ImageSlideshow: UIScrollViewDelegate {
         }
 
         setTimerIfNeeded()
+        willBeginDragging?()
     }
 
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x) / Int(scrollView.frame.size.width)
         setCurrentPageForScrollViewPage(page)
+        didEndDecelerating?()
     }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
