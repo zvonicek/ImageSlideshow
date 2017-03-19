@@ -309,7 +309,7 @@ extension ZoomOutAnimator: UIViewControllerAnimatedTransitioning {
                 fromViewController.view.removeFromSuperview()
                 UIApplication.shared.keyWindow?.removeGestureRecognizer(self.parent.gestureRecognizer)
                 // Unpauses slideshow
-                self.referenceSlideshowView?.unpauseTimerIfNeeded()
+                self.referenceSlideshowView?.unpauseTimer()
             } else {
                 fromViewController.view.isHidden = false
                 self.referenceImageView?.alpha = 0
