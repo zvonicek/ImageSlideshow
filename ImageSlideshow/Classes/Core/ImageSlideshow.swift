@@ -185,7 +185,7 @@ open class ImageSlideshow: UIView {
 
     open override func removeFromSuperview() {
         super.removeFromSuperview()
-        self.pauseTimerIfNeeded()
+        self.pauseTimer()
     }
 
     override open func layoutSubviews() {
@@ -373,14 +373,24 @@ open class ImageSlideshow: UIView {
     }
 
     /// Stops slideshow timer
-    open func pauseTimerIfNeeded() {
+    open func pauseTimer() {
         slideshowTimer?.invalidate()
         slideshowTimer = nil
     }
 
     /// Restarts slideshow timer
-    open func unpauseTimerIfNeeded() {
+    open func unpauseTimer() {
         setTimerIfNeeded()
+    }
+
+    @available(*, deprecated, message: "use pauseTimer instead")
+    open func pauseTimerIfNeeded() {
+        self.pauseTimer()
+    }
+
+    @available(*, deprecated, message: "use unpauseTimer instead")
+    open func unpauseTimerIfNeeded() {
+        self.unpauseTimer()
     }
 
     /**

@@ -174,7 +174,7 @@ extension ZoomInAnimator: UIViewControllerAnimatedTransitioning {
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         // Pauses slideshow
-        self.referenceSlideshowView?.pauseTimerIfNeeded()
+        self.referenceSlideshowView?.pauseTimer()
 
         let containerView = transitionContext.containerView
         let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
