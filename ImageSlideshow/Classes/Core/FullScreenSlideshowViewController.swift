@@ -57,6 +57,8 @@ open class FullScreenSlideshowViewController: UIViewController {
         if let inputs = inputs {
             slideshow.setImageInputs(inputs)
         }
+        
+        var statusBarFrame : CGRect = UIApplication.shared.statusBarFrame
 
         slideshow.frame = view.frame
         view.addSubview(slideshow)
@@ -68,8 +70,9 @@ open class FullScreenSlideshowViewController: UIViewController {
         view.addSubview(closeButton)
     }
 
+    // This setting only working for those who working with StatusBar
     override open var prefersStatusBarHidden: Bool {
-        return true
+        return false
     }
 
     override open func viewWillAppear(_ animated: Bool) {
