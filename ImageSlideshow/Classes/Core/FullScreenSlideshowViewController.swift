@@ -81,6 +81,10 @@ open class FullScreenSlideshowViewController: UIViewController {
         }
     }
 
+    open override func viewDidLayoutSubviews() {
+        slideshow.frame = view.frame
+    }
+
     func close() {
         // if pageSelected closure set, send call it with current page
         if let pageSelected = pageSelected {
