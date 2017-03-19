@@ -1,5 +1,17 @@
 # Change log
 
+## [1.2.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.1.0) (20/03/2017)
+
+## New Features
+
+- Improved placeholder handling on all remote input sources
+- Deprecated `pauseTimerIfNeeded` and `unpauseTimerIfNeeded` in favour of `pauseTimer` and `unpauseTimer`
+
+## Fixes
+
+- Fix memory leak caused by incorrect timer invalidation
+- Partially fix an UI glitch happening when "in-call" status bar is on
+
 ## [1.1.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.1.0) (19/02/2017)
 
 ## New Features
