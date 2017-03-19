@@ -183,6 +183,11 @@ open class ImageSlideshow: UIView {
         layoutScrollView()
     }
 
+    open override func removeFromSuperview() {
+        super.removeFromSuperview()
+        self.pauseTimerIfNeeded()
+    }
+
     override open func layoutSubviews() {
         super.layoutSubviews()
 
