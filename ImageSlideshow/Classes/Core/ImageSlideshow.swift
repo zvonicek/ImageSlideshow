@@ -421,7 +421,7 @@ open class ImageSlideshow: UIView {
 
 extension ImageSlideshow: UIScrollViewDelegate {
 
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if slideshowTimer?.isValid != nil {
             slideshowTimer?.invalidate()
             slideshowTimer = nil
@@ -431,13 +431,13 @@ extension ImageSlideshow: UIScrollViewDelegate {
         willBeginDragging?()
     }
 
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x) / Int(scrollView.frame.size.width)
         setCurrentPageForScrollViewPage(page)
         didEndDecelerating?()
     }
 
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if circular {
             let regularContentOffset = scrollView.frame.size.width * CGFloat(images.count)
 
