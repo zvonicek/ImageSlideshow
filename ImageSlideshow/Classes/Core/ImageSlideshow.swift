@@ -308,7 +308,7 @@ open class ImageSlideshow: UIView {
      */
     open func setCurrentPage(_ newPage: Int, animated: Bool) {
         var pageOffset = newPage
-        if circular {
+        if circular && (scrollViewImages.count > 1) {
             pageOffset += 1
         }
 
