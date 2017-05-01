@@ -133,7 +133,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.imageView.image = nil
     }
 
-    fileprivate func retryLoadImage() {
+    func retryLoadImage() {
         self.loadImage()
     }
 
