@@ -30,6 +30,13 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
+    fileprivate var singleTapGestureRecognizer: UITapGestureRecognizer?
+    fileprivate var loadFailed = false {
+        didSet {
+            singleTapGestureRecognizer?.isEnabled = loadFailed
+            gestureRecognizer?.isEnabled = !loadFailed
+        }
+    }
 
     // MARK: - Life cycle
 
@@ -67,6 +74,11 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         tapRecognizer.numberOfTapsRequired = 2
         imageView.addGestureRecognizer(tapRecognizer)
         gestureRecognizer = tapRecognizer
+
+        singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(retryLoadImage))
+        singleTapGestureRecognizer!.numberOfTapsRequired = 1
+        singleTapGestureRecognizer!.isEnabled = false
+        imageView.addGestureRecognizer(singleTapGestureRecognizer!)
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -111,6 +123,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
                 // set image to nil if there was a release request during the image load
                 self.imageView.image = self.imageReleased ? nil : image
                 self.activityIndicator?.hide()
+                self.loadFailed = image == nil
             }
         }
     }
@@ -118,6 +131,10 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     func releaseImage() {
         imageReleased = true
         self.imageView.image = nil
+    }
+
+    fileprivate func retryLoadImage() {
+        self.loadImage(
     }
 
     // MARK: - Image zoom & size
