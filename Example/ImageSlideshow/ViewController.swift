@@ -32,6 +32,8 @@ class ViewController: UIViewController {
         slideshow.pageControl.currentPageIndicatorTintColor = UIColor.lightGray
         slideshow.pageControl.pageIndicatorTintColor = UIColor.black
         slideshow.contentScaleMode = UIViewContentMode.scaleAspectFill
+        // optional way to show activity indicator during image load (skipping the line will show no activity indicator)
+        slideshow.activityIndicator = DefaultActivityIndicator()
         slideshow.currentPageChanged = { page in
             print("current page:", page)
         }
@@ -44,6 +46,8 @@ class ViewController: UIViewController {
     }
 
     func didTap() {
-        slideshow.presentFullScreenController(from: self)
+        let fullScreenController = slideshow.presentFullScreenController(from: self)
+        // set the activity indicator for full screen controller; skip the line if no activity indicator should be shown
+        fullScreenController.slideshow.activityIndicator = DefaultActivityIndicator(style: .white, color: nil)
     }
 }

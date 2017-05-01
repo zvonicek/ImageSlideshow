@@ -14,6 +14,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		D0083DCE1EB739E700126B21 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */; };
 		D0E8A9E61D97EB6D007EC517 /* ImageSlideshow_framework.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E8A9E41D97EB6D007EC517 /* ImageSlideshow_framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8A9F11D97EB94007EC517 /* FullScreenSlideshowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9EA1D97EB94007EC517 /* FullScreenSlideshowViewController.swift */; };
 		D0E8A9F21D97EB94007EC517 /* ImageSlideshow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9EB1D97EB94007EC517 /* ImageSlideshow.swift */; };
@@ -50,6 +51,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		749E212B852A3FE6757C1D36 /* ImageSlideshow.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ImageSlideshow.podspec; path = ../ImageSlideshow.podspec; sourceTree = "<group>"; };
 		8AA07A6EDAC622F1407E6C80 /* Pods_ImageSlideshow_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageSlideshow_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityIndicator.swift; path = ../../ImageSlideshow/Classes/Core/ActivityIndicator.swift; sourceTree = "<group>"; };
 		D0E8A9E21D97EB6D007EC517 /* ImageSlideshow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageSlideshow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E8A9E41D97EB6D007EC517 /* ImageSlideshow_framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageSlideshow_framework.h; sourceTree = "<group>"; };
 		D0E8A9E51D97EB6D007EC517 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			children = (
 				D0E8A9EA1D97EB94007EC517 /* FullScreenSlideshowViewController.swift */,
 				D0E8A9EB1D97EB94007EC517 /* ImageSlideshow.swift */,
+				D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */,
 				D0E8A9EC1D97EB94007EC517 /* ImageSlideshowItem.swift */,
 				D0E8A9ED1D97EB94007EC517 /* InputSource.swift */,
 				D0E8A9EE1D97EB94007EC517 /* UIImage+AspectFit.swift */,
@@ -382,7 +385,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -413,6 +416,7 @@
 				D0E8A9F41D97EB94007EC517 /* InputSource.swift in Sources */,
 				D0E8A9F61D97EB94007EC517 /* UIImageView+Tools.swift in Sources */,
 				D0E8A9F71D97EB94007EC517 /* ZoomAnimatedTransitioning.swift in Sources */,
+				D0083DCE1EB739E700126B21 /* ActivityIndicator.swift in Sources */,
 				D0E8A9F51D97EB94007EC517 /* UIImage+AspectFit.swift in Sources */,
 				D0E8A9F11D97EB94007EC517 /* FullScreenSlideshowViewController.swift in Sources */,
 				D0E8A9F31D97EB94007EC517 /* ImageSlideshowItem.swift in Sources */,

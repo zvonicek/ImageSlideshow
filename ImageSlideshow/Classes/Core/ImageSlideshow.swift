@@ -50,6 +50,13 @@ open class ImageSlideshow: UIView {
     /// Page Control shown in the slideshow
     open let pageControl = UIPageControl()
 
+    /// Activity indicator shown when loading image
+    open var activityIndicator: ActivityIndicatorFactory? {
+        didSet {
+            self.reloadScrollView()
+        }
+    }
+
     // MARK: - State properties
 
     /// Page control position
@@ -238,7 +245,7 @@ open class ImageSlideshow: UIView {
 
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: self.zoomEnabled)
+            let item = ImageSlideshowItem(image: image, zoomEnabled: self.zoomEnabled, activityIndicator: self.activityIndicator?.create())
             item.imageView.contentMode = self.contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)
