@@ -116,7 +116,11 @@ open class ImageSlideshow: UIView {
     }
 
     /// Enables/disables zoom
-    open var zoomEnabled = false
+    open var zoomEnabled = false {
+        didSet {
+            self.reloadScrollView()
+        }
+    }
 
     /// Image change interval, zero stops the auto-scrolling
     open var slideshowInterval = 0.0 {
