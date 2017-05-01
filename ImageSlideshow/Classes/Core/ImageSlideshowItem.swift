@@ -134,7 +134,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
 
     fileprivate func retryLoadImage() {
-        self.loadImage(
+        self.loadImage()
     }
 
     // MARK: - Image zoom & size
