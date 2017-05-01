@@ -38,11 +38,9 @@ public class SDWebImageSource: NSObject, InputSource {
         }
     }
 
-    public func load(to imageView: UIImageView, with callback: @escaping (UIImage) -> Void) {
+    public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         imageView.sd_setImage(with: self.url, placeholderImage: self.placeholder, options: [], completed: { (image, _, _, _) in
-            if let image = image {
-                callback(image)
-            }
+            callback(image)
         })
     }
 }

@@ -37,10 +37,11 @@ public class AFURLSource: NSObject, InputSource {
         }
     }
 
-    public func load(to imageView: UIImageView, with callback: @escaping (UIImage) -> Void) {
+    public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         imageView.setImageWith(URLRequest(url: url), placeholderImage: self.placeholder, success: { (_, _, image: UIImage) in
-            imageView.image = image
             callback(image)
-            }, failure: nil)
+        }, failure: { _, _, _ in
+            callback(nil)
+        })
     }
 }
