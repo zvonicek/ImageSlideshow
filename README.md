@@ -85,6 +85,22 @@ Behaviour is configurable by those properties:
 - ```didEndDecelerating``` - closure called on scrollViewDidEndDecelerating
 - ```preload``` - image preloading configuration (default `all` preloading, also `fixed`)
 
+### Activity Indicator
+
+By default activity indicator is not shown, but you can easily enable it by setting `DefaultActivityIndicator` instance to Image Slideshow:
+
+```
+slideshow.activityIndicator = DefaultActivityIndicator()
+```
+
+You can customize style and color of the indicator:
+
+```
+slideshow.activityIndicator = DefaultActivityIndicator(style: .white, color: nil)
+```
+
+There's also an option to use your own activity indicator. You just need to implement `ActivityIndicatorView` and `ActivityIndicatorFactory` protocols. See `ActivityIndicator.swift` for more information.
+
 ### Full Screen view
 
 There is also a possibility to open full-screen image view using attached `FullScreenSlideshowViewController`. The simplest way is to call:
