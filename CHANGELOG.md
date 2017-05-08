@@ -1,6 +1,20 @@
 # Change log
 
-## [1.2.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.1.0) (20/03/2017)
+## [1.3.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.3.0) (08/05/2017)
+
+## New Features
+
+- Possibility to show activity indicator during async loading
+- Hide UIPageControl when sllideshow has single item
+- UIScrollViewDelegate methods are now `open` instead of `public`
+
+## Fixes
+
+- Fix zoom transition for when a slideshow has just a single item
+- Fix issue on `zoomEnabled` change
+
+
+## [1.2.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.2.0) (20/03/2017)
 
 ## New Features
 
