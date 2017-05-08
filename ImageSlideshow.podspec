@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "ImageSlideshow"
-  s.version          = "1.2.0"
+  s.version          = "1.3.0"
   s.summary          = "Image slideshow written in Swift with circular scrolling, timer and full screen viewer"
 
 # This description is used to generate tags and improve search results.

@@ -21,12 +21,14 @@ public class ParseSource: NSObject, InputSource {
         super.init()
     }
 
-    @objc public func load(to imageView: UIImageView, with callback: @escaping (UIImage) -> Void) {
-      self.file.getDataInBackground {(data: Data?, error: Error?) in
-        if let data = data, let image = UIImage(data: data) {
-            imageView.image = image
-            callback(image)
-          }
+    @objc public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
+        self.file.getDataInBackground {(data: Data?, error: Error?) in
+            if let data = data, let image = UIImage(data: data) {
+                imageView.image = image
+                callback(image)
+            } else {
+                callback(nil)
+            }
         }
     }
 }
