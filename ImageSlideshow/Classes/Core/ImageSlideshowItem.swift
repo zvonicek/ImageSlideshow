@@ -89,10 +89,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     override open func layoutSubviews() {
         super.layoutSubviews()
 
-        if !zoomEnabled {
+        if !isZoomed() {
             imageView.frame.size = frame.size
-        } else if !isZoomed() {
-            imageView.frame.size = calculatePictureSize()
             setPictoCenter()
         }
 
@@ -179,22 +177,6 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         }
 
         imageView.frame = frameToCenter
-    }
-
-    fileprivate func calculatePictureSize() -> CGSize {
-        if let image = imageView.image {
-            let picSize = image.size
-            let picRatio = picSize.width / picSize.height
-            let screenRatio = screenSize().width / screenSize().height
-
-            if picRatio > screenRatio {
-                return CGSize(width: screenSize().width, height: screenSize().width / picSize.width * picSize.height)
-            } else {
-                return CGSize(width: screenSize().height / picSize.height * picSize.width, height: screenSize().height)
-            }
-        } else {
-            return CGSize(width: screenSize().width, height: screenSize().height)
-        }
     }
 
     fileprivate func calculateMaximumScale() -> CGFloat {
