@@ -26,23 +26,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        slideshow.backgroundColor = UIColor.white
-        slideshow.slideshowInterval = 5.0
-        slideshow.pageControlPosition = PageControlPosition.underScrollView
-        slideshow.pageControl.currentPageIndicatorTintColor = UIColor.lightGray
-        slideshow.pageControl.pageIndicatorTintColor = UIColor.black
-        slideshow.contentScaleMode = UIViewContentMode.scaleAspectFill
-        // optional way to show activity indicator during image load (skipping the line will show no activity indicator)
-        slideshow.activityIndicator = DefaultActivityIndicator()
-        slideshow.currentPageChanged = { page in
-            print("current page:", page)
-        }
+        self.slideshow.setImageInputs(alamofireSource)
+        self.slideshow.contentScaleMode = .scaleAspectFill
+        self.slideshow.slideshowInterval = 5
+        self.slideshow.zoomEnabled = true
+        self.slideshow.pageControlPosition = .hidden
+        self.slideshow.activityIndicator = DefaultActivityIndicator(style: .whiteLarge, color: .black)
 
-        // try out other sources such as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource` or `kingfisherSource`
-        slideshow.setImageInputs(localSource)
-
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap))
-        slideshow.addGestureRecognizer(recognizer)
+        //let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap))
+        //slideshow.addGestureRecognizer(recognizer)
     }
 
     func didTap() {
