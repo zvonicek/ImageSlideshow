@@ -74,7 +74,7 @@ slideshow.setImageInputs([
 
 Behaviour is configurable by those properties:
 
-- ```slideshowInterval``` - in case you want automatic slideshow, set up the interval between sliding to next picture (default `0` – disabled)
+- ```slideshowInterval``` - slideshow interval in seconds (default `0` – disabled)
 - ```zoomEnabled``` - enables zooming (default `false`)
 - ```circular``` - enables circular scrolling (default `true`)
 - ```pageControlPosition``` - configures position of UIPageControl (default `insideScrollView`, also `hidden`, `underScrollView` or `custom`)
@@ -87,7 +87,7 @@ Behaviour is configurable by those properties:
 
 ### Activity Indicator
 
-By default activity indicator is not shown, but you can easily enable it by setting `DefaultActivityIndicator` instance to Image Slideshow:
+By default activity indicator is not shown, but you can enable it by setting `DefaultActivityIndicator` instance to Image Slideshow:
 
 ```swift
 slideshow.activityIndicator = DefaultActivityIndicator()
