@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     }
 
     @IBOutlet var slideshow: ImageSlideshow!
-  
+
     let localSource = [ImageSource(imageString: "img1")!, ImageSource(imageString: "img2")!, ImageSource(imageString: "img3")!, ImageSource(imageString: "img4")!]
     let afNetworkingSource = [AFURLSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")!, AFURLSource(urlString: "https://images.unsplash.com/photo-1447746249824-4be4e1b76d66?w=1080")!, AFURLSource(urlString: "https://images.unsplash.com/photo-1463595373836-6e0b0a8ee322?w=1080")!]
     let alamofireSource = [AlamofireSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")!, AlamofireSource(urlString: "https://images.unsplash.com/photo-1447746249824-4be4e1b76d66?w=1080")!, AlamofireSource(urlString: "https://images.unsplash.com/photo-1463595373836-6e0b0a8ee322?w=1080")!]
@@ -26,20 +26,29 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.slideshow.setImageInputs(alamofireSource)
-        self.slideshow.contentScaleMode = .scaleAspectFill
-        self.slideshow.slideshowInterval = 5
-        self.slideshow.zoomEnabled = true
-        self.slideshow.pageControlPosition = .hidden
-        self.slideshow.activityIndicator = DefaultActivityIndicator(style: .whiteLarge, color: .black)
+        slideshow.backgroundColor = UIColor.white
+        slideshow.slideshowInterval = 5.0
+        slideshow.pageControlPosition = PageControlPosition.underScrollView
+        slideshow.pageControl.currentPageIndicatorTintColor = UIColor.lightGray
+        slideshow.pageControl.pageIndicatorTintColor = UIColor.black
+        slideshow.contentScaleMode = UIViewContentMode.scaleAspectFill
 
-        //let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap))
-        //slideshow.addGestureRecognizer(recognizer)
+        // optional way to show activity indicator during image load (skipping the line will show no activity indicator)
+        slideshow.activityIndicator = DefaultActivityIndicator()
+        slideshow.currentPageChanged = { page in
+            print("current page:", page)
+        }
+
+        // can be used with other sample sources as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource` or `kingfisherSource`
+        slideshow.setImageInputs(localSource)
+
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap))
+        slideshow.addGestureRecognizer(recognizer)
     }
 
     func didTap() {
         let fullScreenController = slideshow.presentFullScreenController(from: self)
-        // set the activity indicator for full screen controller; skip the line if no activity indicator should be shown
+        // set the activity indicator for full screen controller (skipping the line will show no activity indicator)
         fullScreenController.slideshow.activityIndicator = DefaultActivityIndicator(style: .white, color: nil)
     }
 }
