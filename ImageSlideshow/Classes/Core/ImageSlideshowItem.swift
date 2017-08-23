@@ -18,6 +18,9 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// Input Source for the item
     open let image: InputSource
+    
+    /// Fallback Input Source for the item
+    open let fallbackImage : InputSource?
 
     /// Guesture recognizer to detect double tap to zoom
     open var gestureRecognizer: UITapGestureRecognizer?
@@ -45,8 +48,9 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         Initializes a new ImageSlideshowItem
         - parameter image: Input Source to load the image
         - parameter zoomEnabled: holds if it should be possible to zoom-in the image
+        - parameter fallbackImage: A fallback image to display if image is unavailable
     */
-    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil) {
+    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, fallbackImage: InputSource? = nil) {
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.activityIndicator = activityIndicator
@@ -116,7 +120,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// Request to load Image Source to Image View
     func loadImage() {
-        if self.imageView.image == nil && !isLoading {
+        if (self.imageView.image == nil || self.loadFailed) && !isLoading {
+            self.imageView.image = nil
             isLoading = true
             imageReleased = false
             activityIndicator?.show()
@@ -126,6 +131,11 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
                 self.activityIndicator?.hide()
                 self.loadFailed = image == nil
                 self.isLoading = false
+                if self.loadFailed && self.fallbackImage != nil {
+                    self.fallbackImage?.load(to: self.imageView) { fallbackImage in
+                        self.imageView.image = self.imageReleased ? nil : fallbackImage
+                    }
+                }
             }
         }
     }
