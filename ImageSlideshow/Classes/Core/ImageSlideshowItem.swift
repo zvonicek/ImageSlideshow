@@ -54,7 +54,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         - parameter fallbackImage: A fallback image to display if image is unavailable
         - parameter fallbackScaleMode: The fallback image scale mode
     */
-    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, fallbackImage: InputSource? = nil) {
+    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, fallbackImage: InputSource? = nil, fallbackScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit) {
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.activityIndicator = activityIndicator
