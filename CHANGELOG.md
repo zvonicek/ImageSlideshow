@@ -1,5 +1,11 @@
 # Change log
 
+## [1.4.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.4.0) (23/09/2017)
+
+## New Features
+
+- Support for Swift 4
+
 ## [1.3.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.3.0) (08/05/2017)
 
 ## New Features
