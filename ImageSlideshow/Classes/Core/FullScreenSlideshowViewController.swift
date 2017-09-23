@@ -68,6 +68,10 @@ open class FullScreenSlideshowViewController: UIViewController {
         view.addSubview(closeButton)
     }
 
+    override open func prefersHomeIndicatorAutoHidden() -> Bool {
+        return true
+    }
+
     override open var prefersStatusBarHidden: Bool {
         return true
     }
