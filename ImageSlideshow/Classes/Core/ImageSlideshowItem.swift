@@ -135,7 +135,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.imageView.image = nil
     }
 
-    func retryLoadImage() {
+    @objc func retryLoadImage() {
         self.loadImage()
     }
 
@@ -149,7 +149,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.setZoomScale(minimumZoomScale, animated: false)
     }
 
-    func tapZoom() {
+    @objc func tapZoom() {
         if isZoomed() {
             self.setZoomScale(minimumZoomScale, animated: true)
         } else {

@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         slideshow.addGestureRecognizer(recognizer)
     }
 
-    func didTap() {
+    @objc func didTap() {
         let fullScreenController = slideshow.presentFullScreenController(from: self)
         // set the activity indicator for full screen controller (skipping the line will show no activity indicator)
         fullScreenController.slideshow.activityIndicator = DefaultActivityIndicator(style: .white, color: nil)
