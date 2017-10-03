@@ -7,6 +7,7 @@
 
 import UIKit
 
+@objcMembers
 open class FullScreenSlideshowViewController: UIViewController {
 
     open var slideshow: ImageSlideshow = {

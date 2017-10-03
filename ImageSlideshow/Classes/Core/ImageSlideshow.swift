@@ -42,6 +42,7 @@ public enum ImagePreload {
 }
 
 /// Main view containing the Image Slideshow
+@objcMembers
 open class ImageSlideshow: UIView {
 
     /// Scroll View to wrap the slideshow

@@ -8,6 +8,7 @@
 import AFNetworking
 
 /// Input Source to image using AFNetworking
+@objcMembers
 public class AFURLSource: NSObject, InputSource {
     /// url to load
     public var url: URL

@@ -9,6 +9,7 @@
 import SDWebImage
 
 /// Input Source to image using SDWebImage
+@objcMembers
 public class SDWebImageSource: NSObject, InputSource {
     /// url to load
     public var url: URL
