@@ -280,11 +280,11 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = BH68R29JBE;
+						DevelopmentTeam = 5VWB99DS38;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = BH68R29JBE;
+						DevelopmentTeam = 5VWB99DS38;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 					D0E8A9E11D97EB6D007EC517 = {
@@ -575,7 +575,7 @@
 			baseConfigurationReference = FD45C56C18E7B8EC08371B86 /* Pods-ImageSlideshow_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = BH68R29JBE;
+				DEVELOPMENT_TEAM = 5VWB99DS38;
 				INFOPLIST_FILE = ImageSlideshow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -591,7 +591,7 @@
 			baseConfigurationReference = 09417F1351C21E0DCE8667BE /* Pods-ImageSlideshow_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = BH68R29JBE;
+				DEVELOPMENT_TEAM = 5VWB99DS38;
 				INFOPLIST_FILE = ImageSlideshow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -606,7 +606,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = BH68R29JBE;
+				DEVELOPMENT_TEAM = 5VWB99DS38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -624,7 +624,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = BH68R29JBE;
+				DEVELOPMENT_TEAM = 5VWB99DS38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
