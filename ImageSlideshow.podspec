@@ -29,6 +29,8 @@ Image slideshow is a Swift library providing customizable image slideshow with c
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
+  
+  s.resources = "ImageSlideshow/Assets/*.xcassets"
 
   s.subspec 'Core' do |core|
     core.source_files = 'ImageSlideshow/Classes/Core/**/*'

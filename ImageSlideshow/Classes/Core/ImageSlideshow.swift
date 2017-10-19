@@ -150,6 +150,10 @@ open class ImageSlideshow: UIView {
             }
         }
     }
+    
+    /// Actions enable you to delete the current image or to send it via email, SMS etc. Deletion occurs via the delegate.
+    open var showActions: Bool = false
+    open weak var delegate:FullScreenSlideshowViewControllerDelegate?
 
     fileprivate var slideshowTimer: Timer?
     fileprivate var scrollViewImages = [InputSource]()
@@ -425,7 +429,14 @@ open class ImageSlideshow: UIView {
         fullscreen.pageSelected = {(page: Int) in
             self.setCurrentPage(page, animated: false)
         }
-
+        
+        fullscreen.showActions = self.showActions
+        fullscreen.delegate = self.delegate
+        fullscreen.parentDelete = {[unowned self] imageIndex in
+            self.images.remove(at: imageIndex)
+            self.setImageInputs(self.images)
+        }
+        
         fullscreen.initialPage = self.currentPage
         fullscreen.inputs = self.images
         slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
