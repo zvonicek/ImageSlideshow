@@ -12,8 +12,9 @@ import UIKit
 open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     /// parent image view used for animated transition
     open var referenceImageView: UIImageView?
-    /// parent slideshow view used for animated transition
-    open var referenceSlideshowView: ImageSlideshow?
+    
+    /// parent slideshow view used for animated transition. This shouldn't be strong because the `ImageSlideshow` keeps a strong reference to this.
+    open weak var referenceSlideshowView: ImageSlideshow?
 
     // must be weak because FullScreenSlideshowViewController has strong reference to its transitioning delegate
     weak var referenceSlideshowController: FullScreenSlideshowViewController?
@@ -37,6 +38,10 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
         super.init()
 
         initialize()
+    }
+    
+    deinit {
+        print("deinit")
     }
 
     /**

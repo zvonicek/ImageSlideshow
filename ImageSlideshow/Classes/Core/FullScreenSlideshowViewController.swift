@@ -99,6 +99,10 @@ open class FullScreenSlideshowViewController: UIViewController {
         }
     }
     
+    deinit {
+        print("deinit")
+    }
+    
     @objc fileprivate func actionButtonAction() {
         if let currentImageSource = slideshow.currentSlideshowItem?.image,
             let currentImageView = slideshow.currentSlideshowItem?.imageView,

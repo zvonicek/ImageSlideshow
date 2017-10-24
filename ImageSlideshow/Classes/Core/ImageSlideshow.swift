@@ -445,6 +445,10 @@ open class ImageSlideshow: UIView {
 
         return fullscreen
     }
+    
+    deinit {
+        print("deinit")
+    }
 
     @objc private func pageControlValueChanged() {
         self.setCurrentPage(pageControl.currentPage, animated: true)
