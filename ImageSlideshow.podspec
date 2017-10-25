@@ -51,7 +51,7 @@ Image slideshow is a Swift library providing customizable image slideshow with c
 
   s.subspec 'SDWebImage' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
-    subspec.dependency 'SDWebImage', '~> 3.7'
+    subspec.dependency 'SDWebImage', '>= 3.7', '< 5.0'
     subspec.source_files = 'ImageSlideshow/Classes/InputSources/SDWebImageSource.swift'
   end
 
