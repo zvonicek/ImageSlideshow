@@ -446,9 +446,12 @@ extension ImageSlideshow: UIScrollViewDelegate {
         willBeginDragging?()
     }
 
+    func primaryVisiblePage(scrollView: UIScrollView) -> Int {
+        return Int(scrollView.contentOffset.x + scrollView.frame.size.width / 2) / Int(scrollView.frame.size.width)
+    }
+
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let page = Int(scrollView.contentOffset.x) / Int(scrollView.frame.size.width)
-        setCurrentPageForScrollViewPage(page)
+        setCurrentPageForScrollViewPage(primaryVisiblePage(scrollView: scrollView))
         didEndDecelerating?()
     }
 
@@ -462,5 +465,7 @@ extension ImageSlideshow: UIScrollViewDelegate {
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x + regularContentOffset, y: 0)
             }
         }
+
+        setCurrentPageForScrollViewPage(primaryVisiblePage(scrollView: scrollView))
     }
 }
