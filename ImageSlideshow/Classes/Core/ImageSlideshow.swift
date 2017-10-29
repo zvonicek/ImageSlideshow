@@ -438,6 +438,11 @@ open class ImageSlideshow: UIView {
     @objc private func pageControlValueChanged() {
         self.setCurrentPage(pageControl.currentPage, animated: true)
     }
+
+    fileprivate func setPrimaryVisiblePage() {
+        let primaryVisiblePage = Int(scrollView.contentOffset.x + scrollView.frame.size.width / 2) / Int(scrollView.frame.size.width)
+        setCurrentPageForScrollViewPage(primaryVisiblePage)
+    }
 }
 
 extension ImageSlideshow: UIScrollViewDelegate {
@@ -453,8 +458,7 @@ extension ImageSlideshow: UIScrollViewDelegate {
     }
 
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let page = Int(scrollView.contentOffset.x) / Int(scrollView.frame.size.width)
-        setCurrentPageForScrollViewPage(page)
+        setPrimaryVisiblePage()
         didEndDecelerating?()
     }
 
@@ -468,5 +472,7 @@ extension ImageSlideshow: UIScrollViewDelegate {
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x + regularContentOffset, y: 0)
             }
         }
+
+        setPrimaryVisiblePage()
     }
 }
