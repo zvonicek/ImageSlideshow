@@ -28,7 +28,7 @@ pod 'ImageSlideshow', '~> 1.4'
 To integrate ImageSlideshow into your Xcode project using Carthage, specify it in your Cartfile:
 
 ```ruby
-github "zvonicek/ImageSlideshow" "1.4"
+github "zvonicek/ImageSlideshow" ~> 1.4
 ```
 
 Carthage does not include InputSources for external providers (due to dependency on those providers) so you need to grab the one you need from `ImageSlideshow/Classes/InputSources` manually.
