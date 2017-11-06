@@ -28,6 +28,9 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// If set to true image is initially zoomed in
     open var zoomInInitially = false
+    
+    /// Maximum scale
+    open var maximumScale = 2.0
 
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
@@ -199,7 +202,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     fileprivate func calculateMaximumScale() -> CGFloat {
         // maximum scale is fixed to 2.0 for now. This may be overriden to perform a more sophisticated computation
-        return 2.0
+        return CGFloat(self.maximumScale)
     }
 
     fileprivate func setPictoCenter() {
