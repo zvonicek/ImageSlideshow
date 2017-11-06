@@ -87,6 +87,9 @@ open class ImageSlideshow: UIView {
     /// Called on scrollViewDidEndDecelerating
     open var didEndDecelerating: (() -> ())?
 
+    /// Called on itemScrollViewWillBeginZooming
+    open var itemScrollViewWillBeginZooming: (() -> ())?
+    
     /// Currenlty displayed slideshow item
     open var currentSlideshowItem: ImageSlideshowItem? {
         if slideshowItems.count > scrollViewPage {
@@ -103,7 +106,15 @@ open class ImageSlideshow: UIView {
     open fileprivate(set) var images = [InputSource]()
 
     /// Image Slideshow Items loaded to slideshow
-    open fileprivate(set) var slideshowItems = [ImageSlideshowItem]()
+    open fileprivate(set) var slideshowItems = [ImageSlideshowItem]() {
+        didSet {
+            for item in slideshowItems {
+                item.itemScrollViewWillBeginZooming = {
+                    self.itemScrollViewWillBeginZooming?()
+                }
+            }
+        }
+    }
 
     // MARK: - Preferences
 

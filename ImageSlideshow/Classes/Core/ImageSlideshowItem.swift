@@ -31,6 +31,9 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     /// Maximum scale
     open var maximumScale = 2.0
+    
+    /// Called on ScrollViewWillBeginZooming
+    open var itemScrollViewWillBeginZooming: (() -> ())?
 
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
@@ -229,6 +232,10 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return zoomEnabled ? imageView : nil
+    }
+
+    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        itemScrollViewWillBeginZooming?()
     }
 
 }
