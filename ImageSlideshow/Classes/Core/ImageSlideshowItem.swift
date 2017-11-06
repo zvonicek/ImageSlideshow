@@ -28,6 +28,15 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// If set to true image is initially zoomed in
     open var zoomInInitially = false
+    
+    /// Maximum scale
+    open var maximumScale = 2.0
+    
+    /// Holds if the tapping zoom feature is enabled
+    open var tapZoomEnabled = true
+    
+    /// Called on ScrollViewWillBeginZooming
+    open var itemScrollViewWillBeginZooming: (() -> ())?
 
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
@@ -74,6 +83,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         // tap gesture recognizer
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ImageSlideshowItem.tapZoom))
         tapRecognizer.numberOfTapsRequired = 2
+        tapRecognizer.isEnabled = tapZoomEnabled
         imageView.addGestureRecognizer(tapRecognizer)
         gestureRecognizer = tapRecognizer
 
@@ -199,7 +209,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     fileprivate func calculateMaximumScale() -> CGFloat {
         // maximum scale is fixed to 2.0 for now. This may be overriden to perform a more sophisticated computation
-        return 2.0
+        return CGFloat(self.maximumScale)
     }
 
     fileprivate func setPictoCenter() {
@@ -226,6 +236,10 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return zoomEnabled ? imageView : nil
+    }
+
+    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        itemScrollViewWillBeginZooming?()
     }
 
 }
