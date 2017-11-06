@@ -147,6 +147,13 @@ open class ImageSlideshow: UIView {
         }
     }
 
+    /// Holds if the tapping zoom feature is enabled
+    open var tapZoomEnabled = true {
+        didSet {
+            self.reloadScrollView()
+        }
+    }
+    
     /// Image change interval, zero stops the auto-scrolling
     open var slideshowInterval = 0.0 {
         didSet {

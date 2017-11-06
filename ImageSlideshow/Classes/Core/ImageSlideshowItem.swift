@@ -32,6 +32,9 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     /// Maximum scale
     open var maximumScale = 2.0
     
+    /// Holds if the tapping zoom feature is enabled
+    open var tapZoomEnabled = true
+    
     /// Called on ScrollViewWillBeginZooming
     open var itemScrollViewWillBeginZooming: (() -> ())?
 
@@ -80,6 +83,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         // tap gesture recognizer
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ImageSlideshowItem.tapZoom))
         tapRecognizer.numberOfTapsRequired = 2
+        tapRecognizer.isEnabled = tapZoomEnabled
         imageView.addGestureRecognizer(tapRecognizer)
         gestureRecognizer = tapRecognizer
 
