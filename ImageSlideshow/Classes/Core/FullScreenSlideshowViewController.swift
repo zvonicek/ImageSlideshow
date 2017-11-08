@@ -71,13 +71,18 @@ open class FullScreenSlideshowViewController: UIViewController {
 
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        UIApplication.shared.isStatusBarHidden = true
         if isInit {
             isInit = false
             slideshow.setCurrentPage(initialPage, animated: false)
         }
     }
 
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.isStatusBarHidden = false
+    }
+    
     open override func viewDidLayoutSubviews() {
         slideshow.frame = view.frame
     }
