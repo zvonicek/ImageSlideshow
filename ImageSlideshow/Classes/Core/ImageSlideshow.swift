@@ -465,6 +465,10 @@ extension ImageSlideshow: UIScrollViewDelegate {
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if circular {
             let regularContentOffset = scrollView.frame.size.width * CGFloat(images.count)
+            
+            if scrollView.contentOffset.y != 0 {
+                scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: 0)
+            }
 
             if scrollView.contentOffset.x >= scrollView.frame.size.width * CGFloat(images.count + 1) {
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x - regularContentOffset, y: 0)
