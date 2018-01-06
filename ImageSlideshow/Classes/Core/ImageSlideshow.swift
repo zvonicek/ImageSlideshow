@@ -355,7 +355,7 @@ open class ImageSlideshow: UIView {
     }
 
     @objc func slideshowTick(_ timer: Timer) {
-        let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        let page = scrollView.frame.size.width > 0 ? Int(scrollView.contentOffset.x / scrollView.frame.size.width) : 0
         var nextPage = page + 1
 
         if !circular && page == scrollViewImages.count - 1 {
