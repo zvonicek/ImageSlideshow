@@ -116,7 +116,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
 
     /// Request to load Image Source to Image View
-    func loadImage() {
+    public func loadImage() {
         if self.imageView.image == nil && !isLoading {
             isLoading = true
             imageReleased = false
@@ -130,10 +130,15 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
             }
         }
     }
-
+    
     func releaseImage() {
         imageReleased = true
+        cancelPendingLoad()
         self.imageView.image = nil
+    }
+    
+    public func cancelPendingLoad() {
+        image.cancelLoad(on: imageView)
     }
 
     @objc func retryLoadImage() {

@@ -45,4 +45,8 @@ public class AFURLSource: NSObject, InputSource {
             callback(self.placeholder)
         })
     }
+    
+    public func cancelLoad(on imageView: UIImageView) {
+        imageView.cancelImageDownloadTask()
+    }
 }

@@ -46,4 +46,7 @@ public class AlamofireSource: NSObject, InputSource {
         }
     }
 
+    public func cancelLoad(on imageView: UIImageView) {
+        imageView.af_cancelImageRequest()
+    }
 }

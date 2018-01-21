@@ -50,4 +50,8 @@ public class KingfisherSource: NSObject, InputSource {
             callback(image)
         }
     }
+    
+    public func cancelLoad(on imageView: UIImageView) {
+        imageView.kf.cancelDownloadTask()
+    }
 }

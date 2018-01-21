@@ -76,6 +76,12 @@ open class FullScreenSlideshowViewController: UIViewController {
             slideshow.setCurrentPage(initialPage, animated: false)
         }
     }
+    
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        slideshow.slideshowItems.forEach { $0.cancelPendingLoad() }
+    }
 
     open override func viewDidLayoutSubviews() {
         let safeAreaInsets: UIEdgeInsets
