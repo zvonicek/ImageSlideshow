@@ -1,5 +1,29 @@
 # Change log
 
+## [1.5.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.4.0) (21/01/2018)
+
+## New Features
+
+- Implement image load cancelling to optimize memory usage
+- Improve Kingfisher InputSource to take Options parameters
+- Update page control selected page during scrolling (#204)
+- Add possibility to change maximum zoom scale (#221)
+
+## Fixes
+
+- SDWebImage dependency improvements (#205)
+- Fix possible division by zero crash (#187)
+- Adjust close button frame to respect SafeAreaInsets (#209)
+- Fix missing placeholder on AFURLSource (#218) 
+- Fix incorrect currentPageChanged calls (#222) 
+
+## [1.4.1](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.4.1) (04/10/2017)
+
+## Fixes
+
+- iPhone X fixes
+
+
 ## [1.4.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.4.0) (23/09/2017)
 
 ## New Features
