@@ -344,7 +344,6 @@ open class ImageSlideshow: UIView {
     open func setScrollViewPage(_ newScrollViewPage: Int, animated: Bool) {
         if scrollViewPage < scrollViewImages.count {
             self.scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width * CGFloat(newScrollViewPage), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: animated)
-            self.setCurrentPageForScrollViewPage(newScrollViewPage)
         }
     }
 
