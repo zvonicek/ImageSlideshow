@@ -22,7 +22,7 @@ import UIKit
      Cancel image load on the image view
      - parameter imageView: Image view that is loading the image
     */
-    func cancelLoad(on imageView: UIImageView)
+    @objc optional func cancelLoad(on imageView: UIImageView)
 }
 
 /// Input Source to load plain UIImage
@@ -50,8 +50,5 @@ open class ImageSource: NSObject, InputSource {
     public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         imageView.image = image
         callback(image)
-    }
-    
-    public func cancelLoad(on imageView: UIImageView) {        
     }
 }
