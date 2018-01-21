@@ -76,7 +76,7 @@ open class FullScreenSlideshowViewController: UIViewController {
             slideshow.setCurrentPage(initialPage, animated: false)
         }
     }
-    
+
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -84,14 +84,17 @@ open class FullScreenSlideshowViewController: UIViewController {
     }
 
     open override func viewDidLayoutSubviews() {
-        let safeAreaInsets: UIEdgeInsets
-        if #available(iOS 11.0, *) {
-            safeAreaInsets = view.safeAreaInsets
-        } else {
-            safeAreaInsets = UIEdgeInsets.zero
+        if !isBeingDismissed {
+            let safeAreaInsets: UIEdgeInsets
+            if #available(iOS 11.0, *) {
+                safeAreaInsets = view.safeAreaInsets
+            } else {
+                safeAreaInsets = UIEdgeInsets.zero
+            }
+            
+            closeButton.frame = CGRect(x: max(10, safeAreaInsets.left), y: max(10, safeAreaInsets.top), width: 40, height: 40)
         }
-        
-        closeButton.frame = CGRect(x: max(10, safeAreaInsets.left), y: max(10, safeAreaInsets.top), width: 40, height: 40)
+
         slideshow.frame = view.frame
     }
 
