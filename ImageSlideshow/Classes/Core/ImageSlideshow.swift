@@ -70,8 +70,6 @@ open class ImageSlideshow: UIView {
     /// Current page
     open fileprivate(set) var currentPage: Int = 0 {
         didSet {
-            pageControl.currentPage = currentPage
-
             if oldValue != currentPage {
                 currentPageChanged?(currentPage)
             }
@@ -156,6 +154,10 @@ open class ImageSlideshow: UIView {
 
     /// Transitioning delegate to manage the transition to full screen controller
     open fileprivate(set) var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate?
+    
+    var primaryVisiblePage: Int {
+        return Int(scrollView.contentOffset.x + scrollView.frame.size.width / 2) / Int(scrollView.frame.size.width)
+    }
 
     // MARK: - Life cycle
 
@@ -344,6 +346,7 @@ open class ImageSlideshow: UIView {
     open func setScrollViewPage(_ newScrollViewPage: Int, animated: Bool) {
         if scrollViewPage < scrollViewImages.count {
             self.scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width * CGFloat(newScrollViewPage), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: animated)
+            self.setCurrentPageForScrollViewPage(newScrollViewPage)
         }
     }
 
@@ -376,19 +379,22 @@ open class ImageSlideshow: UIView {
             loadImages(for: page)
         }
         scrollViewPage = page
-
+        currentPage = currentPageForScrollViewPage(page)
+    }
+    
+    fileprivate func currentPageForScrollViewPage(_ page: Int) -> Int {
         if circular {
             if page == 0 {
                 // first page contains the last image
-                currentPage = Int(images.count) - 1
+                return Int(images.count) - 1
             } else if page == scrollViewImages.count - 1 {
                 // last page contains the first image
-                currentPage = 0
+                return 0
             } else {
-                currentPage = page - 1
+                return page - 1
             }
         } else {
-            currentPage = page
+            return page
         }
     }
 
@@ -437,11 +443,6 @@ open class ImageSlideshow: UIView {
     @objc private func pageControlValueChanged() {
         self.setCurrentPage(pageControl.currentPage, animated: true)
     }
-
-    fileprivate func setPrimaryVisiblePage() {
-        let primaryVisiblePage = Int(scrollView.contentOffset.x + scrollView.frame.size.width / 2) / Int(scrollView.frame.size.width)
-        setCurrentPageForScrollViewPage(primaryVisiblePage)
-    }
 }
 
 extension ImageSlideshow: UIScrollViewDelegate {
@@ -457,7 +458,7 @@ extension ImageSlideshow: UIScrollViewDelegate {
     }
 
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        setPrimaryVisiblePage()
+        setCurrentPageForScrollViewPage(primaryVisiblePage)
         didEndDecelerating?()
     }
 
@@ -472,6 +473,6 @@ extension ImageSlideshow: UIScrollViewDelegate {
             }
         }
 
-        setPrimaryVisiblePage()
+        pageControl.currentPage = currentPageForScrollViewPage(primaryVisiblePage)
     }
 }
