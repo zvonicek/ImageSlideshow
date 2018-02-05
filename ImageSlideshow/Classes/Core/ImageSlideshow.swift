@@ -516,6 +516,6 @@ extension ImageSlideshow: UIScrollViewDelegate {
             }
         }
 
-        pageIndicator?.setPage(currentPageForScrollViewPage(primaryVisiblePage))
+        pageIndicator?.page = currentPageForScrollViewPage(primaryVisiblePage)
     }
 }

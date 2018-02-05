@@ -25,13 +25,11 @@ public enum PageIndicatorPosition {
     }
 }
 
-public protocol PageIndicatorView {
+public protocol PageIndicatorView: class {
     var view: UIView { get }
     var height: CGFloat { get }
-    var page: Int { get }
+    var page: Int { get set }
     var numberOfPages: Int { get set}
-
-    func setPage(_ page: Int)
 }
 
 extension PageIndicatorView {
@@ -46,11 +44,12 @@ extension UIPageControl: PageIndicatorView {
     }
 
     public var page: Int {
-        return currentPage
-    }
-
-    public func setPage(_ page: Int) {
-        currentPage = page
+        get {
+            return currentPage
+        }
+        set {
+            currentPage = newValue
+        }
     }
 }
 
@@ -83,10 +82,6 @@ public class LabelPageIndicator: UILabel, PageIndicatorView {
 
     private func initialize() {
         self.textAlignment = .center
-    }
-
-    public func setPage(_ page: Int) {
-        self.page = page
     }
 
     private func updateLabel() {
