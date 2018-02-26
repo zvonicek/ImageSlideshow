@@ -14,6 +14,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		D007954F2043262C0053E25F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D007954E2043262C0053E25F /* TableViewController.swift */; };
 		D0083DCE1EB739E700126B21 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */; };
 		D0E8A9E61D97EB6D007EC517 /* ImageSlideshow_framework.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E8A9E41D97EB6D007EC517 /* ImageSlideshow_framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8A9F11D97EB94007EC517 /* FullScreenSlideshowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9EA1D97EB94007EC517 /* FullScreenSlideshowViewController.swift */; };
@@ -51,6 +52,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		749E212B852A3FE6757C1D36 /* ImageSlideshow.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ImageSlideshow.podspec; path = ../ImageSlideshow.podspec; sourceTree = "<group>"; };
 		8AA07A6EDAC622F1407E6C80 /* Pods_ImageSlideshow_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageSlideshow_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D007954E2043262C0053E25F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityIndicator.swift; path = ../../ImageSlideshow/Classes/Core/ActivityIndicator.swift; sourceTree = "<group>"; };
 		D0E8A9E21D97EB6D007EC517 /* ImageSlideshow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageSlideshow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E8A9E41D97EB6D007EC517 /* ImageSlideshow_framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageSlideshow_framework.h; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				D007954E2043262C0053E25F /* TableViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -412,6 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				D007954F2043262C0053E25F /* TableViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
