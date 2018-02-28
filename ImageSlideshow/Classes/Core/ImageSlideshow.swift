@@ -232,8 +232,10 @@ open class ImageSlideshow: UIView {
         if let pageIndicator = pageIndicator {
             addSubview(pageIndicator.view)
         }
-        // TODO: fix
-        //pageControl.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
+        
+        if let pageIndicator = pageIndicator as? UIControl {
+            pageIndicator.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
+        }
 
         setTimerIfNeeded()
         layoutScrollView()
