@@ -51,11 +51,16 @@ open class FullScreenSlideshowViewController: UIViewController {
     
     /// Actions enable you to delete the current image or to send it via email, SMS etc. Client deletion occurs via the delegate.
     open var showActions: Bool = false // the default is false for backwards compatibility.
+    fileprivate var actionButton:UIButton!
+
     weak var delegate:FullScreenSlideshowViewControllerDelegate?
     var parentDelete:((_ index:Int)->())!
     
     fileprivate var isInit = true
-
+    
+    fileprivate let yPadding:CGFloat = 20
+    fileprivate let xPadding:CGFloat = 10
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,9 +73,6 @@ open class FullScreenSlideshowViewController: UIViewController {
 
         view.addSubview(slideshow)
 
-        let yPadding:CGFloat = 20
-        let xPadding:CGFloat = 10
-        
         // close button configuration
         closeButton.frame = CGRect(x: xPadding, y: yPadding, width: 40, height: 40)
         closeButton.setImage(UIImage(named: "Frameworks/ImageSlideshow.framework/ImageSlideshow.bundle/ic_cross_white@2x"), for: UIControlState())
@@ -79,7 +81,7 @@ open class FullScreenSlideshowViewController: UIViewController {
         
         if showActions {
             // For sharing images via email, text messages, and for deleting images.
-            let actionButton = UIButton(type: .system)
+            actionButton = UIButton(type: .system)
             actionButton.tintColor = .white
             let bundle = Bundle(for: type(of: self))
             let actionImage = UIImage(named: "Action", in: bundle, compatibleWith: nil)!
@@ -87,16 +89,18 @@ open class FullScreenSlideshowViewController: UIViewController {
             actionButton.sizeToFit()
 
             actionButton.addTarget(self, action: #selector(actionButtonAction), for: .touchUpInside)
-            
-            // Position the action button on the upper right.
-            actionButton.frame.origin.x = view.frame.maxX - actionButton.frame.width - xPadding
-            
-            // Without this my eyes don't think it's in the right position.
-            let yPaddingExtraFudge:CGFloat = 7
-            
-            actionButton.frame.origin.y = yPadding + yPaddingExtraFudge
+            // `actionButton` positioned in `viewDidLayoutSubviews`-- this accounts for rotation too.
             view.addSubview(actionButton)
         }
+    }
+    
+    // Position the action button at the upper right.
+    fileprivate func positionActionButton() {
+        actionButton.frame.origin.x = view.frame.maxX - actionButton.frame.width - xPadding
+        
+        // Without this my eyes don't think it's in the right position.
+        let yPaddingExtraFudge:CGFloat = 7
+        actionButton.frame.origin.y = yPadding + yPaddingExtraFudge
     }
     
     deinit {
@@ -161,6 +165,7 @@ open class FullScreenSlideshowViewController: UIViewController {
 
     open override func viewDidLayoutSubviews() {
         slideshow.frame = view.frame
+        positionActionButton()
     }
 
     @objc func close() {
