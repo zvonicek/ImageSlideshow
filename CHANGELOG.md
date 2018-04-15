@@ -1,6 +1,24 @@
 # Change log
 
-## [1.5.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.4.0) (21/01/2018)
+## [1.5.2](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.2) (16/04/2018)
+
+## New Features
+
+- Example project demonstrating usage of Image Slideshow with parent UIImageView
+
+## Fixes
+
+-  Fix image shift on iPhone X landscape (#200)
+-  Add closeButtonFrame property to Full Screen controller (#226)
+-  Don't trigger interactive gesture recognizer on horizontal pans, fixes single image sliding issue (#224)
+-  Fix interactive dismiss regression on iOS 11 
+
+## [1.5.1](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.1) (04/02/2018)
+
+## Fixes
+-  Fix division by zero error (#223) 
+
+## [1.5.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.0) (21/01/2018)
 
 ## New Features
 
