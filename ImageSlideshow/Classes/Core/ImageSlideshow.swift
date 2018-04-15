@@ -74,7 +74,7 @@ open class ImageSlideshow: UIView {
         }
     }
 
-    open var pageIndicatorPosition: PageIndicatorPosition = .bottom {
+    open var pageIndicatorPosition: PageIndicatorPosition = PageIndicatorPosition() {
         didSet {
             setNeedsLayout()
         }
@@ -91,11 +91,11 @@ open class ImageSlideshow: UIView {
             case .hidden:
                 pageIndicator = nil
             case .insideScrollView:
-                pageIndicatorPosition = .bottom
+                pageIndicatorPosition = PageIndicatorPosition(vertical: .bottom)
             case .underScrollView:
-                pageIndicatorPosition = .under
+                pageIndicatorPosition = PageIndicatorPosition(vertical: .under)
             case .custom(let padding):
-                pageIndicatorPosition = .customBottom(padding: padding)
+                pageIndicatorPosition = PageIndicatorPosition(vertical: .customUnder(padding: padding))
             }
         }
     }
@@ -257,22 +257,22 @@ open class ImageSlideshow: UIView {
     }
 
     open func layoutPageControl() {
-        pageIndicator?.view.isHidden = self.images.count < 2
+        if let pageIndicatorView = pageIndicator?.view {
+            pageIndicatorView.isHidden = self.images.count < 2
 
-        var pageControlBottomInset: CGFloat = 12.0
-        if #available(iOS 11.0, *) {
-            pageControlBottomInset += self.safeAreaInsets.bottom
-        }
+            var bottomInset: CGFloat = 0
+            if #available(iOS 11.0, *) {
+                bottomInset += self.safeAreaInsets.bottom
+            }
 
-        if let pageIndicator = pageIndicator {
-            pageIndicator.view.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: pageIndicator.height)
-            pageIndicator.view.center = CGPoint(x: frame.size.width / 2, y: frame.size.height - pageControlBottomInset)
+            pageIndicatorView.sizeToFit()
+            pageIndicatorView.frame = pageIndicatorPosition.indicatorFrame(for: self.frame, indicatorSize: pageIndicatorView.frame.size, bottomInset: bottomInset)
         }
     }
 
     /// updates frame of the scroll view and its inner items
     func layoutScrollView() {
-        let scrollViewBottomPadding: CGFloat = pageIndicatorPosition.bottomPadding
+        let scrollViewBottomPadding: CGFloat = pageIndicatorPosition.underPadding
         scrollView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height - scrollViewBottomPadding)
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(scrollViewImages.count), height: scrollView.frame.size.height)
 

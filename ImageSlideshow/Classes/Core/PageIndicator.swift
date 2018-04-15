@@ -1,27 +1,66 @@
 //
 //  PageIndicator.swift
-//  AFNetworking
+//  ImageSlideshow
 //
 //  Created by Petr Zvoníček on 04.02.18.
 //
 
 import UIKit
 
-public enum PageIndicatorPosition {
-    case top
-    case bottom
-    case under
-    case customBottom(padding: CGFloat)
+public struct PageIndicatorPosition {
+    public enum Horizontal {
+        case left(padding: CGFloat), center, right(padding: CGFloat)
+    }
 
-    var bottomPadding: CGFloat {
-        switch self {
-        case .bottom, .top:
-            return 0.0
+    public enum Vertical {
+        case top, bottom, under, customTop(padding: CGFloat), customBottom(padding: CGFloat), customUnder(padding: CGFloat)
+    }
+
+    var horizontal: Horizontal
+    var vertical: Vertical
+
+    public init(horizontal: Horizontal = .center, vertical: Vertical = .bottom) {
+        self.horizontal = horizontal
+        self.vertical = vertical
+    }
+
+    var underPadding: CGFloat {
+        switch vertical {
         case .under:
-            return 30.0
-        case .customBottom(let padding):
+            return 30
+        case .customUnder(let padding):
             return padding
+        default:
+            return 0
         }
+    }
+
+    func indicatorFrame(for parentFrame: CGRect, indicatorSize: CGSize, bottomInset: CGFloat) -> CGRect {
+        var xSize: CGFloat = 0
+        var ySize: CGFloat = 0
+
+        switch horizontal {
+        case .center:
+            xSize = parentFrame.size.width / 2 - indicatorSize.width / 2
+        case .left(let padding):
+            xSize = padding
+        case .right(let padding):
+            xSize = parentFrame.size.width - indicatorSize.width - padding
+        }
+
+        switch vertical {
+        case .bottom, .under, .customUnder:
+            ySize = parentFrame.size.height - indicatorSize.height
+        case .customBottom(let padding):
+            ySize = parentFrame.size.height - indicatorSize.height - padding
+        case .top:
+            ySize = 0
+        case .customTop(let padding):
+            ySize = padding
+        }
+        ySize -= bottomInset
+
+        return CGRect(x: xSize, y: ySize, width: indicatorSize.width, height: indicatorSize.height)
     }
 }
 
@@ -50,6 +89,12 @@ extension UIPageControl: PageIndicatorView {
         set {
             currentPage = newValue
         }
+    }
+
+    open override func sizeToFit() {
+        var frame = self.frame
+        frame.size = size(forNumberOfPages: numberOfPages)
+        self.frame = frame
     }
 }
 
@@ -86,5 +131,10 @@ public class LabelPageIndicator: UILabel, PageIndicatorView {
 
     private func updateLabel() {
         text = "\(page+1)/\(numberOfPages)"
+    }
+
+    public override func sizeToFit() {
+        let maximumString = String(repeating: "8", count: numberOfPages) as NSString
+        self.frame.size = maximumString.size(withAttributes: [.font: self.font])
     }
 }
