@@ -129,7 +129,7 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
 
 extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let _ = gestureRecognizer as? UIPanGestureRecognizer else {
+        guard let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer else {
             return false
         }
 
@@ -139,6 +139,11 @@ extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
 
         if let currentItem = referenceSlideshowController?.slideshow.currentSlideshowItem, currentItem.isZoomed() {
             return false
+        }
+
+        if let view = gestureRecognizer.view {
+            let velocity = gestureRecognizer.velocity(in: view)
+            return fabs(velocity.x) < fabs(velocity.y)
         }
 
         return true
