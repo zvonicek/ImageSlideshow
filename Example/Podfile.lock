@@ -44,9 +44,17 @@ DEPENDENCIES:
   - ImageSlideshow/Kingfisher (from `../`)
   - ImageSlideshow/SDWebImage (from `../`)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - Alamofire
+    - AlamofireImage
+    - Kingfisher
+    - SDWebImage
+
 EXTERNAL SOURCES:
   ImageSlideshow:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -58,4 +66,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 9f5f0235fb1728554054ee3ff7128ff5d4729418
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0
