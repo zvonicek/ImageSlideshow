@@ -28,11 +28,7 @@ class ViewController: UIViewController {
 
         slideshow.backgroundColor = UIColor.white
         slideshow.slideshowInterval = 5.0
-        slideshow.pageIndicator = LabelPageIndicator()
-        if let pageIndicator = slideshow.pageIndicator as? UIPageControl {
-            pageIndicator.currentPageIndicatorTintColor = UIColor.lightGray
-            pageIndicator.pageIndicatorTintColor = UIColor.black
-        }
+        slideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .bottom)
         slideshow.contentScaleMode = UIViewContentMode.scaleAspectFill
 
         // optional way to show activity indicator during image load (skipping the line will show no activity indicator)
