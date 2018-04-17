@@ -437,8 +437,8 @@ open class ImageSlideshow: UIView {
     @discardableResult
     open func presentFullScreenController(from controller: UIViewController) -> FullScreenSlideshowViewController {
         let fullscreen = FullScreenSlideshowViewController()
-        fullscreen.pageSelected = {(page: Int) in
-            self.setCurrentPage(page, animated: false)
+        fullscreen.pageSelected = {[weak self] (page: Int) in
+            self?.setCurrentPage(page, animated: false)
         }
 
         fullscreen.initialPage = self.currentPage
