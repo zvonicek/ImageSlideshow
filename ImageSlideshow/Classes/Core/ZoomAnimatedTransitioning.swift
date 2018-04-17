@@ -244,6 +244,11 @@ class ZoomOutAnimator: ZoomAnimator, UIViewControllerAnimatedTransitioning {
 
     @available(iOS 10.0, *)
     func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
+        // as per documentation, the same object should be returned for the ongoing transition
+        if let animatorForCurrentSession = animatorForCurrentTransition {
+            return animatorForCurrentSession
+        }
+        
         let params = animationParams(using: transitionContext)
 
         let animator = UIViewPropertyAnimator(duration: params.0, curve: .linear, animations: params.1)
@@ -332,6 +337,8 @@ class ZoomOutAnimator: ZoomAnimator, UIViewControllerAnimatedTransitioning {
             transitionView.removeFromSuperview()
             transitionBackgroundView.removeFromSuperview()
 
+            self.animatorForCurrentTransition = nil
+
             transitionContext.completeTransition(completed)
         }
 
@@ -341,7 +348,7 @@ class ZoomOutAnimator: ZoomAnimator, UIViewControllerAnimatedTransitioning {
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         // Working around iOS 10+ breaking change requiring to use UIPropertyAnimator for proper interactive transition instead of UIView.animate
         if #available(iOS 10.0, *) {
-            animatorForCurrentTransition?.startAnimation()
+            interruptibleAnimator(using: transitionContext).startAnimation()
         } else {
             let params = animationParams(using: transitionContext)
             UIView.animate(withDuration: params.0, delay: 0, options: UIViewAnimationOptions(), animations: params.1, completion: params.2)
