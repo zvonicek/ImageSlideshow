@@ -66,6 +66,13 @@ open class ImageSlideshow: UIView {
             setNeedsLayout()
         }
     }
+    
+    /// Page control bottom inset
+    open var pageControlBottomInset: CGFloat = 12.0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
 
     /// Current page
     open fileprivate(set) var currentPage: Int = 0 {
@@ -228,7 +235,7 @@ open class ImageSlideshow: UIView {
             pageControl.isHidden = self.images.count < 2
         }
 
-        var pageControlBottomInset: CGFloat = 12.0
+        var `pageControlBottomInset` = self.pageControlBottomInset
         if #available(iOS 11.0, *) {
             pageControlBottomInset += self.safeAreaInsets.bottom
         }
