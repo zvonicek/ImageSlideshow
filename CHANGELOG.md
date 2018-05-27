@@ -1,5 +1,12 @@
 # Change log
 
+## [1.5.3](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.3) (17/04/2018)
+
+## Fixes
+
+- Fixed Close broken button in Full screen controller (#242)
+- Fixed retain cycle (#241, @piercifani)
+
 ## [1.5.2](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.2) (16/04/2018)
 
 ## New Features
