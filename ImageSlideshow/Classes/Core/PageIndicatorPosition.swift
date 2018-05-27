@@ -35,7 +35,7 @@ public struct PageIndicatorPosition {
         }
     }
 
-    func indicatorFrame(for parentFrame: CGRect, indicatorSize: CGSize, bottomInset: CGFloat) -> CGRect {
+    func indicatorFrame(for parentFrame: CGRect, indicatorSize: CGSize, edgeInsets: UIEdgeInsets) -> CGRect {
         var xSize: CGFloat = 0
         var ySize: CGFloat = 0
 
@@ -43,22 +43,21 @@ public struct PageIndicatorPosition {
         case .center:
             xSize = parentFrame.size.width / 2 - indicatorSize.width / 2
         case .left(let padding):
-            xSize = padding
+            xSize = padding + edgeInsets.left
         case .right(let padding):
-            xSize = parentFrame.size.width - indicatorSize.width - padding
+            xSize = parentFrame.size.width - indicatorSize.width - padding - edgeInsets.right
         }
 
         switch vertical {
         case .bottom, .under, .customUnder:
-            ySize = parentFrame.size.height - indicatorSize.height
+            ySize = parentFrame.size.height - indicatorSize.height - edgeInsets.bottom
         case .customBottom(let padding):
-            ySize = parentFrame.size.height - indicatorSize.height - padding
+            ySize = parentFrame.size.height - indicatorSize.height - padding - edgeInsets.bottom
         case .top:
-            ySize = 0
+            ySize = edgeInsets.top
         case .customTop(let padding):
-            ySize = padding
+            ySize = padding + edgeInsets.top
         }
-        ySize -= bottomInset
 
         return CGRect(x: xSize, y: ySize, width: indicatorSize.width, height: indicatorSize.height)
     }

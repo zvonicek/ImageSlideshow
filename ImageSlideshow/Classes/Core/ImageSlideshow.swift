@@ -252,13 +252,13 @@ open class ImageSlideshow: UIView {
         if let pageIndicatorView = pageIndicator?.view {
             pageIndicatorView.isHidden = self.images.count < 2
 
-            var bottomInset: CGFloat = 0
+            var edgeInsets: UIEdgeInsets = UIEdgeInsets.zero
             if #available(iOS 11.0, *) {
-                bottomInset += self.safeAreaInsets.bottom
+                edgeInsets = self.safeAreaInsets
             }
 
             pageIndicatorView.sizeToFit()
-            pageIndicatorView.frame = pageIndicatorPosition.indicatorFrame(for: self.frame, indicatorSize: pageIndicatorView.frame.size, bottomInset: bottomInset)
+            pageIndicatorView.frame = pageIndicatorPosition.indicatorFrame(for: self.frame, indicatorSize: pageIndicatorView.frame.size, edgeInsets: edgeInsets)
         }
     }
 
