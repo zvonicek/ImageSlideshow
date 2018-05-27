@@ -8,7 +8,9 @@
 [![License](https://img.shields.io/cocoapods/l/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
 [![Platform](https://img.shields.io/cocoapods/p/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
 
-![](https://dzwonsemrish7.cloudfront.net/items/3R3i0G2N0s3V2y3X1E15/ezgif.com-crop.gif)
+
+
+![](https://dzwonsemrish7.cloudfront.net/items/2R06283n040V3P3p0i42/ezgif.com-optimize.gif)
 
 ## 📱 Example
 
