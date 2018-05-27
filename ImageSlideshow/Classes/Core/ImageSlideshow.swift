@@ -250,7 +250,7 @@ open class ImageSlideshow: UIView {
             view.frame = CGRect(x: scrollView.frame.size.width * CGFloat(index), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
         }
 
-        setCurrentPage(currentPage, animated: false)
+        setScrollViewPage(scrollViewPage, animated: false)
     }
 
     /// reloads scroll view with latest slideshow items
