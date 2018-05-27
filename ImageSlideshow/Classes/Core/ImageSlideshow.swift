@@ -19,17 +19,6 @@ public enum PageControlPosition {
     case insideScrollView
     case underScrollView
     case custom(padding: CGFloat)
-
-    var bottomPadding: CGFloat {
-        switch self {
-        case .hidden, .insideScrollView:
-            return 0.0
-        case .underScrollView:
-            return 30.0
-        case .custom(let padding):
-            return padding
-        }
-    }
 }
 
 /// Used to represent image preload strategy
@@ -95,7 +84,7 @@ open class ImageSlideshow: UIView {
             case .underScrollView:
                 pageIndicatorPosition = PageIndicatorPosition(vertical: .under)
             case .custom(let padding):
-                pageIndicatorPosition = PageIndicatorPosition(vertical: .customUnder(padding: padding))
+                pageIndicatorPosition = PageIndicatorPosition(vertical: .customUnder(padding: padding-30))
             }
         }
     }
