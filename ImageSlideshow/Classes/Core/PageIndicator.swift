@@ -66,15 +66,8 @@ public struct PageIndicatorPosition {
 
 public protocol PageIndicatorView: class {
     var view: UIView { get }
-    var height: CGFloat { get }
     var page: Int { get set }
     var numberOfPages: Int { get set}
-}
-
-extension PageIndicatorView {
-    public var height: CGFloat {
-        return view.intrinsicContentSize.height
-    }
 }
 
 extension UIPageControl: PageIndicatorView {
@@ -94,6 +87,7 @@ extension UIPageControl: PageIndicatorView {
     open override func sizeToFit() {
         var frame = self.frame
         frame.size = size(forNumberOfPages: numberOfPages)
+        frame.size.height = 30
         self.frame = frame
     }
 }
