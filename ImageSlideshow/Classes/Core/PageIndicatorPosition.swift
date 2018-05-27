@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Describes the configuration of the page indicator position
 public struct PageIndicatorPosition {
     public enum Horizontal {
         case left(padding: CGFloat), center, right(padding: CGFloat)
@@ -16,14 +17,26 @@ public struct PageIndicatorPosition {
         case top, bottom, under, customTop(padding: CGFloat), customBottom(padding: CGFloat), customUnder(padding: CGFloat)
     }
 
+    /// Horizontal position of the page indicator
     var horizontal: Horizontal
+
+    /// Vertical position of the page indicator
     var vertical: Vertical
 
+    /// Creates a new PageIndicatorPosition struct
+    ///
+    /// - Parameters:
+    ///   - horizontal: horizontal position of the page indicator
+    ///   - vertical: vertical position of the page indicator
     public init(horizontal: Horizontal = .center, vertical: Vertical = .bottom) {
         self.horizontal = horizontal
         self.vertical = vertical
     }
 
+    /// Computes the additional padding needed for the page indicator under the ImageSlideshow
+    ///
+    /// - Parameter indicatorSize: size of the page indicator
+    /// - Returns: padding needed under the ImageSlideshow
     func underPadding(for indicatorSize: CGSize) -> CGFloat {
         switch vertical {
         case .under:
@@ -35,6 +48,13 @@ public struct PageIndicatorPosition {
         }
     }
 
+    /// Computes the page indicator frame
+    ///
+    /// - Parameters:
+    ///   - parentFrame: frame of the parent view – ImageSlideshow
+    ///   - indicatorSize: size of the page indicator
+    ///   - edgeInsets: edge insets of the parent view – ImageSlideshow (used for SafeAreaInsets adjustment)
+    /// - Returns: frame of the indicator by computing the origin and using `indicatorSize` as size
     func indicatorFrame(for parentFrame: CGRect, indicatorSize: CGSize, edgeInsets: UIEdgeInsets) -> CGRect {
         var xSize: CGFloat = 0
         var ySize: CGFloat = 0
