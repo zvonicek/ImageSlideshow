@@ -275,7 +275,9 @@ open class ImageSlideshow: UIView {
 
     /// updates frame of the scroll view and its inner items
     func layoutScrollView() {
-        let scrollViewBottomPadding: CGFloat = pageIndicatorPosition.underPadding
+        let pageIndicatorViewSize = pageIndicator?.view.frame.size
+        let scrollViewBottomPadding = pageIndicatorViewSize.flatMap { pageIndicatorPosition.underPadding(for: $0) } ?? 0
+
         scrollView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height - scrollViewBottomPadding)
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(scrollViewImages.count), height: scrollView.frame.size.height)
 

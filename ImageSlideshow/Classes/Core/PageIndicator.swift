@@ -24,12 +24,12 @@ public struct PageIndicatorPosition {
         self.vertical = vertical
     }
 
-    var underPadding: CGFloat {
+    func underPadding(for indicatorSize: CGSize) -> CGFloat {
         switch vertical {
         case .under:
-            return 30
+            return indicatorSize.height
         case .customUnder(let padding):
-            return padding
+            return indicatorSize.height + padding
         default:
             return 0
         }
