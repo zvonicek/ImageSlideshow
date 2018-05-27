@@ -1,5 +1,16 @@
 # Change log
 
+## [1.6.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.6.0) (27/05/2018)
+
+## New Features
+
+- Page Indicator customization (#251)
+
+## Fixes
+
+- Fixed animation problem on orientation change (#234)
+- Fixed missing close button image in Carthage build (#247)
+
 ## [1.5.3](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.3) (17/04/2018)
 
 ## Fixes
