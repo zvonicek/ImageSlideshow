@@ -1,6 +1,6 @@
 # 🖼 ImageSlideshow
 
-**Swift image slideshow with circular scrolling, timer and full screen viewer**
+**Customizable Swift image slideshow with circular scrolling, timer and full screen viewer**
 
 [![Build Status](https://www.bitrise.io/app/9aaf3e552f3a575c.svg?token=AjiVckTN9ItQtJs873mYMw&branch=master)](https://www.bitrise.io/app/9aaf3e552f3a575c)
 [![Version](https://img.shields.io/cocoapods/v/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/cocoapods/l/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
 [![Platform](https://img.shields.io/cocoapods/p/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
 
-![](http://cl.ly/image/2v193I0G0h0Z/ImageSlideshow2.gif)
+![](https://dzwonsemrish7.cloudfront.net/items/3R3i0G2N0s3V2y3X1E15/ezgif.com-crop.gif)
 
 ## 📱 Example
 
@@ -21,14 +21,14 @@ ImageSlideshow is available through [CocoaPods](http://cocoapods.org). To instal
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ImageSlideshow', '~> 1.5'
+pod 'ImageSlideshow', '~> 1.6'
 ```
 
 ### Carthage
 To integrate ImageSlideshow into your Xcode project using Carthage, specify it in your Cartfile:
 
 ```ruby
-github "zvonicek/ImageSlideshow" ~> 1.5
+github "zvonicek/ImageSlideshow" ~> 1.6
 ```
 
 Carthage does not include InputSources for external providers (due to dependency on those providers) so you need to grab the one you need from `ImageSlideshow/Classes/InputSources` manually.
@@ -77,13 +77,46 @@ Behaviour is configurable by those properties:
 - ```slideshowInterval``` - slideshow interval in seconds (default `0` – disabled)
 - ```zoomEnabled``` - enables zooming (default `false`)
 - ```circular``` - enables circular scrolling (default `true`)
-- ```pageControlPosition``` - configures position of UIPageControl (default `insideScrollView`, also `hidden`, `underScrollView` or `custom`)
+- ```activityIndicator``` – allows to set custom activity indicator, see *Activity indicator* section
+- ```pageIndicator``` – allows to set custom page indicator, see *Page indicator* section; assign `nil` to hide page indicator
+- ```pageIndicatorPosition``` - configures position of the page indicator
 - ```contentScaleMode``` - configures the scaling (default `ScaleAspectFit`)
 - ```draggingEnabled``` - enables dragging (default `true`)
 - ```currentPageChanged``` - closure called on page change
 - ```willBeginDragging``` - closure called on scrollViewWillBeginDragging
 - ```didEndDecelerating``` - closure called on scrollViewDidEndDecelerating
 - ```preload``` - image preloading configuration (default `all` preloading, also `fixed`)
+
+### Page Indicator
+
+Page indicator can be customized using the `pageIndicator` property on ImageSlideshow. By defualt, a plain UIPageControl is used. If needed, page control can be customized:
+
+```swift
+let pageIndicator = UIPageControl()
+pageIndicator.currentPageIndicatorTintColor = UIColor.lightGray
+pageIndicator.pageIndicatorTintColor = UIColor.black
+slideshow.pageIndicator = pageIndicator
+```
+
+Also, a simple label page indicator that shows pages in style "5/21" (fifth page from twenty one) is provided:
+
+```swift
+slideshow.pageIndicator = LabelPageIndicator()
+```
+
+You can also use your own page indicator by adopting the `PageIndicatorView` protocol.
+
+Position of the page indicator can be configured by assigning a `PageIndicatorPosition` value to the `pageIndicatorPosition` property on ImageSlideshow. You may specify the horizontal and vertical positioning separately.
+
+**Horizontal** positioning options are: `.left(padding: Int)`, `.center`, `.right(padding: Int)`
+
+**Vertical** positioning options are: `.top`, `.bottom`, `.under`, `customTop(padding: Int)`, `customBottom(padding: Int)`, `customUnder(padding: Int)`
+
+Example:
+```swift
+slideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .left(padding: 20), vertical: .bottom)
+```
+
 
 ### Activity Indicator
 
