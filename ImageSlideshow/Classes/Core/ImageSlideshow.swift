@@ -19,17 +19,6 @@ public enum PageControlPosition {
     case insideScrollView
     case underScrollView
     case custom(padding: CGFloat)
-
-    var bottomPadding: CGFloat {
-        switch self {
-        case .hidden, .insideScrollView:
-            return 0.0
-        case .underScrollView:
-            return 30.0
-        case .custom(let padding):
-            return padding
-        }
-    }
 }
 
 /// Used to represent image preload strategy
@@ -49,7 +38,13 @@ open class ImageSlideshow: UIView {
     open let scrollView = UIScrollView()
 
     /// Page Control shown in the slideshow
-    open let pageControl = UIPageControl()
+    @available(*, deprecated, message: "Use pageIndicator.view instead")
+    open var pageControl: UIPageControl {
+        if let pageIndicator = pageIndicator as? UIPageControl {
+            return pageIndicator
+        }
+        fatalError("pageIndicator is not an instance of UIPageControl")
+    }
 
     /// Activity indicator shown when loading image
     open var activityIndicator: ActivityIndicatorFactory? {
@@ -58,12 +53,39 @@ open class ImageSlideshow: UIView {
         }
     }
 
+    open var pageIndicator: PageIndicatorView? = UIPageControl() {
+        didSet {
+            oldValue?.view.removeFromSuperview()
+            if let pageIndicator = pageIndicator {
+                addSubview(pageIndicator.view)
+            }
+            setNeedsLayout()
+        }
+    }
+
+    open var pageIndicatorPosition: PageIndicatorPosition = PageIndicatorPosition() {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+
     // MARK: - State properties
 
     /// Page control position
+    @available(*, deprecated, message: "Use pageIndicatorPosition instead")
     open var pageControlPosition = PageControlPosition.insideScrollView {
         didSet {
-            setNeedsLayout()
+            pageIndicator = UIPageControl()
+            switch pageControlPosition {
+            case .hidden:
+                pageIndicator = nil
+            case .insideScrollView:
+                pageIndicatorPosition = PageIndicatorPosition(vertical: .bottom)
+            case .underScrollView:
+                pageIndicatorPosition = PageIndicatorPosition(vertical: .under)
+            case .custom(let padding):
+                pageIndicatorPosition = PageIndicatorPosition(vertical: .customUnder(padding: padding-30))
+            }
         }
     }
 
@@ -199,8 +221,13 @@ open class ImageSlideshow: UIView {
         }
         addSubview(scrollView)
 
-        addSubview(pageControl)
-        pageControl.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
+        if let pageIndicator = pageIndicator {
+            addSubview(pageIndicator.view)
+        }
+        
+        if let pageIndicator = pageIndicator as? UIControl {
+            pageIndicator.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
+        }
 
         setTimerIfNeeded()
         layoutScrollView()
@@ -222,24 +249,24 @@ open class ImageSlideshow: UIView {
     }
 
     open func layoutPageControl() {
-        if case .hidden = self.pageControlPosition {
-            pageControl.isHidden = true
-        } else {
-            pageControl.isHidden = self.images.count < 2
-        }
+        if let pageIndicatorView = pageIndicator?.view {
+            pageIndicatorView.isHidden = self.images.count < 2
 
-        var pageControlBottomInset: CGFloat = 12.0
-        if #available(iOS 11.0, *) {
-            pageControlBottomInset += self.safeAreaInsets.bottom
-        }
+            var edgeInsets: UIEdgeInsets = UIEdgeInsets.zero
+            if #available(iOS 11.0, *) {
+                edgeInsets = self.safeAreaInsets
+            }
 
-        pageControl.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: 10)
-        pageControl.center = CGPoint(x: frame.size.width / 2, y: frame.size.height - pageControlBottomInset)
+            pageIndicatorView.sizeToFit()
+            pageIndicatorView.frame = pageIndicatorPosition.indicatorFrame(for: self.frame, indicatorSize: pageIndicatorView.frame.size, edgeInsets: edgeInsets)
+        }
     }
 
     /// updates frame of the scroll view and its inner items
     func layoutScrollView() {
-        let scrollViewBottomPadding: CGFloat = pageControlPosition.bottomPadding
+        let pageIndicatorViewSize = pageIndicator?.view.frame.size
+        let scrollViewBottomPadding = pageIndicatorViewSize.flatMap { pageIndicatorPosition.underPadding(for: $0) } ?? 0
+
         scrollView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height - scrollViewBottomPadding)
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(scrollViewImages.count), height: scrollView.frame.size.height)
 
@@ -307,7 +334,7 @@ open class ImageSlideshow: UIView {
      */
     open func setImageInputs(_ inputs: [InputSource]) {
         self.images = inputs
-        self.pageControl.numberOfPages = inputs.count
+        self.pageIndicator?.numberOfPages = inputs.count
 
         // in circular mode we add dummy first and last image to enable smooth scrolling
         if circular && images.count > 1 {
@@ -451,7 +478,9 @@ open class ImageSlideshow: UIView {
     }
 
     @objc private func pageControlValueChanged() {
-        self.setCurrentPage(pageControl.currentPage, animated: true)
+        if let currentPage = pageIndicator?.page {
+            self.setCurrentPage(currentPage, animated: true)
+        }
     }
 }
 
@@ -483,6 +512,6 @@ extension ImageSlideshow: UIScrollViewDelegate {
             }
         }
 
-        pageControl.currentPage = currentPageForScrollViewPage(primaryVisiblePage)
+        pageIndicator?.page = currentPageForScrollViewPage(primaryVisiblePage)
     }
 }

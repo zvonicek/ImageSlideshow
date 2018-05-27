@@ -18,6 +18,7 @@
 		D0083DCE1EB739E700126B21 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */; };
 		D00C7A2720B4C0A100E5725B /* ic_cross_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00C7A2520B4C0A000E5725B /* ic_cross_white@3x.png */; };
 		D00C7A2820B4C0A100E5725B /* ic_cross_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00C7A2620B4C0A100E5725B /* ic_cross_white@2x.png */; };
+		D0B974B0202738F6006217CF /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B974AF202738F6006217CF /* PageIndicator.swift */; };
 		D0E8A9E61D97EB6D007EC517 /* ImageSlideshow_framework.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E8A9E41D97EB6D007EC517 /* ImageSlideshow_framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8A9F11D97EB94007EC517 /* FullScreenSlideshowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9EA1D97EB94007EC517 /* FullScreenSlideshowViewController.swift */; };
 		D0E8A9F21D97EB94007EC517 /* ImageSlideshow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9EB1D97EB94007EC517 /* ImageSlideshow.swift */; };
@@ -56,6 +57,7 @@
 		8AA07A6EDAC622F1407E6C80 /* Pods_ImageSlideshow_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageSlideshow_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D007954E2043262C0053E25F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityIndicator.swift; path = ../../ImageSlideshow/Classes/Core/ActivityIndicator.swift; sourceTree = "<group>"; };
+		D0B974AF202738F6006217CF /* PageIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageIndicator.swift; path = ../../ImageSlideshow/Classes/Core/PageIndicator.swift; sourceTree = "<group>"; };
 		D00C7A2520B4C0A000E5725B /* ic_cross_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_cross_white@3x.png"; path = "../../../ImageSlideshow/Assets/ic_cross_white@3x.png"; sourceTree = "<group>"; };
 		D00C7A2620B4C0A100E5725B /* ic_cross_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_cross_white@2x.png"; path = "../../../ImageSlideshow/Assets/ic_cross_white@2x.png"; sourceTree = "<group>"; };
 		D0E8A9E21D97EB6D007EC517 /* ImageSlideshow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageSlideshow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E8A9EA1D97EB94007EC517 /* FullScreenSlideshowViewController.swift */,
+				D0B974AF202738F6006217CF /* PageIndicator.swift */,
 				D0E8A9EB1D97EB94007EC517 /* ImageSlideshow.swift */,
 				D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */,
 				D0E8A9EC1D97EB94007EC517 /* ImageSlideshowItem.swift */,
@@ -439,6 +442,7 @@
 				D0083DCE1EB739E700126B21 /* ActivityIndicator.swift in Sources */,
 				D0E8A9F51D97EB94007EC517 /* UIImage+AspectFit.swift in Sources */,
 				D0E8A9F11D97EB94007EC517 /* FullScreenSlideshowViewController.swift in Sources */,
+				D0B974B0202738F6006217CF /* PageIndicator.swift in Sources */,
 				D0E8A9F31D97EB94007EC517 /* ImageSlideshowItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
