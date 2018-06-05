@@ -127,7 +127,11 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
             activityIndicator?.show()
             image.load(to: self.imageView) {[weak self] image in
                 // set image to nil if there was a release request during the image load
-                self?.imageView.image = self?.imageReleased ? nil : image
+                if let imageRelease = self?.imageReleased, imageRelease {
+                    self?.imageView.image = nil
+                }else{
+                    self?.imageView.image = image
+                }
                 self?.activityIndicator?.hide()
                 self?.loadFailed = image == nil
                 self?.isLoading = false
