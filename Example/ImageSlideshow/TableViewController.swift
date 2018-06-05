@@ -61,6 +61,6 @@ class TableViewController: UITableViewController {
             }
         }
 
-        self.present(fullScreenController, animated: true, completion: nil)
+        present(fullScreenController, animated: true, completion: nil)
     }
 }
