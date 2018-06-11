@@ -31,11 +31,11 @@ extension UIActivityIndicatorView: ActivityIndicatorView {
     }
 
     public func show() {
-        self.startAnimating()
+        startAnimating()
     }
 
     public func hide() {
-        self.stopAnimating()
+        stopAnimating()
     }
 }
 
