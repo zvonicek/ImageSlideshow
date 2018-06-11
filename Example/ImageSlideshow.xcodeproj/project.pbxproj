@@ -27,6 +27,9 @@
 		D0E8A9F51D97EB94007EC517 /* UIImage+AspectFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9EE1D97EB94007EC517 /* UIImage+AspectFit.swift */; };
 		D0E8A9F61D97EB94007EC517 /* UIImageView+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9EF1D97EB94007EC517 /* UIImageView+Tools.swift */; };
 		D0E8A9F71D97EB94007EC517 /* ZoomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9F01D97EB94007EC517 /* ZoomAnimatedTransitioning.swift */; };
+		F802998F20CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */; };
+		F802999020CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */; };
+		F802999120CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,9 +60,9 @@
 		8AA07A6EDAC622F1407E6C80 /* Pods_ImageSlideshow_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageSlideshow_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D007954E2043262C0053E25F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityIndicator.swift; path = ../../ImageSlideshow/Classes/Core/ActivityIndicator.swift; sourceTree = "<group>"; };
-		D0B974AF202738F6006217CF /* PageIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageIndicator.swift; path = ../../ImageSlideshow/Classes/Core/PageIndicator.swift; sourceTree = "<group>"; };
 		D00C7A2520B4C0A000E5725B /* ic_cross_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_cross_white@3x.png"; path = "../../../ImageSlideshow/Assets/ic_cross_white@3x.png"; sourceTree = "<group>"; };
 		D00C7A2620B4C0A100E5725B /* ic_cross_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_cross_white@2x.png"; path = "../../../ImageSlideshow/Assets/ic_cross_white@2x.png"; sourceTree = "<group>"; };
+		D0B974AF202738F6006217CF /* PageIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageIndicator.swift; path = ../../ImageSlideshow/Classes/Core/PageIndicator.swift; sourceTree = "<group>"; };
 		D0E8A9E21D97EB6D007EC517 /* ImageSlideshow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageSlideshow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E8A9E41D97EB6D007EC517 /* ImageSlideshow_framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageSlideshow_framework.h; sourceTree = "<group>"; };
 		D0E8A9E51D97EB6D007EC517 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +73,7 @@
 		D0E8A9EE1D97EB94007EC517 /* UIImage+AspectFit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+AspectFit.swift"; path = "../../ImageSlideshow/Classes/Core/UIImage+AspectFit.swift"; sourceTree = "<group>"; };
 		D0E8A9EF1D97EB94007EC517 /* UIImageView+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+Tools.swift"; path = "../../ImageSlideshow/Classes/Core/UIImageView+Tools.swift"; sourceTree = "<group>"; };
 		D0E8A9F01D97EB94007EC517 /* ZoomAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZoomAnimatedTransitioning.swift; path = ../../ImageSlideshow/Classes/Core/ZoomAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageIndicatorPosition.swift; path = ../../ImageSlideshow/Classes/Core/PageIndicatorPosition.swift; sourceTree = "<group>"; };
 		FD45C56C18E7B8EC08371B86 /* Pods-ImageSlideshow_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSlideshow_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSlideshow_Example/Pods-ImageSlideshow_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,6 +207,7 @@
 			children = (
 				D0E8A9EA1D97EB94007EC517 /* FullScreenSlideshowViewController.swift */,
 				D0B974AF202738F6006217CF /* PageIndicator.swift */,
+				F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */,
 				D0E8A9EB1D97EB94007EC517 /* ImageSlideshow.swift */,
 				D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */,
 				D0E8A9EC1D97EB94007EC517 /* ImageSlideshowItem.swift */,
@@ -418,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				F802998F20CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */,
 				D007954F2043262C0053E25F /* TableViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
@@ -428,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				F802999020CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +447,7 @@
 				D0E8A9F61D97EB94007EC517 /* UIImageView+Tools.swift in Sources */,
 				D0E8A9F71D97EB94007EC517 /* ZoomAnimatedTransitioning.swift in Sources */,
 				D0083DCE1EB739E700126B21 /* ActivityIndicator.swift in Sources */,
+				F802999120CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */,
 				D0E8A9F51D97EB94007EC517 /* UIImage+AspectFit.swift in Sources */,
 				D0E8A9F11D97EB94007EC517 /* FullScreenSlideshowViewController.swift in Sources */,
 				D0B974B0202738F6006217CF /* PageIndicator.swift in Sources */,
