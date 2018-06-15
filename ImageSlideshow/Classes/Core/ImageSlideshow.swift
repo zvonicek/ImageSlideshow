@@ -177,6 +177,13 @@ open class ImageSlideshow: UIView {
             }
         }
     }
+    
+    /// Set radius image round
+    open var roundRadius: CGFloat = 0 {
+        didSet {
+            scrollView.layer.cornerRadius = roundRadius
+        }
+    }
 
     fileprivate var slideshowTimer: Timer?
     fileprivate var scrollViewImages = [InputSource]()
@@ -290,7 +297,10 @@ open class ImageSlideshow: UIView {
 
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale)
+            let item = ImageSlideshowItem(image: image,
+                                          zoomEnabled: zoomEnabled,
+                                          activityIndicator: activityIndicator?.create(),
+                                          maximumScale: maximumScale)
             item.imageView.contentMode = contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)
