@@ -98,6 +98,14 @@ open class ImageSlideshow: UIView {
         }
     }
 
+    private var loadingScrollViewPage: Int = 0 {
+        didSet {
+            if oldValue != loadingScrollViewPage {
+                loadImages(for: loadingScrollViewPage)
+            }
+        }
+    }
+
     /// Called on each currentPage change
     open var currentPageChanged: ((_ page: Int) -> ())?
 
@@ -412,10 +420,8 @@ open class ImageSlideshow: UIView {
             }
         }
 
-        if page != scrollViewPage {
-            loadImages(for: page)
-        }
         scrollViewPage = page
+        loadingScrollViewPage = page
         currentPage = currentPageForScrollViewPage(page)
     }
     
@@ -502,16 +508,26 @@ extension ImageSlideshow: UIScrollViewDelegate {
     }
 
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var boundaryAdjust = false
+
         if circular {
             let regularContentOffset = scrollView.frame.size.width * CGFloat(images.count)
 
             if scrollView.contentOffset.x >= scrollView.frame.size.width * CGFloat(images.count + 1) {
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x - regularContentOffset, y: 0)
+                boundaryAdjust = true
             } else if scrollView.contentOffset.x < 0 {
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x + regularContentOffset, y: 0)
+                boundaryAdjust = true
             }
         }
 
         pageIndicator?.page = currentPageForScrollViewPage(primaryVisiblePage)
+
+        // set the loading page only when scrolled while dragging (programatic page change do that in setCurrentPageForScrollViewPage) or
+        // when changed contentOffset because of a boundary
+        if scrollView.isTracking || boundaryAdjust {
+            loadingScrollViewPage = primaryVisiblePage
+        }
     }
 }
