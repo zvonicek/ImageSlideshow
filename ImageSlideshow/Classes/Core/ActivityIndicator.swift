@@ -31,15 +31,16 @@ extension UIActivityIndicatorView: ActivityIndicatorView {
     }
 
     public func show() {
-        self.startAnimating()
+        startAnimating()
     }
 
     public func hide() {
-        self.stopAnimating()
+        stopAnimating()
     }
 }
 
 /// Default activity indicator factory creating UIActivityIndicatorView instances
+@objcMembers
 open class DefaultActivityIndicator: ActivityIndicatorFactory {
     /// activity indicator style
     open var style: UIActivityIndicatorViewStyle

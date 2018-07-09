@@ -10,6 +10,7 @@ import Alamofire
 import AlamofireImage
 
 /// Input Source to image using Alamofire
+@objcMembers
 public class AlamofireSource: NSObject, InputSource {
     /// url to load
     public var url: URL
@@ -45,4 +46,7 @@ public class AlamofireSource: NSObject, InputSource {
         }
     }
 
+    public func cancelLoad(on imageView: UIImageView) {
+        imageView.af_cancelImageRequest()
+    }
 }

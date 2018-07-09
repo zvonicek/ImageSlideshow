@@ -8,6 +8,7 @@
 import UIKit
 
 /// Used to wrap a single slideshow item and allow zooming on it
+@objcMembers
 open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// Image view to hold the image
@@ -33,6 +34,9 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// If set to true image is initially zoomed in
     open var zoomInInitially = false
+    
+    /// Maximum zoom scale
+    open var maximumScale: CGFloat = 2.0
 
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
@@ -54,10 +58,11 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         - parameter fallbackImage: A fallback image to display if image is unavailable
         - parameter fallbackScaleMode: The fallback image scale mode
     */
-    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, fallbackImage: InputSource? = nil, fallbackScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit) {
+    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0, fallbackImage: InputSource? = nil, fallbackScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit) {
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.activityIndicator = activityIndicator
+        self.maximumScale = maximumScale
         self.fallbackImage = fallbackImage
         self.fallbackScaleMode = fallbackScaleMode
 
@@ -125,34 +130,43 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
 
     /// Request to load Image Source to Image View
-    func loadImage() {
+    public func loadImage() {
         if (self.imageView.image == nil || self.loadFailed) && !isLoading {
-            self.imageView.image = nil
             isLoading = true
             imageReleased = false
             activityIndicator?.show()
-            image.load(to: self.imageView) { image in
+            image.load(to: self.imageView) {[weak self] image in
                 // set image to nil if there was a release request during the image load
-                self.imageView.image = self.imageReleased ? nil : image
-                self.activityIndicator?.hide()
-                self.loadFailed = image == nil
-                self.isLoading = false
-                if self.loadFailed && self.fallbackImage != nil {
-                    self.fallbackImage?.load(to: self.imageView) { fallbackImage in
-                        self.imageView.image = self.imageReleased ? nil : fallbackImage
-                        self.imageView.contentMode = self.fallbackScaleMode
+                if let imageRelease = self?.imageReleased, imageRelease {
+                    self?.imageView.image = nil
+                }
+                else {
+                    self?.imageView.image = image
+                }
+                self?.activityIndicator?.hide()
+                self?.loadFailed = image == nil
+                self?.isLoading = false
+                if self?.loadFailed && self?.fallbackImage != nil {
+                    self?.fallbackImage?.load(to: self?.imageView) { fallbackImage in
+                        self?.imageView.image = self?.imageReleased ? nil : fallbackImage
+                        self?.imageView.contentMode = self?.fallbackScaleMode
                     }
                 }
             }
         }
     }
-
+    
     func releaseImage() {
         imageReleased = true
+        cancelPendingLoad()
         self.imageView.image = nil
     }
+    
+    public func cancelPendingLoad() {
+        image.cancelLoad?(on: imageView)
+    }
 
-    func retryLoadImage() {
+    @objc func retryLoadImage() {
         self.loadImage()
     }
 
@@ -166,7 +180,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.setZoomScale(minimumZoomScale, animated: false)
     }
 
-    func tapZoom() {
+    @objc func tapZoom() {
         if isZoomed() {
             self.setZoomScale(minimumZoomScale, animated: true)
         } else {
@@ -214,8 +228,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
 
     fileprivate func calculateMaximumScale() -> CGFloat {
-        // maximum scale is fixed to 2.0 for now. This may be overriden to perform a more sophisticated computation
-        return 2.0
+        return maximumScale
     }
 
     fileprivate func setPictoCenter() {

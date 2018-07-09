@@ -1,5 +1,78 @@
 # Change log
 
+## [1.6.1](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.6.1) (11/06/2018)
+
+## Fixes
+
+- Fixed Carthage build (#258)
+- Fixed memory issues (#255)
+
+## [1.6.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.6.0) (27/05/2018)
+
+## New Features
+
+- Page Indicator customization (#251)
+
+## Fixes
+
+- Fixed animation problem on orientation change (#234)
+- Fixed missing close button image in Carthage build (#247)
+
+## [1.5.3](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.3) (17/04/2018)
+
+## Fixes
+
+- Fixed Close broken button in Full screen controller (#242)
+- Fixed retain cycle (#241, @piercifani)
+
+## [1.5.2](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.2) (16/04/2018)
+
+## New Features
+
+- Example project demonstrating usage of Image Slideshow with parent UIImageView
+
+## Fixes
+
+-  Fix image shift on iPhone X landscape (#200)
+-  Add closeButtonFrame property to Full Screen controller (#226)
+-  Don't trigger interactive gesture recognizer on horizontal pans, fixes single image sliding issue (#224)
+-  Fix interactive dismiss regression on iOS 11 
+
+## [1.5.1](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.1) (04/02/2018)
+
+## Fixes
+-  Fix division by zero error (#223) 
+
+## [1.5.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.5.0) (21/01/2018)
+
+## New Features
+
+- Implement image load cancelling to optimize memory usage
+- Improve Kingfisher InputSource to take Options parameters
+- Update page control selected page during scrolling (#204)
+- Add possibility to change maximum zoom scale (#221)
+
+## Fixes
+
+- SDWebImage dependency improvements (#205)
+- Fix possible division by zero crash (#187)
+- Adjust close button frame to respect SafeAreaInsets (#209)
+- Fix missing placeholder on AFURLSource (#218) 
+- Fix incorrect currentPageChanged calls (#222) 
+
+## [1.4.1](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.4.1) (04/10/2017)
+
+## Fixes
+
+- iPhone X fixes
+
+
+## [1.4.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.4.0) (23/09/2017)
+
+## New Features
+
+- Support for Swift 4
+
 ## [1.3.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.3.0) (08/05/2017)
 
 ## New Features

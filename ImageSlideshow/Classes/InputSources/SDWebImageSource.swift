@@ -9,6 +9,7 @@
 import SDWebImage
 
 /// Input Source to image using SDWebImage
+@objcMembers
 public class SDWebImageSource: NSObject, InputSource {
     /// url to load
     public var url: URL
@@ -42,5 +43,9 @@ public class SDWebImageSource: NSObject, InputSource {
         imageView.sd_setImage(with: self.url, placeholderImage: self.placeholder, options: [], completed: { (image, _, _, _) in
             callback(image)
         })
+    }
+    
+    public func cancelLoad(on imageView: UIImageView) {
+        imageView.sd_cancelCurrentImageLoad()
     }
 }

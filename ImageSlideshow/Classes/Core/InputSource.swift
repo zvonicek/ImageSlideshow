@@ -12,14 +12,21 @@ import UIKit
 @objc public protocol InputSource {
     /**
      Load image from the source to image view.
-     - parameter imageView: The image view to load the image into.
-     - parameter callback: Callback called after the image was set to the image view.
+     - parameter imageView: Image view to load the image into.
+     - parameter callback: Callback called after image was set to the image view.
      - parameter image: Image that was set to the image view.
      */
     func load(to imageView: UIImageView, with callback: @escaping (_ image: UIImage?) -> Void)
+    
+    /**
+     Cancel image load on the image view
+     - parameter imageView: Image view that is loading the image
+    */
+    @objc optional func cancelLoad(on imageView: UIImageView)
 }
 
 /// Input Source to load plain UIImage
+@objcMembers
 open class ImageSource: NSObject, InputSource {
     var image: UIImage!
 
