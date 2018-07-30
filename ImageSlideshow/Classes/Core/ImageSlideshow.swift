@@ -35,7 +35,7 @@ public enum ImagePreload {
 open class ImageSlideshow: UIView {
 
     /// Scroll View to wrap the slideshow
-    open let scrollView = UIScrollView()
+    public let scrollView = UIScrollView()
 
     /// Page Control shown in the slideshow
     @available(*, deprecated, message: "Use pageIndicator.view instead")
@@ -169,6 +169,16 @@ open class ImageSlideshow: UIView {
     /// Image preload configuration, can be sed to .fixed to enable lazy load or .all
     open var preload = ImagePreload.all
 
+    #if swift(>=4.2)
+    /// Content mode of each image in the slideshow
+    open var contentScaleMode: UIView.ContentMode = UIView.ContentMode.scaleAspectFit {
+        didSet {
+            for view in slideshowItems {
+                view.imageView.contentMode = contentScaleMode
+            }
+        }
+    }
+    #else
     /// Content mode of each image in the slideshow
     open var contentScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit {
         didSet {
@@ -177,6 +187,7 @@ open class ImageSlideshow: UIView {
             }
         }
     }
+    #endif
 
     fileprivate var slideshowTimer: Timer?
     fileprivate var scrollViewImages = [InputSource]()

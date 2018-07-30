@@ -27,6 +27,7 @@
 		D0E8A9F51D97EB94007EC517 /* UIImage+AspectFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9EE1D97EB94007EC517 /* UIImage+AspectFit.swift */; };
 		D0E8A9F61D97EB94007EC517 /* UIImageView+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9EF1D97EB94007EC517 /* UIImageView+Tools.swift */; };
 		D0E8A9F71D97EB94007EC517 /* ZoomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8A9F01D97EB94007EC517 /* ZoomAnimatedTransitioning.swift */; };
+		F539204C210F03610057EFB3 /* SwiftSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539204B210F03600057EFB3 /* SwiftSupport.swift */; };
 		F802998F20CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */; };
 		F802999020CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */; };
 		F802999120CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */; };
@@ -73,6 +74,7 @@
 		D0E8A9EE1D97EB94007EC517 /* UIImage+AspectFit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+AspectFit.swift"; path = "../../ImageSlideshow/Classes/Core/UIImage+AspectFit.swift"; sourceTree = "<group>"; };
 		D0E8A9EF1D97EB94007EC517 /* UIImageView+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+Tools.swift"; path = "../../ImageSlideshow/Classes/Core/UIImageView+Tools.swift"; sourceTree = "<group>"; };
 		D0E8A9F01D97EB94007EC517 /* ZoomAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZoomAnimatedTransitioning.swift; path = ../../ImageSlideshow/Classes/Core/ZoomAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		F539204B210F03600057EFB3 /* SwiftSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftSupport.swift; path = ../../ImageSlideshow/Classes/Core/SwiftSupport.swift; sourceTree = "<group>"; };
 		F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageIndicatorPosition.swift; path = ../../ImageSlideshow/Classes/Core/PageIndicatorPosition.swift; sourceTree = "<group>"; };
 		FD45C56C18E7B8EC08371B86 /* Pods-ImageSlideshow_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSlideshow_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSlideshow_Example/Pods-ImageSlideshow_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,6 +207,7 @@
 		D0E8A9E31D97EB6D007EC517 /* ImageSlideshow_framework */ = {
 			isa = PBXGroup;
 			children = (
+				F539204B210F03600057EFB3 /* SwiftSupport.swift */,
 				D0E8A9EA1D97EB94007EC517 /* FullScreenSlideshowViewController.swift */,
 				D0B974AF202738F6006217CF /* PageIndicator.swift */,
 				F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */,
@@ -450,6 +453,7 @@
 				F802999120CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */,
 				D0E8A9F51D97EB94007EC517 /* UIImage+AspectFit.swift in Sources */,
 				D0E8A9F11D97EB94007EC517 /* FullScreenSlideshowViewController.swift in Sources */,
+				F539204C210F03610057EFB3 /* SwiftSupport.swift in Sources */,
 				D0B974B0202738F6006217CF /* PageIndicator.swift in Sources */,
 				D0E8A9F31D97EB94007EC517 /* ImageSlideshowItem.swift in Sources */,
 			);
@@ -537,7 +541,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -585,7 +589,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -602,7 +606,6 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -618,7 +621,6 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -678,7 +680,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -706,7 +707,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.zvo.ImageSlideshow-framework";
 				PRODUCT_NAME = ImageSlideshow;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
