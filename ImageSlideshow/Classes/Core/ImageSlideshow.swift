@@ -169,7 +169,6 @@ open class ImageSlideshow: UIView {
     /// Image preload configuration, can be sed to .fixed to enable lazy load or .all
     open var preload = ImagePreload.all
 
-    #if swift(>=4.2)
     /// Content mode of each image in the slideshow
     open var contentScaleMode: UIView.ContentMode = UIView.ContentMode.scaleAspectFit {
         didSet {
@@ -178,16 +177,6 @@ open class ImageSlideshow: UIView {
             }
         }
     }
-    #else
-    /// Content mode of each image in the slideshow
-    open var contentScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit {
-        didSet {
-            for view in slideshowItems {
-                view.imageView.contentMode = contentScaleMode
-            }
-        }
-    }
-    #endif
 
     fileprivate var slideshowTimer: Timer?
     fileprivate var scrollViewImages = [InputSource]()

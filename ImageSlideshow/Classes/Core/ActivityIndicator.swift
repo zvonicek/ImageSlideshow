@@ -43,11 +43,7 @@ extension UIActivityIndicatorView: ActivityIndicatorView {
 @objcMembers
 open class DefaultActivityIndicator: ActivityIndicatorFactory {
     /// activity indicator style
-    #if swift(>=4.2)
     open var style: UIActivityIndicatorView.Style
-    #else
-    open var style: UIActivityIndicatorViewStyle
-    #endif
     
     /// activity indicator color
     open var color: UIColor?
@@ -56,17 +52,10 @@ open class DefaultActivityIndicator: ActivityIndicatorFactory {
     ///
     /// - style: activity indicator style
     /// - color: activity indicator color
-    #if swift(>=4.2)
     public init(style: UIActivityIndicatorView.Style = .gray, color: UIColor? = nil) {
         self.style = style
         self.color = color
     }
-    #else
-    public init(style: UIActivityIndicatorViewStyle = .gray, color: UIColor? = nil) {
-        self.style = style
-        self.color = color
-    }
-    #endif
 
     /// create ActivityIndicatorView instance
     open func create() -> ActivityIndicatorView {
