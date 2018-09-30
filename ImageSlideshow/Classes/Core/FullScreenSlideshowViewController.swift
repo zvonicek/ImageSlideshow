@@ -9,83 +9,94 @@ import UIKit
 
 @objcMembers
 open class FullScreenSlideshowViewController: UIViewController {
-
+    
     open var slideshow: ImageSlideshow = {
         let slideshow = ImageSlideshow()
         slideshow.zoomEnabled = true
         slideshow.contentScaleMode = UIViewContentMode.scaleAspectFit
-        slideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .bottom)
+        slideshow.pageControlPosition = PageControlPosition.insideScrollView
         // turns off the timer
         slideshow.slideshowInterval = 0
         slideshow.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
-
+        
         return slideshow
     }()
-
-    /// Close button 
+    
+    /// Close button
     open var closeButton = UIButton()
-
+    
     /// Close button frame
     open var closeButtonFrame: CGRect?
-
+    
+    /// Close button
+    open var shareButton = UIButton()
+    
+    /// Close button frame
+    open var shareButtonFrame: CGRect?
+    
     /// Closure called on page selection
     open var pageSelected: ((_ page: Int) -> Void)?
-
+    
     /// Index of initial image
     open var initialPage: Int = 0
-
-    /// Input sources to 
+    
+    /// Input sources to
     open var inputs: [InputSource]?
-
+    
     /// Background color
     open var backgroundColor = UIColor.black
-
+    
     /// Enables/disable zoom
     open var zoomEnabled = true {
         didSet {
             slideshow.zoomEnabled = zoomEnabled
         }
     }
-
+    
     fileprivate var isInit = true
-
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = backgroundColor
         slideshow.backgroundColor = backgroundColor
-
+        
         if let inputs = inputs {
             slideshow.setImageInputs(inputs)
         }
-
+        
         view.addSubview(slideshow)
-
+        
         // close button configuration
         closeButton.setImage(UIImage(named: "ic_cross_white", in: Bundle(for: type(of: self)), compatibleWith: nil), for: UIControlState())
         closeButton.addTarget(self, action: #selector(FullScreenSlideshowViewController.close), for: UIControlEvents.touchUpInside)
         view.addSubview(closeButton)
+        
+        // share button configuration
+                shareButton.setImage(UIImage(named: "share_icon", in: Bundle(for: type(of: self)), compatibleWith: nil), for: UIControlState())
+        shareButton.addTarget(self, action: #selector(FullScreenSlideshowViewController.share), for: UIControlEvents.touchUpInside)
+        view.addSubview(shareButton)
     }
-
+    
     override open var prefersStatusBarHidden: Bool {
         return true
     }
-
+    
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         if isInit {
             isInit = false
             slideshow.setCurrentPage(initialPage, animated: false)
         }
     }
-
+    
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         slideshow.slideshowItems.forEach { $0.cancelPendingLoad() }
     }
-
+    
     open override func viewDidLayoutSubviews() {
         if !isBeingDismissed {
             let safeAreaInsets: UIEdgeInsets
@@ -96,17 +107,31 @@ open class FullScreenSlideshowViewController: UIViewController {
             }
             
             closeButton.frame = closeButtonFrame ?? CGRect(x: max(10, safeAreaInsets.left), y: max(10, safeAreaInsets.top), width: 40, height: 40)
+            
+            shareButton.frame = shareButtonFrame ?? CGRect(x: UIScreen.main.bounds.width - 50, y: max(10, safeAreaInsets.top), width: 40, height: 40)
         }
-
+        
         slideshow.frame = view.frame
     }
-
+    
     @objc func close() {
         // if pageSelected closure set, send call it with current page
         if let pageSelected = pageSelected {
             pageSelected(slideshow.currentPage)
         }
-
+        
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func share() {
+        
+        guard let image = slideshow.currentSlideshowItem?.imageView.image else {return}
+        
+        let imageToShare = [image]
+        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        //        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+        
+        self.present(activityViewController, animated: true, completion: nil)
     }
 }
