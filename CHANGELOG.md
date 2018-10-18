@@ -1,5 +1,12 @@
 # Change log
 
+## [1.6.1](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.6.1) (11/06/2018)
+
+## Fixes
+
+- Fixed Carthage build (#258)
+- Fixed memory issues (#255)
+
 ## [1.6.0](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.6.0) (27/05/2018)
 
 ## New Features
