@@ -28,7 +28,7 @@ class ViewController: UIViewController {
 
         slideshow.slideshowInterval = 5.0
         slideshow.pageIndicatorPosition = .init(horizontal: .center, vertical: .under)
-        slideshow.contentScaleMode = UIView.ContentMode.scaleAspectFill
+        slideshow.contentScaleMode = UIViewContentMode.scaleAspectFill
 
         let pageControl = UIPageControl()
         pageControl.currentPageIndicatorTintColor = UIColor.lightGray
