@@ -61,7 +61,20 @@ open class BundleImageSource: NSObject, InputSource {
     }
 }
 
+/// Input Source to load an image from a local file path
+@objcMembers
+open class FileImageSource: NSObject, InputSource {
+    var path: String!
+    
+    /// Initializes a new Image Source with an image name from the main bundle
+    /// - parameter imageString: name of the file in the application's main bundle
+    public init(path: String) {
+        self.path = path
+        super.init()
+    }
+    
     public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
+        let image = UIImage(contentsOfFile: path)
         imageView.image = image
         callback(image)
     }
