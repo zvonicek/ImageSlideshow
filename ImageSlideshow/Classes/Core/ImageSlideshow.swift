@@ -7,6 +7,27 @@
 
 import UIKit
 
+@objc
+/// The delegate protocol informing about image slideshow state changes
+public protocol ImageSlideshowDelegate: class {
+    /// Tells the delegate that the current page has changed
+    ///
+    /// - Parameters:
+    ///   - imageSlideshow: image slideshow instance
+    ///   - page: new page
+    @objc optional func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int)
+
+    /// Tells the delegate that the slideshow will begin dragging
+    ///
+    /// - Parameter imageSlideshow: image slideshow instance
+    @objc optional func imageSlideshowWillBeginDragging(_ imageSlideshow: ImageSlideshow)
+
+    /// Tells the delegate that the slideshow did end decelerating
+    ///
+    /// - Parameter imageSlideshow: image slideshow instance
+    @objc optional func imageSlideshowDidEndDecelerating(_ imageSlideshow: ImageSlideshow)
+}
+
 /** 
     Used to represent position of the Page Control
     - hidden: Page Control is hidden
@@ -94,9 +115,13 @@ open class ImageSlideshow: UIView {
         didSet {
             if oldValue != currentPage {
                 currentPageChanged?(currentPage)
+                delegate?.imageSlideshow?(self, didChangeCurrentPageTo: currentPage)
             }
         }
     }
+
+    /// Delegate called on image slideshow state change
+    open weak var delegate: ImageSlideshowDelegate?
 
     /// Called on each currentPage change
     open var currentPageChanged: ((_ page: Int) -> ())?
@@ -494,11 +519,13 @@ extension ImageSlideshow: UIScrollViewDelegate {
 
         setTimerIfNeeded()
         willBeginDragging?()
+        delegate?.imageSlideshowWillBeginDragging?(self)
     }
 
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         setCurrentPageForScrollViewPage(primaryVisiblePage)
         didEndDecelerating?()
+        delegate?.imageSlideshowDidEndDecelerating?(self)
     }
 
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
