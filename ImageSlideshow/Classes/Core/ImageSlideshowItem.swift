@@ -32,6 +32,20 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     /// Maximum zoom scale
     open var maximumScale: CGFloat = 2.0
 
+    /// Margin
+    open var margin: CGSize = CGSize.zero {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+
+    /// CornerRadius
+    open var cornerRadius: CGFloat = 0 {
+        didSet {
+            imageView.layer.cornerRadius = cornerRadius
+        }
+    }
+
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
     fileprivate var isLoading = false
@@ -95,7 +109,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         super.layoutSubviews()
 
         if !zoomEnabled {
-            imageView.frame.size = frame.size
+            imageView.frame.size = CGSize(width: frame.size.width - margin.width * 2, height: frame.size.height - margin.height * 2)
         } else if !isZoomed() {
             imageView.frame.size = calculatePictureSize()
         }

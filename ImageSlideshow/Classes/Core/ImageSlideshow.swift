@@ -214,6 +214,24 @@ open class ImageSlideshow: UIView {
         return scrollView.frame.size.width > 0 ? Int(scrollView.contentOffset.x + scrollView.frame.size.width / 2) / Int(scrollView.frame.size.width) : 0
     }
 
+    /// CornerRadius
+    open var itemCornerRadius: CGFloat = 0 {
+        didSet {
+            for view in slideshowItems {
+                view.cornerRadius = itemCornerRadius
+            }
+        }
+    }
+
+    /// Margin
+    open var itemMargin: CGSize = CGSize.zero {
+        didSet {
+            for view in slideshowItems {
+                view.margin = itemMargin
+            }
+        }
+    }
+
     // MARK: - Life cycle
 
     override public init(frame: CGRect) {
@@ -318,6 +336,8 @@ open class ImageSlideshow: UIView {
         for image in scrollViewImages {
             let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale)
             item.imageView.contentMode = contentScaleMode
+            item.margin = itemMargin
+            item.cornerRadius = itemCornerRadius
             slideshowItems.append(item)
             scrollView.addSubview(item)
             i += 1
