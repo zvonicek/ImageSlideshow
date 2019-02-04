@@ -182,7 +182,7 @@ open class ImageSlideshow: UIView {
     }
     
     // Fallback content mode for fallbackImage
-    open var fallbackScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit
+    open var fallbackScaleMode: UIView.ContentMode = UIView.ContentMode.scaleAspectFit
 
     fileprivate var slideshowTimer: Timer?
     fileprivate var scrollViewImages = [InputSource]()

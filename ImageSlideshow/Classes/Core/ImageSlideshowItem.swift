@@ -24,7 +24,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     public let fallbackImage: InputSource?
     
     /// Scale mode for fallback input source
-    public let fallbackScaleMode: UIViewContentMode
+    public let fallbackScaleMode: UIView.ContentMode
 
     /// Guesture recognizer to detect double tap to zoom
     open var gestureRecognizer: UITapGestureRecognizer?
@@ -146,10 +146,14 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
                 self?.activityIndicator?.hide()
                 self?.loadFailed = image == nil
                 self?.isLoading = false
-                if self?.loadFailed && self?.fallbackImage != nil {
-                    self?.fallbackImage?.load(to: self?.imageView) { fallbackImage in
-                        self?.imageView.image = self?.imageReleased ? nil : fallbackImage
-                        self?.imageView.contentMode = self?.fallbackScaleMode
+                if (self?.loadFailed ?? false) && self?.fallbackImage != nil {
+                    if let imageView = self?.imageView {
+                        self?.fallbackImage?.load(to: imageView) { fallbackImage in
+                            imageView.image = (self?.imageReleased ?? false) ? nil : fallbackImage
+                            if let scaleMode = self?.fallbackScaleMode {
+                                imageView.contentMode = scaleMode
+                            }
+                        }
                     }
                 }
             }
