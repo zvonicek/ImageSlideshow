@@ -37,9 +37,7 @@ class ViewController: UIViewController {
 
         // optional way to show activity indicator during image load (skipping the line will show no activity indicator)
         slideshow.activityIndicator = DefaultActivityIndicator()
-        slideshow.currentPageChanged = { page in
-            print("current page:", page)
-        }
+        slideshow.delegate = self
 
         // can be used with other sample sources as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource` or `kingfisherSource`
         slideshow.setImageInputs(localSource)
@@ -52,5 +50,11 @@ class ViewController: UIViewController {
         let fullScreenController = slideshow.presentFullScreenController(from: self)
         // set the activity indicator for full screen controller (skipping the line will show no activity indicator)
         fullScreenController.slideshow.activityIndicator = DefaultActivityIndicator(style: .white, color: nil)
+    }
+}
+
+extension ViewController: ImageSlideshowDelegate {
+    func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {        
+        print("current page:", page)
     }
 }
