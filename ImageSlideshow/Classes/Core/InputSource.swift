@@ -36,6 +36,18 @@ open class ImageSource: NSObject, InputSource {
         self.image = image
     }
 
+    /// Initializes a new Image Source with an image name from the main bundle
+    /// - parameter imageString: name of the file in the application's main bundle
+    @available(*, deprecated, message: "Use `BundleImageSource` instead")
+    public init?(imageString: String) {
+        if let image = UIImage(named: imageString) {
+            self.image = image
+            super.init()
+        } else {
+            return nil
+        }
+    }
+
     public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         imageView.image = image
         callback(image)
