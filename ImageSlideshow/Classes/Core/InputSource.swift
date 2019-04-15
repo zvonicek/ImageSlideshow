@@ -28,7 +28,7 @@ import UIKit
 /// Input Source to load plain UIImage
 @objcMembers
 open class ImageSource: NSObject, InputSource {
-    var image: UIImage!
+    var image: UIImage
 
     /// Initializes a new Image Source with UIImage
     /// - parameter image: Image to be loaded
@@ -57,7 +57,7 @@ open class ImageSource: NSObject, InputSource {
 /// Input Source to load an image from the main bundle
 @objcMembers
 open class BundleImageSource: NSObject, InputSource {
-    var imageString: String!
+    var imageString: String
     
     /// Initializes a new Image Source with an image name from the main bundle
     /// - parameter imageString: name of the file in the application's main bundle
@@ -76,7 +76,7 @@ open class BundleImageSource: NSObject, InputSource {
 /// Input Source to load an image from a local file path
 @objcMembers
 open class FileImageSource: NSObject, InputSource {
-    var path: String!
+    var path: String
     
     /// Initializes a new Image Source with an image name from the main bundle
     /// - parameter imageString: name of the file in the application's main bundle
