@@ -135,6 +135,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
                 self?.activityIndicator?.hide()
                 self?.loadFailed = image == nil
                 self?.isLoading = false
+                
+                self?.setNeedsLayout()
             }
         }
     }
@@ -173,25 +175,6 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     fileprivate func screenSize() -> CGSize {
         return CGSize(width: frame.width, height: frame.height)
-    }
-
-    fileprivate func calculatePictureFrame() {
-        let boundsSize: CGSize = bounds.size
-        var frameToCenter: CGRect = imageView.frame
-
-        if frameToCenter.size.width < boundsSize.width {
-            frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2
-        } else {
-            frameToCenter.origin.x = 0
-        }
-
-        if frameToCenter.size.height < boundsSize.height {
-            frameToCenter.origin.y = (boundsSize.height - frameToCenter.size.height) / 2
-        } else {
-            frameToCenter.origin.y = 0
-        }
-
-        imageView.frame = frameToCenter
     }
 
     fileprivate func calculatePictureSize() -> CGSize {
