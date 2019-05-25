@@ -31,11 +31,11 @@ PODS:
     - Kingfisher (> 3.0)
   - ImageSlideshow/SDWebImage (1.8.0):
     - ImageSlideshow/Core
-    - SDWebImage (< 5.0, >= 3.7)
+    - SDWebImage (>= 3.7)
   - Kingfisher (5.5.0)
-  - SDWebImage (4.4.6):
-    - SDWebImage/Core (= 4.4.6)
-  - SDWebImage/Core (4.4.6)
+  - SDWebImage (5.0.3):
+    - SDWebImage/Core (= 5.0.3)
+  - SDWebImage/Core (5.0.3)
 
 DEPENDENCIES:
   - ImageSlideshow (from `../`)
@@ -60,9 +60,9 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
-  ImageSlideshow: 484aafa821ed7202b22a66ca61734f4a15847df5
+  ImageSlideshow: 08e097c6da54664aeddff808e68ba5c99fa73ee2
   Kingfisher: 6fe5e67a90fd335e49b0f5c075ff55ac5ebedd94
-  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+  SDWebImage: d4f87d7d36c8a4d9f9459dc282e0caa057fdf935
 
 PODFILE CHECKSUM: 46015634277c8c8bfd78d1b363e41ea2dfd179d9
 
