@@ -20,7 +20,7 @@ open class FullScreenSlideshowViewController: UIViewController {
         slideshow.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
 
         return slideshow
-    }()
+    }
 
     /// Close button 
     open var closeButton = UIButton()
