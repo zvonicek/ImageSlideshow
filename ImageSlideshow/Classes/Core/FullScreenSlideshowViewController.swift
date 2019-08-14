@@ -10,17 +10,8 @@ import UIKit
 @objcMembers
 open class FullScreenSlideshowViewController: UIViewController {
 
-    open var slideshow: ImageSlideshow = {
-        let slideshow = ImageSlideshow()
-        slideshow.zoomEnabled = true
-        slideshow.contentScaleMode = UIViewContentMode.scaleAspectFit
-        slideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .bottom)
-        // turns off the timer
-        slideshow.slideshowInterval = 0
-        slideshow.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
-
-        return slideshow
-    }
+    open var slideshow: ImageSlideshow = ImageSlideshow()
+    
 
     /// Close button 
     open var closeButton = UIButton()
@@ -48,6 +39,18 @@ open class FullScreenSlideshowViewController: UIViewController {
     }
 
     fileprivate var isInit = true
+    /**
+     Default properties for the slideshow are set here.
+    */
+    override open func loadView() {
+        super.loadView()
+        slideshow.zoomEnabled = true
+        slideshow.contentScaleMode = UIViewContentMode.scaleAspectFit
+        slideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .bottom)
+        // turns off the timer
+        slideshow.slideshowInterval = 0
+        slideshow.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+    }
 
     override open func viewDidLoad() {
         super.viewDidLoad()
