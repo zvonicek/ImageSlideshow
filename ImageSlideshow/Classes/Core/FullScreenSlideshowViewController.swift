@@ -10,7 +10,7 @@ import UIKit
 @objcMembers
 open class FullScreenSlideshowViewController: UIViewController {
 
-    open var slideshow: ImageSlideshow = ImageSlideshow()
+    open var slideshow: ImageSlideshow!
     
 
     /// Close button 
@@ -44,6 +44,7 @@ open class FullScreenSlideshowViewController: UIViewController {
     */
     override open func loadView() {
         super.loadView()
+        slideshow = ImageSlideshow()
         slideshow.zoomEnabled = true
         slideshow.contentScaleMode = UIViewContentMode.scaleAspectFit
         slideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .bottom)
