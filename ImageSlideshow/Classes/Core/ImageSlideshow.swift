@@ -547,8 +547,10 @@ open class ImageSlideshow: UIView {
 
         fullscreen.initialPage = currentPage
         fullscreen.inputs = images
-        slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
-        fullscreen.transitioningDelegate = slideshowTransitioningDelegate
+        if controller.modalPresentationStyle == .formSheet {
+            slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
+            fullscreen.transitioningDelegate = slideshowTransitioningDelegate
+        }
         controller.present(fullscreen, animated: true, completion: nil)
 
         return fullscreen
