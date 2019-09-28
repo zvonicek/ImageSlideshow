@@ -49,6 +49,15 @@ open class FullScreenSlideshowViewController: UIViewController {
 
     fileprivate var isInit = true
 
+    convenience init() {
+        self.init(nibName:nil, bundle:nil)
+
+        if #available(iOS 13.0, *) {
+            self.modalPresentationStyle = .fullScreen
+            self.isModalInPresentation = true
+        }
+    }
+
     override open func viewDidLoad() {
         super.viewDidLoad()
 
