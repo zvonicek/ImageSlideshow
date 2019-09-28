@@ -14,7 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Alamofire (4.8.2)
+  - Alamofire (4.9.0)
   - AlamofireImage (3.5.2):
     - Alamofire (~> 4.8)
   - ImageSlideshow (1.8.0):
@@ -32,10 +32,12 @@ PODS:
   - ImageSlideshow/SDWebImage (1.8.0):
     - ImageSlideshow/Core
     - SDWebImage (>= 3.7)
-  - Kingfisher (5.5.0)
-  - SDWebImage (5.0.3):
-    - SDWebImage/Core (= 5.0.3)
-  - SDWebImage/Core (5.0.3)
+  - Kingfisher (5.8.1):
+    - Kingfisher/Core (= 5.8.1)
+  - Kingfisher/Core (5.8.1)
+  - SDWebImage (5.2.0):
+    - SDWebImage/Core (= 5.2.0)
+  - SDWebImage/Core (5.2.0)
 
 DEPENDENCIES:
   - ImageSlideshow (from `../`)
@@ -45,7 +47,7 @@ DEPENDENCIES:
   - ImageSlideshow/SDWebImage (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AFNetworking
     - Alamofire
     - AlamofireImage
@@ -58,12 +60,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
-  ImageSlideshow: 08e097c6da54664aeddff808e68ba5c99fa73ee2
-  Kingfisher: 6fe5e67a90fd335e49b0f5c075ff55ac5ebedd94
-  SDWebImage: d4f87d7d36c8a4d9f9459dc282e0caa057fdf935
+  ImageSlideshow: ab1a359a10b56d76afa52598b705b2df5d525ac9
+  Kingfisher: de969e451c81ca6c07a454bc36fea84b8b08c3c7
+  SDWebImage: 609192dcf3898c910a2848032372ead951e66364
 
 PODFILE CHECKSUM: 46015634277c8c8bfd78d1b363e41ea2dfd179d9
 
-COCOAPODS: 1.7.0
+COCOAPODS: 1.8.1
