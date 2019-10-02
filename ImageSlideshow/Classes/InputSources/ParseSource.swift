@@ -5,6 +5,9 @@
 //  Created by Jaime Agudo Lopez on 14/01/2017.
 //
 
+import Foundation
+import UIKit
+import ImageSlideshow
 import Parse
 
 /// Input Source to image using Parse
