@@ -5,17 +5,20 @@
 //  Created by Jaime Agudo Lopez on 14/01/2017.
 //
 
-import Parse
+import Foundation
+import UIKit
+import ImageSlideshow
+import ParseSwift
 
 /// Input Source to image using Parse
 public class ParseSource: NSObject, InputSource {
-    var file: PFFileObject
+    var file: File
     var placeholder: UIImage?
 
     /// Initializes a new source with URL and optionally a placeholder
     /// - parameter url: a url to be loaded
     /// - parameter placeholder: a placeholder used before image is loaded
-    public init(file: PFFileObject, placeholder: UIImage? = nil) {
+    public init(file: File, placeholder: UIImage? = nil) {
         self.file = file
         self.placeholder = placeholder
         super.init()
@@ -24,8 +27,8 @@ public class ParseSource: NSObject, InputSource {
     @objc public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         imageView.image = self.placeholder
 
-        self.file.getDataInBackground {(data: Data?, error: Error?) in
-            if let data = data, let image = UIImage(data: data) {
+        self.file.fetch { (file, error) in
+            if let data = file?.data, let image = UIImage(data: data) {
                 imageView.image = image
                 callback(image)
             } else {

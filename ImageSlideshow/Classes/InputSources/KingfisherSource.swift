@@ -6,6 +6,9 @@
 //
 //
 
+import Foundation
+import UIKit
+import ImageSlideshow
 import Kingfisher
 
 /// Input Source to image using Kingfisher
