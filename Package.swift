@@ -5,54 +5,54 @@ import PackageDescription
 let package = Package(
     name: "ImageSlideshow",
     platforms: [
-        .iOS(.v8),
+        .iOS(.v10),
     ],
     products: [
         .library(
-            name: "Core",
-            targets: ["ImageSlideshow"]),
+            name: "ImageSlideshow/Core",
+            targets: ["ImageSlideshowCore"]),
         .library(
-            name: "Alamofire",
-            targets: ["Alamofire"]),
+            name: "ImageSlideshow/Alamofire",
+            targets: ["ImageSlideshowAlamofire"]),
         .library(
-            name: "SDWebImage",
-            targets: ["SDWebImage"]),
+            name: "ImageSlideshow/SDWebImage",
+            targets: ["ImageSlideshowSDWebImage"]),
         .library(
-            name: "Kingfisher",
-            targets: ["Kingfisher"]),
+            name: "ImageSlideshow/Kingfisher",
+            targets: ["ImageSlideshowKingfisher"]),
         .library(
-            name: "Parse",
-            targets: ["Parse"])
+            name: "ImageSlideshow/Parse",
+            targets: ["ImageSlideshowParse"])
     ],
     dependencies: [
-        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "3.0"),
-        .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "3.0"),
-        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "3.7"),
-        .package(url: "https://github.com/parse-community/Parse-Swift.git", from: "1.14"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "3.0.0"),
+        .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMinor(from: "3.0.0")),
+        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "3.7.0"),
+        .package(url: "https://github.com/parse-community/Parse-Swift.git", .upToNextMinor(from: "1.14.0")),
     ],
     targets: [
         .target(
-            name: "ImageSlideshow",
+            name: "ImageSlideshowCore",
             dependencies: ["ImageSlideshow"],
             path: "ImageSlideshow",
             sources: ["/Classes/Core/*", "/Assets/*"]),
         .target(
-            name: "Alamofire",
+            name: "ImageSlideshowAlamofire",
             dependencies: ["ImageSlideshow", "AlamofireImage"],
             path: "ImageSlideshow",
             sources: ["/Classes/InputSources/AlamofireSource.swift"]),
         .target(
-            name: "SDWebImage",
+            name: "ImageSlideshowSDWebImage",
             dependencies: ["ImageSlideshow", "SDWebImage"],
             path: "ImageSlideshow",
             sources: ["/Classes/InputSources/SDWebImageSource.swift"]),
         .target(
-            name: "Kingfisher",
+            name: "ImageSlideshowKingfisher",
             dependencies: ["ImageSlideshow", "Kingfisher"],
             path: "ImageSlideshow",
             sources: ["/Classes/InputSources/KingfisherSource.swift"]),
         .target(
-            name: "Parse",
+            name: "ImageSlideshowParse",
             dependencies: ["ImageSlideshow", "Parse"],
             path: "ImageSlideshow",
             sources: ["/Classes/InputSources/ParseSource.swift"])
