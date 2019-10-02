@@ -5,12 +5,13 @@ import PackageDescription
 let package = Package(
     name: "ImageSlideshow",
     platforms: [
+        .macOS(.v10_13),
         .iOS(.v10),
     ],
     products: [
         .library(
-            name: "ImageSlideshow/Core",
-            targets: ["ImageSlideshowCore"]),
+            name: "ImageSlideshow",
+            targets: ["ImageSlideshow"]),
         .library(
             name: "ImageSlideshow/Alamofire",
             targets: ["ImageSlideshowAlamofire"]),
@@ -20,42 +21,46 @@ let package = Package(
         .library(
             name: "ImageSlideshow/Kingfisher",
             targets: ["ImageSlideshowKingfisher"]),
-        .library(
-            name: "ImageSlideshow/Parse",
-            targets: ["ImageSlideshowParse"])
     ],
     dependencies: [
-        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "3.0.0"),
-        .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMinor(from: "3.0.0")),
-        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "3.7.0"),
-        .package(url: "https://github.com/parse-community/Parse-Swift.git", .upToNextMinor(from: "1.14.0")),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "5.8.0"),
+        .package(url: "https://github.com/Alamofire/AlamofireImage.git", .branch("master")),
+        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.1.0")
     ],
     targets: [
         .target(
-            name: "ImageSlideshowCore",
-            dependencies: ["ImageSlideshow"],
+            name: "ImageSlideshow",
             path: "ImageSlideshow",
-            sources: ["/Classes/Core/*", "/Assets/*"]),
+            sources: [
+                "Classes/Core/ActivityIndicator.swift",
+                "Classes/Core/FullScreenSlideshowViewController.swift",
+                "Classes/Core/ImageSlideshow.swift",
+                "Classes/Core/ImageSlideshowItem.swift",
+                "Classes/Core/InputSource.swift",
+                "Classes/Core/PageIndicator.swift",
+                "Classes/Core/PageIndicatorPosition.swift",
+                "Classes/Core/SwiftSupport.swift",
+                "Classes/Core/UIImage+AspectFit.swift",
+                "Classes/Core/UIImageView+Tools.swift",
+                "Classes/Core/ZoomAnimatedTransitioning.swift",
+                "Assets/ic_cross_white@2x.png",
+                "Assets/ic_cross_white@3x.png",
+            ]),
         .target(
             name: "ImageSlideshowAlamofire",
             dependencies: ["ImageSlideshow", "AlamofireImage"],
-            path: "ImageSlideshow",
-            sources: ["/Classes/InputSources/AlamofireSource.swift"]),
+            path: "ImageSlideshow/Classes/InputSources",
+            sources: ["AlamofireSource.swift"]),
         .target(
             name: "ImageSlideshowSDWebImage",
             dependencies: ["ImageSlideshow", "SDWebImage"],
-            path: "ImageSlideshow",
-            sources: ["/Classes/InputSources/SDWebImageSource.swift"]),
+            path: "ImageSlideshow/Classes/InputSources",
+            sources: ["SDWebImageSource.swift"]),
         .target(
             name: "ImageSlideshowKingfisher",
             dependencies: ["ImageSlideshow", "Kingfisher"],
-            path: "ImageSlideshow",
-            sources: ["/Classes/InputSources/KingfisherSource.swift"]),
-        .target(
-            name: "ImageSlideshowParse",
-            dependencies: ["ImageSlideshow", "Parse"],
-            path: "ImageSlideshow",
-            sources: ["/Classes/InputSources/ParseSource.swift"])
+            path: "ImageSlideshow/Classes/InputSources",
+            sources: ["KingfisherSource.swift"])
     ],
     swiftLanguageVersions: [.v4, .v4_2, .v5]
 )
