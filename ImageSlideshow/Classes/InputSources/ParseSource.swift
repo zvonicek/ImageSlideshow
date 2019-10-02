@@ -12,13 +12,13 @@ import Parse
 
 /// Input Source to image using Parse
 public class ParseSource: NSObject, InputSource {
-    var file: PFFileObject
+    var file: File
     var placeholder: UIImage?
 
     /// Initializes a new source with URL and optionally a placeholder
     /// - parameter url: a url to be loaded
     /// - parameter placeholder: a placeholder used before image is loaded
-    public init(file: PFFileObject, placeholder: UIImage? = nil) {
+    public init(file: File, placeholder: UIImage? = nil) {
         self.file = file
         self.placeholder = placeholder
         super.init()
