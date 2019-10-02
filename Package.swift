@@ -1,26 +1,5 @@
 // swift-tools-version:5.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
-// 
-// Copyright (c) 2015 Petr Zvoníček <zvonicek@gmail.com>
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-// 
 import PackageDescription
 
 let package = Package(
@@ -30,12 +9,53 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "ImageSlideshow",
+            name: "Core",
             targets: ["ImageSlideshow"]),
+        .library(
+            name: "Alamofire",
+            targets: ["Alamofire"]),
+        .library(
+            name: "SDWebImage",
+            targets: ["SDWebImage"]),
+        .library(
+            name: "Kingfisher",
+            targets: ["Kingfisher"]),
+        .library(
+            name: "Parse",
+            targets: ["Parse"])
+    ],
+    dependencies: [
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "3.0"),
+        .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "3.0"),
+        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "3.7"),
+        .package(url: "https://github.com/parse-community/Parse-Swift.git", from: "1.14"),
     ],
     targets: [
         .target(
-            name: "Example",
-            dependencies: ["ImageSlideshow"]),
-    ]
+            name: "ImageSlideshow",
+            dependencies: ["ImageSlideshow"],
+            path: "ImageSlideshow",
+            sources: ["/Classes/Core/*", "/Assets/*"]),
+        .target(
+            name: "Alamofire",
+            dependencies: ["ImageSlideshow", "AlamofireImage"],
+            path: "ImageSlideshow",
+            sources: ["/Classes/InputSources/AlamofireSource.swift"]),
+        .target(
+            name: "SDWebImage",
+            dependencies: ["ImageSlideshow", "SDWebImage"],
+            path: "ImageSlideshow",
+            sources: ["/Classes/InputSources/SDWebImageSource.swift"]),
+        .target(
+            name: "Kingfisher",
+            dependencies: ["ImageSlideshow", "Kingfisher"],
+            path: "ImageSlideshow",
+            sources: ["/Classes/InputSources/KingfisherSource.swift"]),
+        .target(
+            name: "Parse",
+            dependencies: ["ImageSlideshow", "Parse"],
+            path: "ImageSlideshow",
+            sources: ["/Classes/InputSources/ParseSource.swift"])
+    ],
+    swiftLanguageVersions: [.v4, .v4_2, .v5]
 )
