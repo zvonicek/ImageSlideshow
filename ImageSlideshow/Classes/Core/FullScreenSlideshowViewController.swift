@@ -54,7 +54,8 @@ open class FullScreenSlideshowViewController: UIViewController {
 
         if #available(iOS 13.0, *) {
             self.modalPresentationStyle = .fullScreen
-            self.isModalInPresentation = true
+            // Use KVC to set the value to preserve backwards compatiblity with Xcode < 11
+            self.setValue(true, forKey: "modalInPresentation")
         }
     }
 
