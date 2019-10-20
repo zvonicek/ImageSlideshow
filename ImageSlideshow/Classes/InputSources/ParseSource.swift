@@ -5,9 +5,10 @@
 //  Created by Jaime Agudo Lopez on 14/01/2017.
 //
 
-import Foundation
 import UIKit
+#if SWIFT_PACKAGE
 import ImageSlideshow
+#endif
 import ParseSwift
 
 /// Input Source to image using Parse
