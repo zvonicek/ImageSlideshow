@@ -169,7 +169,22 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         if isZoomed() {
             self.setZoomScale(minimumZoomScale, animated: true)
         } else {
-            self.setZoomScale(maximumZoomScale, animated: true)
+            // Zoom to aspect fill the image
+            var scale = maximumZoomScale
+            if let image = self.imageView.image
+            {
+                let selfAspect = self.bounds.size.width / self.bounds.size.height
+                let imageAspect = image.size.width / image.size.height
+                if selfAspect > imageAspect
+                {
+                    scale = self.bounds.size.width / self.imageView.bounds.size.width
+                }
+                else
+                {
+                    scale = self.bounds.size.height / self.imageView.bounds.size.height
+                }
+            }
+            self.setZoomScale(min(scale, maximumZoomScale), animated: true)
         }
     }
 
