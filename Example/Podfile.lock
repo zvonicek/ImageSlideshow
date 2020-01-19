@@ -14,30 +14,30 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Alamofire (4.9.0)
-  - AlamofireImage (3.5.2):
-    - Alamofire (~> 4.8)
-  - ImageSlideshow (1.8.0):
-    - ImageSlideshow/Core (= 1.8.0)
-  - ImageSlideshow/AFURL (1.8.0):
+  - Alamofire (4.9.1)
+  - AlamofireImage (3.6.0):
+    - Alamofire (~> 4.9)
+  - ImageSlideshow (1.8.1):
+    - ImageSlideshow/Core (= 1.8.1)
+  - ImageSlideshow/AFURL (1.8.1):
     - AFNetworking (~> 3.0)
     - ImageSlideshow/Core
-  - ImageSlideshow/Alamofire (1.8.0):
+  - ImageSlideshow/Alamofire (1.8.1):
     - AlamofireImage (~> 3.0)
     - ImageSlideshow/Core
-  - ImageSlideshow/Core (1.8.0)
-  - ImageSlideshow/Kingfisher (1.8.0):
+  - ImageSlideshow/Core (1.8.1)
+  - ImageSlideshow/Kingfisher (1.8.1):
     - ImageSlideshow/Core
     - Kingfisher (> 3.0)
-  - ImageSlideshow/SDWebImage (1.8.0):
+  - ImageSlideshow/SDWebImage (1.8.1):
     - ImageSlideshow/Core
     - SDWebImage (>= 3.7)
-  - Kingfisher (5.8.1):
-    - Kingfisher/Core (= 5.8.1)
-  - Kingfisher/Core (5.8.1)
-  - SDWebImage (5.2.0):
-    - SDWebImage/Core (= 5.2.0)
-  - SDWebImage/Core (5.2.0)
+  - Kingfisher (5.13.0):
+    - Kingfisher/Core (= 5.13.0)
+  - Kingfisher/Core (5.13.0)
+  - SDWebImage (5.5.1):
+    - SDWebImage/Core (= 5.5.1)
+  - SDWebImage/Core (5.5.1)
 
 DEPENDENCIES:
   - ImageSlideshow (from `../`)
@@ -60,12 +60,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
-  ImageSlideshow: ab1a359a10b56d76afa52598b705b2df5d525ac9
-  Kingfisher: de969e451c81ca6c07a454bc36fea84b8b08c3c7
-  SDWebImage: 609192dcf3898c910a2848032372ead951e66364
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
+  ImageSlideshow: f088eda262a51187cc50ca898f5f880fd52b9b00
+  Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
+  SDWebImage: 1245d058b7b8f59adef7a6da6bbafd4f1ab67041
 
 PODFILE CHECKSUM: 46015634277c8c8bfd78d1b363e41ea2dfd179d9
 
-COCOAPODS: 1.8.1
+COCOAPODS: 1.8.4
