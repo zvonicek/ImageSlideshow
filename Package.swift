@@ -19,16 +19,12 @@ let package = Package(
             targets: ["ImageSlideshowSDWebImage"]),
         .library(
             name: "ImageSlideshow/Kingfisher",
-            targets: ["ImageSlideshowKingfisher"]),
-        .library(
-            name: "ImageSlideshow/Parse",
-            targets: ["ImageSlideshowParse"])
+            targets: ["ImageSlideshowKingfisher"])
     ],
     dependencies: [
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "5.8.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", .branch("master")),
-        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.1.0"),
-        .package(url: "https://github.com/parse-community/Parse-Swift.git", .branch("master")),
+        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.1.0")
     ],
     targets: [
         .target(
@@ -63,12 +59,7 @@ let package = Package(
             name: "ImageSlideshowKingfisher",
             dependencies: ["ImageSlideshow", "Kingfisher"],
             path: "ImageSlideshow/Classes/InputSources",
-            sources: ["KingfisherSource.swift"]),
-        .target(
-            name: "ImageSlideshowParse",
-            dependencies: ["ImageSlideshow", "ParseSwift"],
-            path: "ImageSlideshow/Classes/InputSources",
-            sources: ["ParseSource.swift"])
+            sources: ["KingfisherSource.swift"])
     ],
     swiftLanguageVersions: [.v4, .v4_2, .v5]
 )
