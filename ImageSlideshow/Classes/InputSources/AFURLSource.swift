@@ -5,6 +5,7 @@
 //  Created by Petr Zvoníček on 30.07.15.
 //
 
+import UIKit
 import AFNetworking
 
 /// Input Source to image using AFNetworking

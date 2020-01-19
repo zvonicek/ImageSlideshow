@@ -6,6 +6,10 @@
 //
 //
 
+import UIKit
+#if SWIFT_PACKAGE
+import ImageSlideshow
+#endif
 import SDWebImage
 
 /// Input Source to image using SDWebImage
