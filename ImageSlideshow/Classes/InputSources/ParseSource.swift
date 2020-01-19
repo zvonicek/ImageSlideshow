@@ -6,10 +6,7 @@
 //
 
 import UIKit
-#if SWIFT_PACKAGE
-import ImageSlideshow
-#endif
-import ParseSwift
+import Parse
 
 /// Input Source to image using Parse
 public class ParseSource: NSObject, InputSource {
