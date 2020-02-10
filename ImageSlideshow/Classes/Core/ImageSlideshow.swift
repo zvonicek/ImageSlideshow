@@ -537,7 +537,7 @@ open class ImageSlideshow: UIView {
      - returns: FullScreenSlideshowViewController instance
      */
     @discardableResult
-    open func presentFullScreenController(from controller: UIViewController) -> FullScreenSlideshowViewController {
+    open func presentFullScreenController(from controller: UIViewController, completion: (() -> Void)? = nil) -> FullScreenSlideshowViewController {
         let fullscreen = FullScreenSlideshowViewController()
         fullscreen.pageSelected = {[weak self] (page: Int) in
             self?.setCurrentPage(page, animated: false)
@@ -547,7 +547,7 @@ open class ImageSlideshow: UIView {
         fullscreen.inputs = images
         slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
         fullscreen.transitioningDelegate = slideshowTransitioningDelegate
-        controller.present(fullscreen, animated: true, completion: nil)
+        controller.present(fullscreen, animated: true, completion: completion)
 
         return fullscreen
     }
