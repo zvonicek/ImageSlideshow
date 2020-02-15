@@ -214,6 +214,11 @@ open class ImageSlideshow: UIView {
         return scrollView.frame.size.width > 0 ? Int(scrollView.contentOffset.x + scrollView.frame.size.width / 2) / Int(scrollView.frame.size.width) : 0
     }
 
+    /// Provider that creates UIImageView for each slideshow item. By default just returns UIImageView().
+    open var imageViewProvider: () -> UIImageView = {
+        return UIImageView()
+    }
+
     // MARK: - Life cycle
 
     override public init(frame: CGRect) {
@@ -320,7 +325,13 @@ open class ImageSlideshow: UIView {
 
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale)
+            let item = ImageSlideshowItem(
+                imageView: imageViewProvider(),
+                image: image,
+                zoomEnabled: zoomEnabled,
+                activityIndicator: activityIndicator?.create(),
+                maximumScale: maximumScale
+            )
             item.imageView.contentMode = contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)
