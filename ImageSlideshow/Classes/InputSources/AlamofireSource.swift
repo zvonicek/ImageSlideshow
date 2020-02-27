@@ -45,7 +45,7 @@ public class AlamofireSource: NSObject, InputSource {
     }
 
     public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
-        imageView.af_setImage(withURL: self.url, placeholderImage: placeholder, filter: nil, progress: nil) { [weak self] (response) in                                                              
+        imageView.af.setImage(withURL: self.url, placeholderImage: placeholder, filter: nil, progress: nil) { [weak self] (response) in
             switch response.result {
             case .success(let image):
                 callback(image)
@@ -60,6 +60,6 @@ public class AlamofireSource: NSObject, InputSource {
     }
 
     public func cancelLoad(on imageView: UIImageView) {
-        imageView.af_cancelImageRequest()
+        imageView.af.cancelImageRequest()
     }
 }
