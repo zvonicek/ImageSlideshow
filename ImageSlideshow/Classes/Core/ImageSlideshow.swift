@@ -79,6 +79,9 @@ open class ImageSlideshow: UIView {
             oldValue?.view.removeFromSuperview()
             if let pageIndicator = pageIndicator {
                 addSubview(pageIndicator.view)
+                if let pageIndicator = pageIndicator as? UIControl {
+                    pageIndicator.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
+                }
             }
             setNeedsLayout()
         }
