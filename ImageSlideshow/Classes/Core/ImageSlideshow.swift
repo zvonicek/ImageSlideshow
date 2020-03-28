@@ -114,6 +114,7 @@ open class ImageSlideshow: UIView {
     open fileprivate(set) var currentPage: Int = 0 {
         didSet {
             if oldValue != currentPage {
+                pageIndicator?.page = currentPage
                 currentPageChanged?(currentPage)
                 delegate?.imageSlideshow?(self, didChangeCurrentPageTo: currentPage)
             }
@@ -583,8 +584,6 @@ extension ImageSlideshow: UIScrollViewDelegate {
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x + regularContentOffset, y: 0)
             }
         }
-
-        pageIndicator?.page = currentPageForScrollViewPage(primaryVisiblePage)
     }
 
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
