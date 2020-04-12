@@ -117,6 +117,7 @@ open class ImageSlideshow: UIView {
     open fileprivate(set) var currentPage: Int = 0 {
         didSet {
             if oldValue != currentPage {
+                pageIndicator?.page = currentPage
                 currentPageChanged?(currentPage)
                 delegate?.imageSlideshow?(self, didChangeCurrentPageTo: currentPage)
             }
@@ -583,7 +584,11 @@ extension ImageSlideshow: UIScrollViewDelegate {
             }
         }
 
-        pageIndicator?.page = currentPageForScrollViewPage(primaryVisiblePage)
+        // Updates the page indicator as the user scrolls (#204). Not called when not dragging to prevent flickers
+        // when interacting with PageControl directly (#376).
+        if scrollView.isDragging {
+            pageIndicator?.page = currentPageForScrollViewPage(primaryVisiblePage)
+        }
     }
 
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
