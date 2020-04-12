@@ -1,8 +1,8 @@
 //
-//  AlamofireSource.swift
+//  AlamofireLegacySource.swift
 //  ImageSlideshow
 //
-//  Created by Petr Zvoníček on 14.01.16.
+//  Created by Petr Zvoníček
 //
 //
 
@@ -13,7 +13,7 @@ import ImageSlideshow
 import Alamofire
 import AlamofireImage
 
-/// Input Source to image using Alamofire
+/// Input Source to image using Alamofire 3
 @objcMembers
 public class AlamofireSource: NSObject, InputSource {
     /// url to load
@@ -45,7 +45,7 @@ public class AlamofireSource: NSObject, InputSource {
     }
 
     public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
-        imageView.af.setImage(withURL: self.url, placeholderImage: placeholder, filter: nil, progress: nil) { [weak self] (response) in
+        imageView.af_setImage(withURL: self.url, placeholderImage: placeholder, filter: nil, progress: nil) { [weak self] (response) in
             switch response.result {
                 case .success(let image):
                     callback(image)
@@ -60,6 +60,6 @@ public class AlamofireSource: NSObject, InputSource {
     }
 
     public func cancelLoad(on imageView: UIImageView) {
-        imageView.af.cancelImageRequest()
+        imageView.af_cancelImageRequest()
     }
 }
