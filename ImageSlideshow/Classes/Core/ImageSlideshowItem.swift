@@ -63,6 +63,11 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
         imageViewWrapper.addSubview(imageView)
         imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        imageView.isAccessibilityElement = true
+        imageView.accessibilityTraits = .image
+        if #available(iOS 11.0, *) {
+            imageView.accessibilityIgnoresInvertColors = true
+        }
 
         imageViewWrapper.clipsToBounds = true
         imageViewWrapper.isUserInteractionEnabled = true
