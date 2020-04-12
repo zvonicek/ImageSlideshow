@@ -74,7 +74,7 @@ open class ImageSlideshow: UIView {
         }
     }
 
-    open var pageIndicator: PageIndicatorView? = UIPageControl() {
+    open var pageIndicator: PageIndicatorView? {
         didSet {
             oldValue?.view.removeFromSuperview()
             if let pageIndicator = pageIndicator {
@@ -254,12 +254,8 @@ open class ImageSlideshow: UIView {
         }
         addSubview(scrollView)
 
-        if let pageIndicator = pageIndicator {
-            addSubview(pageIndicator.view)
-        }
-        
-        if let pageIndicator = pageIndicator as? UIControl {
-            pageIndicator.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
+        if pageIndicator == nil {
+            pageIndicator = UIPageControl()
         }
 
         setTimerIfNeeded()
