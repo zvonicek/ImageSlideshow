@@ -135,6 +135,9 @@ open class ImageSlideshow: UIView {
 
     /// Called on scrollViewDidEndDecelerating
     open var didEndDecelerating: (() -> ())?
+    
+    /// Called on scrollTap
+	open var didTap: ((_ page: Int) -> ())?
 
     /// Currenlty displayed slideshow item
     open var currentSlideshowItem: ImageSlideshowItem? {
@@ -253,6 +256,8 @@ open class ImageSlideshow: UIView {
         if #available(iOS 11.0, *) {
             scrollView.contentInsetAdjustmentBehavior = .never
         }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+		scrollView.addGestureRecognizer(tapGesture)
         addSubview(scrollView)
 
         if pageIndicator == nil {
@@ -557,6 +562,11 @@ open class ImageSlideshow: UIView {
             setCurrentPage(currentPage, animated: true)
         }
     }
+    
+    @objc private func handleTap() {
+		let page: Int = Int(scrollView.contentOffset.x/scrollView.frame.size.width)
+		didTap!(page-1)
+	}
 }
 
 extension ImageSlideshow: UIScrollViewDelegate {
