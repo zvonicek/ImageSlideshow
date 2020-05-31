@@ -285,7 +285,8 @@ open class ImageSlideshow: UIView {
             pageIndicatorView.isHidden = images.count < 2
 
             var edgeInsets: UIEdgeInsets = UIEdgeInsets.zero
-            if #available(iOS 11.0, *) {
+            if #available(iOS 11.0, *),
+                pageIndicator?.respectSafeAreaInsets ?? true {
                 edgeInsets = safeAreaInsets
             }
 
