@@ -61,7 +61,7 @@ public class KingfisherSource: NSObject, InputSource {
             case .success(let image):
                 callback(image.image)
             case .failure:
-                callback(nil)
+                callback(self.placeholder)
             }
         }
     }

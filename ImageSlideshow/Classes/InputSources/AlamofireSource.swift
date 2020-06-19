@@ -50,11 +50,7 @@ public class AlamofireSource: NSObject, InputSource {
                 case .success(let image):
                     callback(image)
                 case .failure(_):
-                    if let strongSelf = self {
-                    callback(strongSelf.placeholder)
-                } else {
-                    callback(nil)
-                }
+                    callback(self?.placeholder)
             }
         }
     }
