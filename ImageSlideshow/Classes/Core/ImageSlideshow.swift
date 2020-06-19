@@ -547,6 +547,11 @@ open class ImageSlideshow: UIView {
         fullscreen.inputs = images
         slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
         fullscreen.transitioningDelegate = slideshowTransitioningDelegate
+        if #available(iOS 13.0, *) {
+            // The modalPresentationStyle is already set in FullScreenSlideshowViewController, but multiple users
+            // reported that they need the `modalPresentationStyle` explicitly specified here.
+            fullscreen.modalPresentationStyle = .fullScreen
+        }
         controller.present(fullscreen, animated: true, completion: completion)
 
         return fullscreen
