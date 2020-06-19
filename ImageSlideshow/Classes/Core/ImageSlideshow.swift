@@ -311,7 +311,7 @@ open class ImageSlideshow: UIView {
     }
 
     /// reloads scroll view with latest slideshow items
-    func reloadScrollView() {
+    func reloadScrollView(initialPage: Int = 0) {
         // remove previous slideshow items
         for view in slideshowItems {
             view.removeFromSuperview()
@@ -328,10 +328,10 @@ open class ImageSlideshow: UIView {
         }
 
         if circular && (scrollViewImages.count > 1) {
-            scrollViewPage = 1
+            scrollViewPage = initialPage + 1
             scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: false)
         } else {
-            scrollViewPage = 0
+            scrollViewPage = initialPage
         }
 
         loadImages(for: scrollViewPage)
@@ -362,7 +362,7 @@ open class ImageSlideshow: UIView {
      Set image inputs into the image slideshow
      - parameter inputs: Array of InputSource instances.
      */
-    open func setImageInputs(_ inputs: [InputSource]) {
+    open func setImageInputs(_ inputs: [InputSource], initialPage: Int = 0) {
         images = inputs
         pageIndicator?.numberOfPages = inputs.count
 
@@ -383,7 +383,7 @@ open class ImageSlideshow: UIView {
             scrollViewImages = images
         }
 
-        reloadScrollView()
+        reloadScrollView(initialPage: initialPage)
         layoutScrollView()
         layoutPageControl()
         setTimerIfNeeded()
