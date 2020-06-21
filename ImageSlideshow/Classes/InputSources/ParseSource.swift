@@ -23,7 +23,7 @@ public class ParseSource: NSObject, InputSource {
     @objc public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         imageView.image = self.placeholder
 
-        self.file.getDataInBackground {(data: Data?, error: Error?) in
+        self.file.getDataInBackground {(data: Data?, _: Error?) in
             if let data = data, let image = UIImage(data: data) {
                 imageView.image = image
                 callback(image)

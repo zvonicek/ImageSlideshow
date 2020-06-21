@@ -18,7 +18,7 @@ import AlamofireImage
 public class AlamofireSource: NSObject, InputSource {
     /// url to load
     public var url: URL
-    
+
     /// placeholder used before image is loaded
     public var placeholder: UIImage?
 
@@ -49,7 +49,7 @@ public class AlamofireSource: NSObject, InputSource {
             switch response.result {
                 case .success(let image):
                     callback(image)
-                case .failure(_):
+                case .failure:
                     if let strongSelf = self {
                     callback(strongSelf.placeholder)
                 } else {

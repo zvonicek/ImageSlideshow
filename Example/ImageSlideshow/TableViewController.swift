@@ -20,7 +20,7 @@ struct Model {
 
 class TableViewController: UITableViewController {
 
-    let models = [Model(image: UIImage(named:"img1")!, title: "First image"), Model(image: UIImage(named: "img2")!, title: "Second image"), Model(image: UIImage(named: "img3")!, title: "Third image"), Model(image: UIImage(named: "img4")!, title: "Fourth image")]
+    let models = [Model(image: UIImage(named: "img1")!, title: "First image"), Model(image: UIImage(named: "img2")!, title: "Second image"), Model(image: UIImage(named: "img3")!, title: "Third image"), Model(image: UIImage(named: "img4")!, title: "Fourth image")]
 
     var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate? = nil
 

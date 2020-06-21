@@ -48,7 +48,7 @@ public class SDWebImageSource: NSObject, InputSource {
             callback(image)
         })
     }
-    
+
     public func cancelLoad(on imageView: UIImageView) {
         imageView.sd_cancelCurrentImageLoad()
     }
