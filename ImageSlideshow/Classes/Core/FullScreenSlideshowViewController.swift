@@ -52,8 +52,8 @@ open class FullScreenSlideshowViewController: UIViewController {
     convenience init() {
         self.init(nibName:nil, bundle:nil)
 
+        self.modalPresentationStyle = .custom
         if #available(iOS 13.0, *) {
-            self.modalPresentationStyle = .fullScreen
             // Use KVC to set the value to preserve backwards compatiblity with Xcode < 11
             self.setValue(true, forKey: "modalInPresentation")
         }
@@ -94,6 +94,9 @@ open class FullScreenSlideshowViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         slideshow.slideshowItems.forEach { $0.cancelPendingLoad() }
+        
+        // Prevents broken dismiss transition when image is zoomed in
+        slideshow.currentSlideshowItem?.zoomOut()
     }
 
     open override func viewDidLayoutSubviews() {

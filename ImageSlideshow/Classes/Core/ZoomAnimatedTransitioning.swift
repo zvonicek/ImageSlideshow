@@ -123,6 +123,17 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
     open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactionController
     }
+
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return PresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+
+private class PresentationController: UIPresentationController {
+    // Needed for interactive dismiss to keep the presenter View Controller visible
+    override var shouldRemovePresentersView: Bool {
+        return false
+    }
 }
 
 extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
@@ -198,7 +209,6 @@ class ZoomInAnimator: ZoomAnimator, UIViewControllerAnimatedTransitioning {
         #else
         containerView.sendSubview(toBack: transitionBackgroundView)
         #endif
-
         
         let finalFrame = toViewController.view.frame
 
@@ -273,14 +283,6 @@ class ZoomOutAnimator: ZoomAnimator, UIViewControllerAnimatedTransitioning {
 
         let containerView = transitionContext.containerView
 
-        toViewController.view.frame = transitionContext.finalFrame(for: toViewController)
-        toViewController.view.alpha = 0
-        containerView.addSubview(toViewController.view)
-        #if swift(>=4.2)
-        containerView.sendSubviewToBack(toViewController.view)
-        #else
-        containerView.sendSubview(toBack: toViewController.view)
-        #endif
         var transitionViewInitialFrame: CGRect
         if let currentSlideshowItem = fromViewController.slideshow.currentSlideshowItem {
             if let image = currentSlideshowItem.imageView.image {
@@ -322,16 +324,16 @@ class ZoomOutAnimator: ZoomAnimator, UIViewControllerAnimatedTransitioning {
         containerView.sendSubview(toBack: transitionBackgroundView)
         #endif
 
-        let transitionView: UIImageView = UIImageView(image: fromViewController.slideshow.currentSlideshowItem?.imageView.image)
+        let transitionView = UIImageView(image: fromViewController.slideshow.currentSlideshowItem?.imageView.image)
         transitionView.contentMode = UIViewContentMode.scaleAspectFill
         transitionView.clipsToBounds = true
         transitionView.frame = transitionViewInitialFrame
         containerView.addSubview(transitionView)
         fromViewController.view.isHidden = true
 
-        let duration: TimeInterval = transitionDuration(using: transitionContext)
+        let duration = transitionDuration(using: transitionContext)
         let animations = {
-            toViewController.view.alpha = 1
+            transitionBackgroundView.alpha = 0
             transitionView.frame = transitionViewFinalFrame
         }
         let completion = { (_: Any) in
