@@ -17,19 +17,19 @@ PODS:
   - Alamofire (5.2.1)
   - AlamofireImage (4.1.0):
     - Alamofire (~> 5.1)
-  - ImageSlideshow (1.10.0):
-    - ImageSlideshow/Core (= 1.10.0)
-  - ImageSlideshow/AFURL (1.10.0):
+  - ImageSlideshow (1.9.0):
+    - ImageSlideshow/Core (= 1.9.0)
+  - ImageSlideshow/AFURL (1.9.0):
     - AFNetworking (~> 3.0)
     - ImageSlideshow/Core
-  - ImageSlideshow/Alamofire (1.10.0):
+  - ImageSlideshow/Alamofire (1.9.0):
     - AlamofireImage (~> 4.0)
     - ImageSlideshow/Core
-  - ImageSlideshow/Core (1.10.0)
-  - ImageSlideshow/Kingfisher (1.10.0):
+  - ImageSlideshow/Core (1.9.0)
+  - ImageSlideshow/Kingfisher (1.9.0):
     - ImageSlideshow/Core
     - Kingfisher (> 3.0)
-  - ImageSlideshow/SDWebImage (1.10.0):
+  - ImageSlideshow/SDWebImage (1.9.0):
     - ImageSlideshow/Core
     - SDWebImage (>= 3.7)
   - Kingfisher (5.14.0):
@@ -62,7 +62,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
-  ImageSlideshow: b3f565dc4a88e6ddbc7fc5d82b389fe96078e404
+  ImageSlideshow: a90cc3568a325cdf1bd543732a2cfcf6361d0dc1
   Kingfisher: 7b64389a43139c903ec434788344c288217c792d
   SDWebImage: e3eae2eda88578db0685a0c88597fdadd9433f05
 
