@@ -20,6 +20,12 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     /// Input Source for the item
     public let image: InputSource
 
+    /// Fallback Input Source for the item
+    public let fallbackImage: InputSource?
+
+    /// Scale mode for fallback input source
+    public let fallbackScaleMode: UIViewContentMode
+
     /// Guesture recognizer to detect double tap to zoom
     open var gestureRecognizer: UITapGestureRecognizer?
 
@@ -52,12 +58,16 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         Initializes a new ImageSlideshowItem
         - parameter image: Input Source to load the image
         - parameter zoomEnabled: holds if it should be possible to zoom-in the image
+        - parameter fallbackImage: A fallback image to display if image is unavailable
+        - parameter fallbackScaleMode: The fallback image scale mode
     */
-    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0) {
+    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0, fallbackImage: InputSource? = nil, fallbackScaleMode: UIContentMode = .scaleAspectFit) {
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.activityIndicator = activityIndicator
         self.maximumScale = maximumScale
+        self.fallbackImage = fallbackImage
+        self.fallbackScaleMode = fallbackScaleMode
 
         super.init(frame: CGRect.null)
 
@@ -135,7 +145,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// Request to load Image Source to Image View
     public func loadImage() {
-        if self.imageView.image == nil && !isLoading {
+        if (self.imageView.image == nil || self.loadFailed) && !isLoading {
+            self.imageView.image = nil
             isLoading = true
             imageReleased = false
             activityIndicator?.show()
@@ -149,6 +160,18 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
                 self?.activityIndicator?.hide()
                 self?.loadFailed = image == nil
                 self?.isLoading = false
+
+                if self?.loadFailed ?? false && self?.fallbackImage != nil {
+                    if let imageView = self?.imageView {
+                        self?.fallbackImage?.load(to: imageView) { fallbackImage in
+                            guard let `self` = self else {
+                                return
+                            }
+                            self.imageView.image = self.imageReleased ? nil : fallbackImage
+                            self.imageView.contentMode = self.fallbackScaleMode
+                        }
+                    }
+                }
 
                 self?.setNeedsLayout()
             }
