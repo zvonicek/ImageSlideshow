@@ -19,18 +19,12 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// Input Source for the item
     public let image: InputSource
-    
+
     /// Fallback Input Source for the item
     public let fallbackImage: InputSource?
-    
+
     /// Scale mode for fallback input source
     public let fallbackScaleMode: UIView.ContentMode
-
-    /// Fallback Input Source for the item
-    public let fallbackImage: InputSource?
-
-    /// Scale mode for fallback input source
-    public let fallbackScaleMode: UIViewContentMode
 
     /// Guesture recognizer to detect double tap to zoom
     open var gestureRecognizer: UITapGestureRecognizer?
