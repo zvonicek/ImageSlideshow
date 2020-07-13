@@ -144,6 +144,9 @@ open class ImageSlideshow: UIView {
             return nil
         }
     }
+    
+    /// Optional fallbackImage for each InputSource
+    open var fallbackImage: ImageSource?
 
     /// Optional fallbackImage for each InputSource
     open var fallbackImage: ImageSource?
@@ -209,6 +212,9 @@ open class ImageSlideshow: UIView {
             }
         }
     }
+    
+    // Fallback content mode for fallbackImage
+    open var fallbackScaleMode: UIView.ContentMode = UIView.ContentMode.scaleAspectFit
 
     // Fallback content mode for fallbackImage
     open var fallbackScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit
@@ -289,7 +295,8 @@ open class ImageSlideshow: UIView {
             pageIndicatorView.isHidden = images.count < 2
 
             var edgeInsets: UIEdgeInsets = UIEdgeInsets.zero
-            if #available(iOS 11.0, *) {
+            if #available(iOS 11.0, *),
+                pageIndicator?.respectSafeAreaInsets ?? true {
                 edgeInsets = safeAreaInsets
             }
 

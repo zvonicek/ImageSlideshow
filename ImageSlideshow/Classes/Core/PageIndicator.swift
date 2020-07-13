@@ -17,6 +17,9 @@ public protocol PageIndicatorView: class {
 
     /// Total number of pages of the page indicator
     var numberOfPages: Int { get set}
+
+    /// Bool indicating if the page indicator view should respect safe area insets
+    var respectSafeAreaInsets: Bool { get }
 }
 
 extension UIPageControl: PageIndicatorView {
@@ -31,6 +34,10 @@ extension UIPageControl: PageIndicatorView {
         set {
             currentPage = newValue
         }
+    }
+
+    public var respectSafeAreaInsets: Bool {
+        return true
     }
 
     open override func sizeToFit() {
@@ -57,6 +64,10 @@ public class LabelPageIndicator: UILabel, PageIndicatorView {
         didSet {
             updateLabel()
         }
+    }
+
+    public var respectSafeAreaInsets: Bool {
+        return true
     }
 
     public override init(frame: CGRect) {

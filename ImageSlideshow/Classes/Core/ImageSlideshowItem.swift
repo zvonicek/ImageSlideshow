@@ -19,6 +19,12 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// Input Source for the item
     public let image: InputSource
+    
+    /// Fallback Input Source for the item
+    public let fallbackImage: InputSource?
+    
+    /// Scale mode for fallback input source
+    public let fallbackScaleMode: UIView.ContentMode
 
     /// Fallback Input Source for the item
     public let fallbackImage: InputSource?
@@ -61,7 +67,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         - parameter fallbackImage: A fallback image to display if image is unavailable
         - parameter fallbackScaleMode: The fallback image scale mode
     */
-    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0, fallbackImage: InputSource? = nil, fallbackScaleMode: UIContentMode = .scaleAspectFit) {
+    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0, fallbackImage: InputSource? = nil, fallbackScaleMode: UIViewContentMode = .scaleAspectFit) {
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.activityIndicator = activityIndicator
@@ -161,14 +167,13 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
                 self?.loadFailed = image == nil
                 self?.isLoading = false
 
-                if self?.loadFailed ?? false && self?.fallbackImage != nil {
+                if (self?.loadFailed ?? false) && self?.fallbackImage != nil {
                     if let imageView = self?.imageView {
-                        self?.fallbackImage?.load(to: imageView) { fallbackImage in
-                            guard let `self` = self else {
-                                return
+                        self?.fallbackImage?.load(to: imageView) { [weak self] fallbackImage in
+                            imageView.image = (self?.imageReleased ?? false) ? nil : fallbackImage
+                            if let scaleMode = self?.fallbackScaleMode {
+                                imageView.contentMode = scaleMode
                             }
-                            self.imageView.image = self.imageReleased ? nil : fallbackImage
-                            self.imageView.contentMode = self.fallbackScaleMode
                         }
                     }
                 }
