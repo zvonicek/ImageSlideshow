@@ -1,23 +1,28 @@
 //
-//  AFURLSource.swift
+//  AlamofireLegacySource.swift
 //  ImageSlideshow
 //
-//  Created by Petr Zvoníček on 30.07.15.
+//  Created by Petr Zvoníček
+//
 //
 
 import UIKit
-import AFNetworking
+#if SWIFT_PACKAGE
+import ImageSlideshow
+#endif
+import Alamofire
+import AlamofireImage
 
-/// Input Source to image using AFNetworking
+/// Input Source to image using Alamofire 3
 @objcMembers
-public class AFURLSource: NSObject, InputSource {
+public class AlamofireSource: NSObject, InputSource {
     /// url to load
     public var url: URL
 
     /// placeholder used before image is loaded
     public var placeholder: UIImage?
 
-    /// Initializes a new source with URL and placeholder
+    /// Initializes a new source with a URL
     /// - parameter url: a url to load
     /// - parameter placeholder: a placeholder used before image is loaded
     public init(url: URL, placeholder: UIImage? = nil) {
@@ -31,8 +36,8 @@ public class AFURLSource: NSObject, InputSource {
     /// - parameter placeholder: a placeholder used before image is loaded
     public init?(urlString: String, placeholder: UIImage? = nil) {
         if let validUrl = URL(string: urlString) {
-            self.placeholder = placeholder
             self.url = validUrl
+            self.placeholder = placeholder
             super.init()
         } else {
             return nil
@@ -40,14 +45,21 @@ public class AFURLSource: NSObject, InputSource {
     }
 
     public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
-        imageView.setImageWith(URLRequest(url: url), placeholderImage: self.placeholder, success: { (_, _, image: UIImage) in
-            callback(image)
-        }, failure: {[placeholder = self.placeholder] _, _, _ in
-            callback(placeholder)
-        })
+        imageView.af_setImage(withURL: self.url, placeholderImage: placeholder, filter: nil, progress: nil) { [weak self] (response) in
+            switch response.result {
+                case .success(let image):
+                    callback(image)
+                case .failure:
+                    if let strongSelf = self {
+                    callback(strongSelf.placeholder)
+                } else {
+                    callback(nil)
+                }
+            }
+        }
     }
 
     public func cancelLoad(on imageView: UIImageView) {
-        imageView.cancelImageDownloadTask()
+        imageView.af_cancelImageRequest()
     }
 }

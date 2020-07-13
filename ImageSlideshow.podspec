@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "ImageSlideshow"
-  s.version          = "1.8.0"
+  s.version          = "1.9.1"
   s.summary          = "Image slideshow written in Swift with circular scrolling, timer and full screen viewer"
 
 # This description is used to generate tags and improve search results.
@@ -27,7 +27,7 @@ Image slideshow is a Swift library providing customizable image slideshow with c
   s.source           = { :git => "https://github.com/zvonicek/ImageSlideshow.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/zvonicek'
 
-  s.swift_versions = ['4.0', '4.1', '4.2', '5']
+  s.swift_versions = ['4.0', '4.1', '4.2', '5', '5.1', '5.2']
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
@@ -42,9 +42,16 @@ Image slideshow is a Swift library providing customizable image slideshow with c
     subspec.source_files = 'ImageSlideshow/Classes/InputSources/AFURLSource.swift'
   end
 
-  s.subspec 'Alamofire' do |subspec|
+  s.subspec 'Alamofire3' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
     subspec.dependency 'AlamofireImage', '~> 3.0'
+    subspec.source_files = 'ImageSlideshow/Classes/InputSources/AlamofireLegacySource.swift'
+  end
+
+  s.subspec 'Alamofire' do |subspec|
+    subspec.dependency 'ImageSlideshow/Core'
+    subspec.dependency 'AlamofireImage', '~> 4.0'
+    subspec.platform     = :ios, '10.0'
     subspec.source_files = 'ImageSlideshow/Classes/InputSources/AlamofireSource.swift'
   end
 

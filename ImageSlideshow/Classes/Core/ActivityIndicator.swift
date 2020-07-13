@@ -44,7 +44,7 @@ extension UIActivityIndicatorView: ActivityIndicatorView {
 open class DefaultActivityIndicator: ActivityIndicatorFactory {
     /// activity indicator style
     open var style: UIActivityIndicatorViewStyle
-    
+
     /// activity indicator color
     open var color: UIColor?
 

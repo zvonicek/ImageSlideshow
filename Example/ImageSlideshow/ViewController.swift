@@ -54,7 +54,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: ImageSlideshowDelegate {
-    func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {        
+    func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {
         print("current page:", page)
     }
 }
