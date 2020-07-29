@@ -13,6 +13,7 @@ open class FullScreenSlideshowViewController: UIViewController {
     open var slideshow: ImageSlideshow = {
         let slideshow = ImageSlideshow()
         slideshow.zoomEnabled = true
+        slideshow.isFullScreenSlideShow = true
         slideshow.contentScaleMode = UIViewContentMode.scaleAspectFit
         slideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .bottom)
         // turns off the timer

@@ -14,6 +14,15 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     /// Image view to hold the image
     public let imageView = UIImageView()
 
+    /// Caption Label to show image caption
+    public let captionLabel = UILabel()
+    
+    /// Caption Container that add caption and background color
+    fileprivate var captionContainerView: UIView
+    
+    /// isFullScreenSlideShow ture if slider full screen controller shown
+    public let isFullScreenSlideShow: Bool
+
     /// Activity indicator shown during image loading, when nil there won't be shown any
     public let activityIndicator: ActivityIndicatorView?
 
@@ -53,12 +62,25 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         - parameter image: Input Source to load the image
         - parameter zoomEnabled: holds if it should be possible to zoom-in the image
     */
-    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0) {
+    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0, isFullScreenSlideShow: Bool) {
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.activityIndicator = activityIndicator
         self.maximumScale = maximumScale
-
+        self.isFullScreenSlideShow = isFullScreenSlideShow
+        
+        let captionConstraintView = UIView()
+        captionConstraintView.addSubview(captionLabel)
+        if #available(iOS 9.0, *) {
+            let captionStackView = UIStackView()
+            captionStackView.axis = .vertical
+            captionStackView.alignment = .leading
+            captionStackView.addArrangedSubview(captionConstraintView)
+            captionContainerView = captionStackView
+        } else {
+            captionContainerView = captionConstraintView
+        }
+        
         super.init(frame: CGRect.null)
 
         imageViewWrapper.addSubview(imageView)
@@ -69,7 +91,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
             imageView.accessibilityIgnoresInvertColors = true
         }
 
-        imageViewWrapper.clipsToBounds = true
+        // clips to bounds false if fullscreen so we can show caption outside image
+        imageViewWrapper.clipsToBounds = !isFullScreenSlideShow
         imageViewWrapper.isUserInteractionEnabled = true
         if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
             imageView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
@@ -99,6 +122,22 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         singleTapGestureRecognizer!.numberOfTapsRequired = 1
         singleTapGestureRecognizer!.isEnabled = false
         imageViewWrapper.addGestureRecognizer(singleTapGestureRecognizer!)
+        
+        captionContainerView.addSubview(captionConstraintView)
+        imageViewWrapper.addSubview(captionContainerView)
+        captionLabel.textColor = .white
+        captionLabel.numberOfLines = 0
+        captionConstraintView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        captionLabel.translatesAutoresizingMaskIntoConstraints = false
+        captionContainerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let leadingConstraint = NSLayoutConstraint(item: captionLabel, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: captionConstraintView, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 5)
+        let trailingConstraint = NSLayoutConstraint(item: captionLabel, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: captionConstraintView, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: -5)
+        let topConstraint = NSLayoutConstraint(item: captionLabel, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: captionConstraintView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 5)
+        let bottomConstraint = NSLayoutConstraint(item: captionLabel, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: captionConstraintView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: -5)
+        
+        NSLayoutConstraint.activate([topConstraint, leadingConstraint, bottomConstraint, trailingConstraint,])
+
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -131,6 +170,10 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
         contentSize = imageViewWrapper.frame.size
         maximumZoomScale = calculateMaximumScale()
+        
+        let leadingConstraint = NSLayoutConstraint(item: captionContainerView, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: imageViewWrapper, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 20)
+        let trailingConstraint = NSLayoutConstraint(item: captionContainerView, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: imageViewWrapper, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: -20)
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint,])
     }
 
     /// Request to load Image Source to Image View
@@ -139,18 +182,24 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
             isLoading = true
             imageReleased = false
             activityIndicator?.show()
-            image.load(to: self.imageView) {[weak self] image in
+            image.load(to: self.imageView) {[weak self] (image, caption, captionBottomConstraint, showCaptionOnlyInFullScreen)  in
+                guard let self = self else { return }
                 // set image to nil if there was a release request during the image load
-                if let imageRelease = self?.imageReleased, imageRelease {
-                    self?.imageView.image = nil
+                if self.imageReleased {
+                    self.imageView.image = nil
                 } else {
-                    self?.imageView.image = image
+                    self.imageView.image = image
                 }
-                self?.activityIndicator?.hide()
-                self?.loadFailed = image == nil
-                self?.isLoading = false
+                self.captionLabel.text = caption
+                self.captionContainerView.isHidden = (!self.isFullScreenSlideShow && showCaptionOnlyInFullScreen) || (caption ?? "").isEmpty
+                
+                NSLayoutConstraint(item: self.captionContainerView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.imageViewWrapper, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: captionBottomConstraint).isActive = true
+                
+                self.activityIndicator?.hide()
+                self.loadFailed = image == nil
+                self.isLoading = false
 
-                self?.setNeedsLayout()
+                self.setNeedsLayout()
             }
         }
     }
