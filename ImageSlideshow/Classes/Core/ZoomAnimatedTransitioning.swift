@@ -224,7 +224,7 @@ class ZoomInAnimator: ZoomAnimator, UIViewControllerAnimatedTransitioning {
 
             referenceImageView.alpha = 0
 
-            if let image = referenceImageView.image {
+            if let image = referenceImageView.image, referenceImageView.contentMode == .scaleAspectFit {
                 transitionViewFinalFrame = image.tgr_aspectFitRectForSize(finalFrame.size)
             }
         }

@@ -40,6 +40,12 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// Maximum zoom scale
     open var maximumScale: CGFloat = 2.0
+    
+    var hideCaption = false {
+        didSet {
+            updateCaption()
+        }
+    }
 
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
@@ -91,8 +97,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
             imageView.accessibilityIgnoresInvertColors = true
         }
 
-        // clips to bounds false if fullscreen so we can show caption outside image
-        imageViewWrapper.clipsToBounds = !isFullScreenSlideShow
+        imageViewWrapper.clipsToBounds = true
         imageViewWrapper.isUserInteractionEnabled = true
         if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
             imageView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
@@ -191,8 +196,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
                     self.imageView.image = image
                 }
                 self.captionLabel.text = caption
-                self.captionContainerView.isHidden = (!self.isFullScreenSlideShow && showCaptionOnlyInFullScreen) || (caption ?? "").isEmpty
-                
+                self.captionContainerView.isHidden = self.hideCaption || (!self.isFullScreenSlideShow && showCaptionOnlyInFullScreen) || (caption ?? "").isEmpty
+
                 NSLayoutConstraint(item: self.captionContainerView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.imageViewWrapper, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: captionBottomConstraint).isActive = true
                 
                 self.activityIndicator?.hide()
@@ -218,6 +223,11 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         self.loadImage()
     }
 
+    
+    private func updateCaption() {
+        self.captionContainerView.isHidden = self.hideCaption || (captionLabel.text ?? "").isEmpty
+    }
+    
     // MARK: - Image zoom & size
 
     func isZoomed() -> Bool {
