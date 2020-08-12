@@ -44,7 +44,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
 
     /// Wraps around ImageView so RTL transformation on it doesn't interfere with UIScrollView zooming
-    private let imageViewWrapper = UIView()?
+    private let imageViewWrapper = UIView()
     
     /// Called when item is zoomed.
     private let onZoom: ((CGFloat) -> Void)?
