@@ -44,7 +44,10 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
 
     /// Wraps around ImageView so RTL transformation on it doesn't interfere with UIScrollView zooming
-    private let imageViewWrapper = UIView()
+    private let imageViewWrapper = UIView()?
+    
+    /// Called when item is zoomed.
+    private let onZoom: ((CGFloat) -> Void)?
 
     // MARK: - Life cycle
 
@@ -53,11 +56,12 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         - parameter image: Input Source to load the image
         - parameter zoomEnabled: holds if it should be possible to zoom-in the image
     */
-    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0) {
+    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0, onZoom: ((CGFloat) -> Void)? = nil) {
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.activityIndicator = activityIndicator
         self.maximumScale = maximumScale
+        self.onZoom = onZoom
 
         super.init(frame: CGRect.null)
 
@@ -230,6 +234,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     // MARK: UIScrollViewDelegate
 
     open func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        self.onZoom?(scrollView.zoomScale)
         setPictoCenter()
     }
 
