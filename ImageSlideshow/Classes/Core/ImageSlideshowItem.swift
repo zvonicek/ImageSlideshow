@@ -48,6 +48,9 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     
     /// Called when item is zoomed.
     private let onZoom: ((CGFloat) -> Void)?
+    
+    /// Called when item is zoom ends.
+    private let onDidEndZooming: (() -> Void)?
 
     // MARK: - Life cycle
 
@@ -56,12 +59,13 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         - parameter image: Input Source to load the image
         - parameter zoomEnabled: holds if it should be possible to zoom-in the image
     */
-    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0, onZoom: ((CGFloat) -> Void)? = nil) {
+    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0, onZoom: ((CGFloat) -> Void)? = nil, onDidEndZooming: (() -> Void)? = nil) {
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.activityIndicator = activityIndicator
         self.maximumScale = maximumScale
         self.onZoom = onZoom
+        self.onDidEndZooming = onDidEndZooming
 
         super.init(frame: CGRect.null)
 
@@ -236,6 +240,10 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     open func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.onZoom?(scrollView.zoomScale)
         setPictoCenter()
+    }
+    
+    open func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        self.onDidEndZooming?()
     }
 
     open func viewForZooming(in scrollView: UIScrollView) -> UIView? {

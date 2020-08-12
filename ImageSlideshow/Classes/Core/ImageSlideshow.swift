@@ -156,6 +156,9 @@ open class ImageSlideshow: UIView {
     
     /// Called on zoom of item.
     open var onZoom: ((CGFloat) -> Void)?
+    
+    /// Called on end of zoom.
+    open var onDidEndZooming: (() -> Void)?
 
     // MARK: - Preferences
 
@@ -323,7 +326,7 @@ open class ImageSlideshow: UIView {
 
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale, onZoom: onZoom)
+            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale, onZoom: onZoom, onDidEndZooming: onDidEndZooming)
             item.imageView.contentMode = contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)
