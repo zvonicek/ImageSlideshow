@@ -34,6 +34,9 @@ open class FullScreenSlideshowViewController: UIViewController {
     /// Index of initial image
     open var initialPage: Int = 0
 
+    /// Number of images to preload
+    open var preload: ImagePreload?
+    
     /// Input sources to 
     open var inputs: [InputSource]?
 
@@ -65,6 +68,10 @@ open class FullScreenSlideshowViewController: UIViewController {
         view.backgroundColor = backgroundColor
         slideshow.backgroundColor = backgroundColor
 
+        if let preload = preload {
+            slideshow.preload = preload
+        }
+        
         if let inputs = inputs {
             slideshow.setImageInputs(inputs)
         }
