@@ -136,6 +136,9 @@ open class ImageSlideshow: UIView {
     /// Called on scrollViewDidEndDecelerating
     open var didEndDecelerating: (() -> Void)?
 
+    /// Custom fullscreen close button
+    open var fullscreenCloseButton: UIButton?
+    
     /// Currenlty displayed slideshow item
     open var currentSlideshowItem: ImageSlideshowItem? {
         if slideshowItems.count > scrollViewPage {
@@ -543,6 +546,7 @@ open class ImageSlideshow: UIView {
             self?.setCurrentPage(page, animated: false)
         }
 
+        fullscreen.closeButtonCustom = fullscreenCloseButton
         fullscreen.initialPage = currentPage
         fullscreen.inputs = images
         slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
