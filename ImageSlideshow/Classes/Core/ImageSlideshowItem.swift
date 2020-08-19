@@ -183,7 +183,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         return self.zoomScale != self.minimumZoomScale
     }
 
-    public func zoomOut(_ animated: Bool? = false) {
+    public func zoomOut(_ animated: Bool = false) {
         self.setZoomScale(minimumZoomScale, animated: animated)
     }
 
