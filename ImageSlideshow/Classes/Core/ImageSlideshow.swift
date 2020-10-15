@@ -563,14 +563,18 @@ open class ImageSlideshow: UIView {
         fullscreen.pageSelected = {[weak self] (page: Int) in
             self?.setCurrentPage(page, animated: false)
         }
-        
+        let currentScaleMode = self.contentScaleMode
+        self.contentScaleMode = contentScaleMode
         fullscreen.slideshow.contentScaleMode = contentScaleMode
         fullscreen.initialPage = currentPage
         fullscreen.inputs = images
         slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
         fullscreen.transitioningDelegate = slideshowTransitioningDelegate
         fullscreen.modalPresentationStyle = .custom
-        controller.present(fullscreen, animated: true, completion: completion)
+        controller.present(fullscreen, animated: true) {
+            self.contentScaleMode = currentScaleMode
+            completion?()
+        }
 
         return fullscreen
     }
