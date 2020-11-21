@@ -32,6 +32,7 @@ let package = Package(
             path: "ImageSlideshow",
             sources: [
                 "Classes/Core/ActivityIndicator.swift",
+                "Classes/Core/Bundle+Module.swift",
                 "Classes/Core/FullScreenSlideshowViewController.swift",
                 "Classes/Core/ImageSlideshow.swift",
                 "Classes/Core/ImageSlideshowItem.swift",
