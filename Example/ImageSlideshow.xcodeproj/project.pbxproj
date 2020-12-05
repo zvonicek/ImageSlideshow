@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43F0FAD42568BAEB008FFD39 /* Bundle+Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F0FAD32568BAEB008FFD39 /* Bundle+Module.swift */; };
 		48A9DE9233FBEA3CF63A8E54 /* Pods_ImageSlideshow_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA07A6EDAC622F1407E6C80 /* Pods_ImageSlideshow_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		09417F1351C21E0DCE8667BE /* Pods-ImageSlideshow_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSlideshow_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSlideshow_Example/Pods-ImageSlideshow_Example.release.xcconfig"; sourceTree = "<group>"; };
 		1C4985EDB005E63A830176CE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		43F0FAD32568BAEB008FFD39 /* Bundle+Module.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Bundle+Module.swift"; path = "../../ImageSlideshow/Classes/Core/Bundle+Module.swift"; sourceTree = "<group>"; };
 		5FD91AF3667236846934E8B9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* ImageSlideshow_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSlideshow_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -207,20 +209,21 @@
 		D0E8A9E31D97EB6D007EC517 /* ImageSlideshow_framework */ = {
 			isa = PBXGroup;
 			children = (
-				F539204B210F03600057EFB3 /* SwiftSupport.swift */,
+				D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */,
+				43F0FAD32568BAEB008FFD39 /* Bundle+Module.swift */,
 				D0E8A9EA1D97EB94007EC517 /* FullScreenSlideshowViewController.swift */,
+				D0E8A9E41D97EB6D007EC517 /* ImageSlideshow_framework.h */,
+				D0E8A9EB1D97EB94007EC517 /* ImageSlideshow.swift */,
+				D0E8A9EC1D97EB94007EC517 /* ImageSlideshowItem.swift */,
+				D0E8A9E51D97EB6D007EC517 /* Info.plist */,
+				D0E8A9ED1D97EB94007EC517 /* InputSource.swift */,
 				D0B974AF202738F6006217CF /* PageIndicator.swift */,
 				F802998E20CE9EA7009D64DD /* PageIndicatorPosition.swift */,
-				D0E8A9EB1D97EB94007EC517 /* ImageSlideshow.swift */,
-				D0083DCD1EB739E700126B21 /* ActivityIndicator.swift */,
-				D0E8A9EC1D97EB94007EC517 /* ImageSlideshowItem.swift */,
-				D0E8A9ED1D97EB94007EC517 /* InputSource.swift */,
+				D00C7A2420B4C05C00E5725B /* Resources */,
+				F539204B210F03600057EFB3 /* SwiftSupport.swift */,
 				D0E8A9EE1D97EB94007EC517 /* UIImage+AspectFit.swift */,
 				D0E8A9EF1D97EB94007EC517 /* UIImageView+Tools.swift */,
 				D0E8A9F01D97EB94007EC517 /* ZoomAnimatedTransitioning.swift */,
-				D00C7A2420B4C05C00E5725B /* Resources */,
-				D0E8A9E41D97EB6D007EC517 /* ImageSlideshow_framework.h */,
-				D0E8A9E51D97EB6D007EC517 /* Info.plist */,
 			);
 			path = ImageSlideshow_framework;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				D0E8A9F61D97EB94007EC517 /* UIImageView+Tools.swift in Sources */,
 				D0E8A9F71D97EB94007EC517 /* ZoomAnimatedTransitioning.swift in Sources */,
 				D0083DCE1EB739E700126B21 /* ActivityIndicator.swift in Sources */,
+				43F0FAD42568BAEB008FFD39 /* Bundle+Module.swift in Sources */,
 				F802999120CE9EA7009D64DD /* PageIndicatorPosition.swift in Sources */,
 				D0E8A9F51D97EB94007EC517 /* UIImage+AspectFit.swift in Sources */,
 				D0E8A9F11D97EB94007EC517 /* FullScreenSlideshowViewController.swift in Sources */,
