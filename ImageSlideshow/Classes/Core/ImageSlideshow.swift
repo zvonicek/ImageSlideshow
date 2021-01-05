@@ -28,7 +28,7 @@ public protocol ImageSlideshowDelegate: class {
     @objc optional func imageSlideshowDidEndDecelerating(_ imageSlideshow: ImageSlideshow)
 }
 
-/** 
+/**
     Used to represent position of the Page Control
     - hidden: Page Control is hidden
     - insideScrollView: Page Control is inside image slideshow
@@ -145,6 +145,10 @@ open class ImageSlideshow: UIView {
         }
     }
 
+    /// Optional fallbackImage for each InputSource
+    open var fallbackImage: ImageSource?
+
+
     /// Current scroll view page. This may differ from `currentPage` as circular slider has two more dummy pages at indexes 0 and n-1 to provide fluent scrolling between first and last item.
     open fileprivate(set) var scrollViewPage: Int = 0
 
@@ -206,6 +210,9 @@ open class ImageSlideshow: UIView {
             }
         }
     }
+
+    // Fallback content mode for fallbackImage
+    open var fallbackScaleMode: UIView.ContentMode = .scaleAspectFit
 
     fileprivate var slideshowTimer: Timer?
     fileprivate var scrollViewImages = [InputSource]()
@@ -286,7 +293,8 @@ open class ImageSlideshow: UIView {
             pageIndicatorView.isHidden = images.count < 2
 
             var edgeInsets: UIEdgeInsets = UIEdgeInsets.zero
-            if #available(iOS 11.0, *) {
+            if #available(iOS 11.0, *),
+                pageIndicator?.respectSafeAreaInsets ?? true {
                 edgeInsets = safeAreaInsets
             }
 
@@ -323,7 +331,7 @@ open class ImageSlideshow: UIView {
 
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale)
+            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale, fallbackImage: fallbackImage, fallbackScaleMode: fallbackScaleMode)
             item.imageView.contentMode = contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)
