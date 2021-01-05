@@ -39,6 +39,28 @@ extension UIPageControl: PageIndicatorView {
         frame.size.height = 30
         self.frame = frame
     }
+
+    public static func withSlideshowColors() -> UIPageControl {
+        let pageControl = UIPageControl()
+
+        if #available(iOS 13.0, *) {
+            pageControl.currentPageIndicatorTintColor = UIColor { traits in
+                traits.userInterfaceStyle == .dark ? .white : .lightGray
+            }
+        } else {
+            pageControl.currentPageIndicatorTintColor = .lightGray
+        }
+        
+        if #available(iOS 13.0, *) {
+            pageControl.pageIndicatorTintColor = UIColor { traits in
+                traits.userInterfaceStyle == .dark ? .systemGray : .black
+            }
+        } else {
+            pageControl.pageIndicatorTintColor = .black
+        }
+
+        return pageControl
+    }
 }
 
 /// Page indicator that shows page in numeric style, eg. "5/21"
