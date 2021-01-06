@@ -153,6 +153,15 @@ open class ImageSlideshow: UIView {
 
     /// Image Slideshow Items loaded to slideshow
     open fileprivate(set) var slideshowItems = [ImageSlideshowItem]()
+    
+    /// Called on zoom of item.
+    open var onZoom: ((CGFloat) -> Void)?
+    
+    /// Called on end of zoom.
+    open var onDidEndZooming: (() -> Void)?
+    
+    /// Called on scroll of the scroll view
+    open var onDidScroll: ((_ contentOffset: CGPoint, _ contentSize: CGSize) -> Void)?
 
     // MARK: - Preferences
 
@@ -323,7 +332,7 @@ open class ImageSlideshow: UIView {
 
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale)
+            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale, onZoom: onZoom, onDidEndZooming: onDidEndZooming)
             item.imageView.contentMode = contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)
@@ -593,9 +602,28 @@ extension ImageSlideshow: UIScrollViewDelegate {
         if scrollView.isDragging {
             pageIndicator?.page = currentPageForScrollViewPage(primaryVisiblePage)
         }
+        
+        self.onDidScroll?(scrollView.contentOffset, scrollView.contentSizePlusInsets)
     }
 
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         isAnimating = false
+    }
+}
+
+extension UIScrollView
+{
+    var contentSizePlusInsets: CGSize
+    {
+        CGSize(
+            width: contentSize.width + adjustedContentInset.left + adjustedContentInset.right,
+            height: contentSize.height + adjustedContentInset.bottom + contentInset.top) // NOTE: the adjusted top inset intentionally left out, as SwiftUI uses a negative contentOffset to display the nav bar (doesn't affect content size)
+    }
+
+    var maxContentOffset: CGPoint
+    {
+        CGPoint(
+            x: max(0, contentSizePlusInsets.width - bounds.width),
+            y: max(0, contentSizePlusInsets.height + safeAreaInsets.top - bounds.height))
     }
 }
