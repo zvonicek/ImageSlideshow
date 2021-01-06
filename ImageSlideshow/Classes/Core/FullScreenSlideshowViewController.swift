@@ -13,6 +13,7 @@ open class FullScreenSlideshowViewController: UIViewController {
     open var slideshow: ImageSlideshow = {
         let slideshow = ImageSlideshow()
         slideshow.zoomEnabled = true
+        slideshow.isFullScreenSlideShow = true
         slideshow.contentScaleMode = UIViewContentMode.scaleAspectFit
         slideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .bottom)
         // turns off the timer
@@ -21,6 +22,12 @@ open class FullScreenSlideshowViewController: UIViewController {
 
         return slideshow
     }()
+    
+    /// Left Arrow button
+    open var leftArrowButton = UIButton()
+    
+    /// Right Arrow button
+    open var rightArrowButton = UIButton()
 
     /// Close button 
     open var closeButton = UIButton()
@@ -47,6 +54,8 @@ open class FullScreenSlideshowViewController: UIViewController {
         }
     }
 
+    fileprivate var hideInfo = true
+
     fileprivate var isInit = true
 
     convenience init() {
@@ -70,11 +79,44 @@ open class FullScreenSlideshowViewController: UIViewController {
         }
 
         view.addSubview(slideshow)
+        
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(singleTapAction))
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        slideshow.addGestureRecognizer(singleTapGestureRecognizer)
+
+        updateUI()
 
         // close button configuration
         closeButton.setImage(UIImage(named: "ic_cross_white", in: .module, compatibleWith: nil), for: UIControlState())
         closeButton.addTarget(self, action: #selector(FullScreenSlideshowViewController.close), for: UIControlEvents.touchUpInside)
         view.addSubview(closeButton)
+            
+        // left arrow button configuration
+        leftArrowButton.setImage(UIImage(named: "arrow-left-64x", in: Bundle(for: type(of: self)), compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+        leftArrowButton.addTarget(self, action: #selector(FullScreenSlideshowViewController.leftArrowTap(_:)), for: UIControlEvents.touchUpInside)
+        view.addSubview(leftArrowButton)
+
+        // Right arrow button configuration
+        rightArrowButton.setImage(UIImage(named: "arrow-right-64x", in: Bundle(for: type(of: self)), compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+        rightArrowButton.addTarget(self, action: #selector(FullScreenSlideshowViewController.rightArrowTap(_:)), for: UIControlEvents.touchUpInside)
+        view.addSubview(rightArrowButton)
+        leftArrowButton.translatesAutoresizingMaskIntoConstraints = false
+        rightArrowButton.translatesAutoresizingMaskIntoConstraints = false
+        leftArrowButton.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        rightArrowButton.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        leftArrowButton.tintColor = .white
+        rightArrowButton.tintColor = .white
+        
+        closeButton.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+
+        let leadingConstraint = NSLayoutConstraint(item: leftArrowButton, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
+        let centerLeftConstraint = NSLayoutConstraint(item: leftArrowButton, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
+
+        let trailingConstraint = NSLayoutConstraint(item: rightArrowButton, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
+        let centerRightConstraint = NSLayoutConstraint(item: rightArrowButton, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
+        
+        
+        NSLayoutConstraint.activate([leadingConstraint, centerLeftConstraint, trailingConstraint, centerRightConstraint])
     }
 
     override open var prefersStatusBarHidden: Bool {
@@ -109,6 +151,7 @@ open class FullScreenSlideshowViewController: UIViewController {
             }
 
             closeButton.frame = closeButtonFrame ?? CGRect(x: max(10, safeAreaInsets.left), y: max(10, safeAreaInsets.top), width: 40, height: 40)
+            closeButton.layer.cornerRadius = 20
         }
 
         slideshow.frame = view.frame
@@ -121,5 +164,27 @@ open class FullScreenSlideshowViewController: UIViewController {
         }
 
         dismiss(animated: true, completion: nil)
+    }
+    
+    fileprivate func updateUI() {
+        closeButton.isHidden = hideInfo
+        rightArrowButton.isHidden = hideInfo || slideshow.slideshowItems.count < 2
+        leftArrowButton.isHidden = hideInfo || slideshow.slideshowItems.count < 2
+        slideshow.hideCaption = hideInfo
+    }
+    
+    @objc private func rightArrowTap(_ sender: UIButton) {
+        let nextIndex = slideshow.currentPage + 1
+        slideshow.setCurrentPage(nextIndex, animated: true)
+    }
+    
+    @objc private func leftArrowTap(_ sender: UIButton) {
+        let nextIndex = slideshow.currentPage - 1
+        slideshow.setCurrentPage(nextIndex, animated: true)
+    }
+
+    @objc func singleTapAction() {
+        hideInfo = !hideInfo
+        updateUI()
     }
 }

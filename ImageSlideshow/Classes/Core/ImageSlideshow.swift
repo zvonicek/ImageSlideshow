@@ -164,6 +164,20 @@ open class ImageSlideshow: UIView {
             }
         }
     }
+    
+    /// isFullScreenSlideShow handle fullscreen
+    open var isFullScreenSlideShow = false {
+        didSet {
+            reloadScrollView()
+        }
+    }
+    
+    /// hide Caption handle for full screen
+    var hideCaption = true {
+        didSet {
+            updateCaption()
+        }
+    }
 
     /// Enables/disables user interactions
     open var draggingEnabled = true {
@@ -323,8 +337,9 @@ open class ImageSlideshow: UIView {
 
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale)
+            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale, isFullScreenSlideShow: isFullScreenSlideShow)
             item.imageView.contentMode = contentScaleMode
+            item.hideCaption = hideCaption
             slideshowItems.append(item)
             scrollView.addSubview(item)
             i += 1
@@ -356,6 +371,12 @@ open class ImageSlideshow: UIView {
                 let shouldLoad = abs(scrollViewPage-i) <= offset || abs(scrollViewPage-i) > totalCount-offset || circularEdgeLoad
                 shouldLoad ? item.loadImage() : item.releaseImage()
             }
+        }
+    }
+    
+    private func updateCaption() {
+        for view in slideshowItems {
+            view.hideCaption = hideCaption
         }
     }
 
@@ -540,18 +561,23 @@ open class ImageSlideshow: UIView {
      - returns: FullScreenSlideshowViewController instance
      */
     @discardableResult
-    open func presentFullScreenController(from controller: UIViewController, completion: (() -> Void)? = nil) -> FullScreenSlideshowViewController {
+    open func presentFullScreenController(from controller: UIViewController, contentScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFill, completion: (() -> Void)? = nil) -> FullScreenSlideshowViewController {
         let fullscreen = FullScreenSlideshowViewController()
         fullscreen.pageSelected = {[weak self] (page: Int) in
             self?.setCurrentPage(page, animated: false)
         }
-
+        let currentScaleMode = self.contentScaleMode
+        self.contentScaleMode = contentScaleMode
+        fullscreen.slideshow.contentScaleMode = contentScaleMode
         fullscreen.initialPage = currentPage
         fullscreen.inputs = images
         slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
         fullscreen.transitioningDelegate = slideshowTransitioningDelegate
         fullscreen.modalPresentationStyle = .custom
-        controller.present(fullscreen, animated: true, completion: completion)
+        controller.present(fullscreen, animated: true) {
+            self.contentScaleMode = currentScaleMode
+            completion?()
+        }
 
         return fullscreen
     }
