@@ -1,10 +1,10 @@
 platform :ios, '10.0'
 use_frameworks!
 
-target 'ImageSlideshow_Example' do
-    pod "ImageSlideshow", :path => "../"
-    pod "ImageSlideshow/AFURL", :path => "../"
-    pod "ImageSlideshow/Alamofire", :path => "../"
-    pod "ImageSlideshow/SDWebImage", :path => "../"
-    pod "ImageSlideshow/Kingfisher", :path => "../"
+target 'MediaSlideshow_Example' do
+    pod "MediaSlideshow", :path => "../"
+    pod "MediaSlideshow/AFURL", :path => "../"
+    pod "MediaSlideshow/Alamofire", :path => "../"
+    pod "MediaSlideshow/SDWebImage", :path => "../"
+    pod "MediaSlideshow/Kingfisher", :path => "../"
 end

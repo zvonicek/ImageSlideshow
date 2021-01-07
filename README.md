@@ -1,16 +1,7 @@
-# 🖼 ImageSlideshow
+# 🖼 MediaSlideshow
+**Customizable Swift image & video slideshow with circular scrolling, timer and full screen viewer**
 
-**Customizable Swift image slideshow with circular scrolling, timer and full screen viewer**
-
-[![Build Status](https://www.bitrise.io/app/9aaf3e552f3a575c.svg?token=AjiVckTN9ItQtJs873mYMw&branch=master)](https://www.bitrise.io/app/9aaf3e552f3a575c)
-[![Version](https://img.shields.io/cocoapods/v/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![License](https://img.shields.io/cocoapods/l/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
-[![Platform](https://img.shields.io/cocoapods/p/ImageSlideshow.svg?style=flat)](http://cocoapods.org/pods/ImageSlideshow)
-
-
-
-![](https://dzwonsemrish7.cloudfront.net/items/2R06283n040V3P3p0i42/ezgif.com-optimize.gif)
+The this is a fork of [ImageSlideshow](https://github.com/zvonicek/ImageSlideshow) aimed at supporting video.
 
 ## 📱 Example
 
@@ -19,26 +10,22 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## 🔧 Installation
 
 ### CocoaPods
-ImageSlideshow is available through [CocoaPods](http://cocoapods.org). To install
+MediaSlideshow is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ImageSlideshow', '~> 1.9.0'
+pod 'MediaSlideshow', '~> 1.9.2'
 ```
 
 ### Carthage
-To integrate ImageSlideshow into your Xcode project using Carthage, specify it in your Cartfile:
+To integrate MediaSlideshow into your Xcode project using Carthage, specify it in your Cartfile:
 
 ```ruby
-github "zvonicek/ImageSlideshow" ~> 1.9.0
+github "pm-dev/MediaSlideshow" ~> 1.9.2
 ```
 
-Carthage does not include InputSources for external providers (due to dependency on those providers) so you need to grab the one you need from `ImageSlideshow/Classes/InputSources` manually.
+Carthage does not include InputSources for external providers (due to dependency on those providers) so you need to grab the one you need from `MediaSlideshow/Classes/InputSources` manually.
 
-### Manually
-One possibility is to download a built framework (ImageSlideshow.framework.zip) from [releases page](https://github.com/zvonicek/ImageSlideshow/releases/) and link it with your project (under`Linked Frameworks and Libraries` in your target). This is, however, currently problematic because of rapid Swift development -- the framework is built for a single Swift version and may not work on previous/future versions.
-
-Alternatively can also grab the whole `ImageSlideshow` directory and copy it to your project. Be sure to remove those external Input Sources you don't need.
 
 **Note on Swift 2.3, Swift 3 and Swift 4 support**
 
@@ -47,34 +34,56 @@ Version 1.4 supports Swift 4. Swift 3 is supported from version 1.0, for Swift 2
 
 ## 🔨 How to use
 
-Add ImageSlideshow view to your view hiearchy either in Interface Builder or in code.
+Add MediaSlideshow view to your view hiearchy either in Interface Builder or in code.
 
 ### Loading images
 
-Set images by using ```setImageInputs``` method on ```ImageSlideshow``` instance with an array of *InputSource*s. By default you can use ```ImageSource``` which takes ```UIImage``` or few other *InputSource*s for most popular networking libraries. You can also create your own input source by implementing ```InputSource``` protocol.
+Set images by using ```dataSource``` property on ```MediaSlideshow``` instance and calling `reloadData()`. The datasource requires
+`MediaSource` inputs. You can use ```UIImageSource``` which takes ```UIImage``` or few other *InputSource*s for most popular networking libraries. You can also create your own input source by implementing ```ImageSource``` protocol.
 
 | Library                                                       | InputSource name | Pod                               |
 | ------------------------------------------------------------- |:----------------:| ---------------------------------:|
-| [AlamofireImage](https://github.com/Alamofire/AlamofireImage) | AlamofireSource  | `pod "ImageSlideshow/Alamofire"`  |
-| [AFNetworking](https://github.com/AFNetworking/AFNetworking)  | AFURLSource      | `pod "ImageSlideshow/AFURL"`      |
-| [SDWebImage](https://github.com/rs/SDWebImage)                | SDWebImageSource | `pod "ImageSlideshow/SDWebImage"` |
-| [Kingfisher](https://github.com/onevcat/Kingfisher)           | KingfisherSource | `pod "ImageSlideshow/Kingfisher"` |
-| [Parse](https://github.com/ParsePlatform/Parse-SDK-iOS-OSX)   | ParseSource      | `pod "ImageSlideshow/Parse"`      |
+| [AlamofireImage](https://github.com/Alamofire/AlamofireImage) | AlamofireSource  | `pod "MediaSlideshow/Alamofire"`  |
+| [AFNetworking](https://github.com/AFNetworking/AFNetworking)  | AFURLSource      | `pod "MediaSlideshow/AFURL"`      |
+| [SDWebImage](https://github.com/rs/SDWebImage)                | SDWebImageSource | `pod "MediaSlideshow/SDWebImage"` |
+| [Kingfisher](https://github.com/onevcat/Kingfisher)           | KingfisherSource | `pod "MediaSlideshow/Kingfisher"` |
+| [Parse](https://github.com/ParsePlatform/Parse-SDK-iOS-OSX)   | ParseSource      | `pod "MediaSlideshow/Parse"`      |
 
 
 ```swift
-slideshow.setImageInputs([
-  ImageSource(image: UIImage(named: "myImage"))!,
-  ImageSource(image: UIImage(named: "myImage2"))!,
-  AlamofireSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"),
-  KingfisherSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"),
-  ParseSource(file: PFFile(name:"image.jpg", data:data))
+
+let dataSource = ImageSlideshowDataSource(inputs:[
+    UIImageSource(image: UIImage(named: "myImage"))!,
+    UIImageSource(image: UIImage(named: "myImage2"))!,
+    AlamofireSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"),
+    KingfisherSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"),
+    ParseSource(file: PFFile(name:"image.jpg", data:data))
 ])
+
+slideshow.dataSource = dataSource
+slideshow.reloadData()
+
 ```
+
+### Loading videos
+
+MediaSlideshow also supports playing an AVAsset. Make sure to include the "MediaSlideshow/AV" dependency.
+
+```swift
+
+let dataSource = ImageAndVideoSlideshowDataSource(inputs:[
+    UIImageSource(image: UIImage(named: "myImage"))!,
+    AVInputSource(url: "https://url-to-video", autoplay: true)
+])
+
+slideshow.dataSource = dataSource
+slideshow.reloadData()
+```
+
 
 ### Configuration
 
-Behaviour is configurable by those properties:
+MediaSlideshow behaviour is configurable by those properties:
 
 - ```slideshowInterval``` - slideshow interval in seconds (default `0` – disabled)
 - ```zoomEnabled``` - enables zooming (default `false`)
@@ -91,7 +100,7 @@ Behaviour is configurable by those properties:
 
 ### Page Indicator
 
-Page indicator can be customized using the `pageIndicator` property on ImageSlideshow. By defualt, a plain UIPageControl is used. If needed, page control can be customized:
+Page indicator can be customized using the `pageIndicator` property on MediaSlideshow. By defualt, a plain UIPageControl is used. If needed, page control can be customized:
 
 ```swift
 let pageIndicator = UIPageControl()
@@ -108,7 +117,7 @@ slideshow.pageIndicator = LabelPageIndicator()
 
 You can also use your own page indicator by adopting the `PageIndicatorView` protocol.
 
-Position of the page indicator can be configured by assigning a `PageIndicatorPosition` value to the `pageIndicatorPosition` property on ImageSlideshow. You may specify the horizontal and vertical positioning separately.
+Position of the page indicator can be configured by assigning a `PageIndicatorPosition` value to the `pageIndicatorPosition` property on MediaSlideshow. You may specify the horizontal and vertical positioning separately.
 
 **Horizontal** positioning options are: `.left(padding: Int)`, `.center`, `.right(padding: Int)`
 
@@ -156,10 +165,11 @@ func didTap() {
 ## 👤 Author
 
 Petr Zvoníček
+Peter Meyers
 
 ## 📄 License
 
-ImageSlideshow is available under the MIT license. See the LICENSE file for more info.
+MediaSlideshow is available under the MIT license. See the LICENSE file for more info.
 
 ## 👀 References
 

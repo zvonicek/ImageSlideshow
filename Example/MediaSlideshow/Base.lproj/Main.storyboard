@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="jSV-c3-hu2">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="38N-Kv-Ew6">
+            <objects>
+                <tabBarController id="jSV-c3-hu2" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VeA-Wx-HRp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="cIF-xF-HTg"/>
+                        <segue destination="j59-ch-kXd" kind="relationship" relationship="viewControllers" id="Ktl-1Z-wGp"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EDh-rt-MM7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1253.6231884057972" y="105.13392857142857"/>
+        </scene>
+        <!--TableView-->
+        <scene sceneID="bbA-cr-xPo">
+            <objects>
+                <tableViewController id="j59-ch-kXd" customClass="TableViewController" customModule="MediaSlideshow_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ohh-Km-urQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="yz8-QO-hsL" style="IBUITableViewCellStyleDefault" id="CmE-Ih-6iZ">
+                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CmE-Ih-6iZ" id="rN2-1L-CiZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yz8-QO-hsL">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="j59-ch-kXd" id="44U-qi-FZW"/>
+                            <outlet property="delegate" destination="j59-ch-kXd" id="TZF-g3-BE9"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="TableView" id="APo-gy-7PI"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GoS-G9-pmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-380" y="593"/>
+        </scene>
+        <!--Slideshow-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="MediaSlideshow_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Aqf-BO-7mg"/>
+                        <viewControllerLayoutGuide type="bottom" id="coz-Qs-EFC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L16-jC-HJe" customClass="MediaSlideshow" customModule="MediaSlideshow">
+                                <rect key="frame" x="10" y="40" width="355" height="260"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="260" id="wMp-Gn-zRN"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="L16-jC-HJe" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="5Ub-dW-Gf0"/>
+                            <constraint firstItem="L16-jC-HJe" firstAttribute="top" secondItem="Aqf-BO-7mg" secondAttribute="bottom" constant="40" id="P4M-C6-92x"/>
+                            <constraint firstAttribute="trailing" secondItem="L16-jC-HJe" secondAttribute="trailing" constant="10" id="bJ6-xp-Uxp"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Slideshow" id="Jsp-k1-h2n"/>
+                    <connections>
+                        <outlet property="slideshow" destination="L16-jC-HJe" id="vzm-Jx-I68"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-392.75362318840581" y="-108.48214285714285"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

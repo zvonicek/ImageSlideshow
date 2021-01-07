@@ -3,23 +3,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "ImageSlideshow",
+    name: "MediaSlideshow",
     platforms: [
         .iOS(.v10),
     ],
     products: [
         .library(
-            name: "ImageSlideshow",
-            targets: ["ImageSlideshow"]),
+            name: "MediaSlideshow",
+            targets: ["MediaSlideshow"]),
         .library(
-            name: "ImageSlideshow/Alamofire",
-            targets: ["ImageSlideshowAlamofire"]),
+            name: "MediaSlideshow/Alamofire",
+            targets: ["MediaSlideshowAlamofire"]),
         .library(
-            name: "ImageSlideshow/SDWebImage",
-            targets: ["ImageSlideshowSDWebImage"]),
+            name: "MediaSlideshow/SDWebImage",
+            targets: ["MediaSlideshowSDWebImage"]),
         .library(
-            name: "ImageSlideshow/Kingfisher",
-            targets: ["ImageSlideshowKingfisher"])
+            name: "MediaSlideshow/Kingfisher",
+            targets: ["MediaSlideshowKingfisher"])
     ],
     dependencies: [
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "5.8.0"),
@@ -28,15 +28,15 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "ImageSlideshow",
-            path: "ImageSlideshow",
+            name: "MediaSlideshow",
+            path: "MediaSlideshow",
             sources: [
                 "Classes/Core/ActivityIndicator.swift",
                 "Classes/Core/Bundle+Module.swift",
                 "Classes/Core/FullScreenSlideshowViewController.swift",
-                "Classes/Core/ImageSlideshow.swift",
-                "Classes/Core/ImageSlideshowItem.swift",
-                "Classes/Core/InputSource.swift",
+                "Classes/Core/MediaSlideshow.swift",
+                "Classes/Core/MediaSlideshowImageSlide.swift",
+                "Classes/Core/ImageSource.swift",
                 "Classes/Core/PageIndicator.swift",
                 "Classes/Core/PageIndicatorPosition.swift",
                 "Classes/Core/SwiftSupport.swift",
@@ -49,19 +49,19 @@ let package = Package(
                 .copy("Assets/ic_cross_white@3x.png"),
             ]),
         .target(
-            name: "ImageSlideshowAlamofire",
-            dependencies: ["ImageSlideshow", "AlamofireImage"],
-            path: "ImageSlideshow/Classes/InputSources",
+            name: "MediaSlideshowAlamofire",
+            dependencies: ["MediaSlideshow", "AlamofireImage"],
+            path: "MediaSlideshow/Classes/InputSources",
             sources: ["AlamofireSource.swift"]),
         .target(
-            name: "ImageSlideshowSDWebImage",
-            dependencies: ["ImageSlideshow", "SDWebImage"],
-            path: "ImageSlideshow/Classes/InputSources",
+            name: "MediaSlideshowSDWebImage",
+            dependencies: ["MediaSlideshow", "SDWebImage"],
+            path: "MediaSlideshow/Classes/InputSources",
             sources: ["SDWebImageSource.swift"]),
         .target(
-            name: "ImageSlideshowKingfisher",
-            dependencies: ["ImageSlideshow", "Kingfisher"],
-            path: "ImageSlideshow/Classes/InputSources",
+            name: "MediaSlideshowKingfisher",
+            dependencies: ["MediaSlideshow", "Kingfisher"],
+            path: "MediaSlideshow/Classes/InputSources",
             sources: ["KingfisherSource.swift"])
     ],
     swiftLanguageVersions: [.v4, .v4_2, .v5]

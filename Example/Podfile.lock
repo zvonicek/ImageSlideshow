@@ -14,37 +14,35 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Alamofire (5.2.1)
+  - Alamofire (5.4.1)
   - AlamofireImage (4.1.0):
     - Alamofire (~> 5.1)
-  - ImageSlideshow (1.9.0):
-    - ImageSlideshow/Core (= 1.9.0)
-  - ImageSlideshow/AFURL (1.9.0):
+  - Kingfisher (6.0.1)
+  - MediaSlideshow (1.9.2):
+    - MediaSlideshow/Core (= 1.9.2)
+  - MediaSlideshow/AFURL (1.9.2):
     - AFNetworking (~> 3.0)
-    - ImageSlideshow/Core
-  - ImageSlideshow/Alamofire (1.9.0):
+    - MediaSlideshow/Core
+  - MediaSlideshow/Alamofire (1.9.2):
     - AlamofireImage (~> 4.0)
-    - ImageSlideshow/Core
-  - ImageSlideshow/Core (1.9.0)
-  - ImageSlideshow/Kingfisher (1.9.0):
-    - ImageSlideshow/Core
+    - MediaSlideshow/Core
+  - MediaSlideshow/Core (1.9.2)
+  - MediaSlideshow/Kingfisher (1.9.2):
     - Kingfisher (> 3.0)
-  - ImageSlideshow/SDWebImage (1.9.0):
-    - ImageSlideshow/Core
+    - MediaSlideshow/Core
+  - MediaSlideshow/SDWebImage (1.9.2):
+    - MediaSlideshow/Core
     - SDWebImage (>= 3.7)
-  - Kingfisher (5.14.0):
-    - Kingfisher/Core (= 5.14.0)
-  - Kingfisher/Core (5.14.0)
-  - SDWebImage (5.8.1):
-    - SDWebImage/Core (= 5.8.1)
-  - SDWebImage/Core (5.8.1)
+  - SDWebImage (5.10.2):
+    - SDWebImage/Core (= 5.10.2)
+  - SDWebImage/Core (5.10.2)
 
 DEPENDENCIES:
-  - ImageSlideshow (from `../`)
-  - ImageSlideshow/AFURL (from `../`)
-  - ImageSlideshow/Alamofire (from `../`)
-  - ImageSlideshow/Kingfisher (from `../`)
-  - ImageSlideshow/SDWebImage (from `../`)
+  - MediaSlideshow (from `../`)
+  - MediaSlideshow/AFURL (from `../`)
+  - MediaSlideshow/Alamofire (from `../`)
+  - MediaSlideshow/Kingfisher (from `../`)
+  - MediaSlideshow/SDWebImage (from `../`)
 
 SPEC REPOS:
   trunk:
@@ -55,17 +53,17 @@ SPEC REPOS:
     - SDWebImage
 
 EXTERNAL SOURCES:
-  ImageSlideshow:
+  MediaSlideshow:
     :path: "../"
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
   AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
-  ImageSlideshow: a90cc3568a325cdf1bd543732a2cfcf6361d0dc1
-  Kingfisher: 7b64389a43139c903ec434788344c288217c792d
-  SDWebImage: e3eae2eda88578db0685a0c88597fdadd9433f05
+  Kingfisher: adde87a4f74f6a3845395769354efff593581740
+  MediaSlideshow: 1b4242db8c3631487991e94c1728c838334777b5
+  SDWebImage: b969dcfc02c40a5da71eac0b03b8f1a0c794a86f
 
-PODFILE CHECKSUM: 46015634277c8c8bfd78d1b363e41ea2dfd179d9
+PODFILE CHECKSUM: 6778c0e4ca0ebfefaca176efa5e24d3acba84b50
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.8.4
