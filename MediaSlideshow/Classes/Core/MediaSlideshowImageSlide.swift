@@ -9,7 +9,7 @@ import UIKit
 
 /// Used to wrap a single slideshow item and allow zooming on it
 @objcMembers
-open class MediaSlideshowImageSlide: UIScrollView, UIScrollViewDelegate {
+open class MediaSlideshowImageSlide: UIScrollView, UIScrollViewDelegate, ZoomableMediaSlideshowSlide {
 
     /// Image view to hold the image
     public let imageView = UIImageView()
@@ -31,6 +31,11 @@ open class MediaSlideshowImageSlide: UIScrollView, UIScrollViewDelegate {
 
     /// Maximum zoom scale
     open var maximumScale: CGFloat = 2.0
+
+    open var mediaContentMode: UIView.ContentMode {
+        get { imageView.contentMode }
+        set { imageView.contentMode = newValue }
+    }
 
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
@@ -133,8 +138,12 @@ open class MediaSlideshowImageSlide: UIScrollView, UIScrollViewDelegate {
         maximumZoomScale = calculateMaximumScale()
     }
 
+    public func transitionImageView() -> UIImageView {
+        imageView
+    }
+
     /// Request to load Image Source to Image View
-    public func loadImage() {
+    public func loadMedia() {
         if self.imageView.image == nil && !isLoading {
             isLoading = true
             imageReleased = false
@@ -155,7 +164,7 @@ open class MediaSlideshowImageSlide: UIScrollView, UIScrollViewDelegate {
         }
     }
 
-    func releaseImage() {
+    public func releaseMedia() {
         imageReleased = true
         cancelPendingLoad()
         self.imageView.image = nil
@@ -165,19 +174,15 @@ open class MediaSlideshowImageSlide: UIScrollView, UIScrollViewDelegate {
         image.cancelLoad?(on: imageView)
     }
 
+    public func willBeRemoved(from slideshow: MediaSlideshow) {
+        cancelPendingLoad()
+    }
+
     func retryLoadImage() {
-        self.loadImage()
+        self.loadMedia()
     }
 
     // MARK: - Image zoom & size
-
-    func isZoomed() -> Bool {
-        return self.zoomScale != self.minimumZoomScale
-    }
-
-    func zoomOut() {
-        self.setZoomScale(minimumZoomScale, animated: false)
-    }
 
     func tapZoom() {
         if isZoomed() {
@@ -237,4 +242,30 @@ open class MediaSlideshowImageSlide: UIScrollView, UIScrollViewDelegate {
         return zoomEnabled ? imageViewWrapper : nil
     }
 
+}
+
+open class ImageMediaSlideshowDataSource: MediaSlideshowDataSource {
+
+    open var sources: [ImageSource]
+
+    public init(sources: [ImageSource] = []) {
+        self.sources = sources
+    }
+
+    public func sourcesInMediaSlideshow(_ mediaSlideshow: MediaSlideshow) -> [MediaSource] {
+        sources
+    }
+
+    public func slideForSource(_ source: MediaSource, in mediaSlideshow: MediaSlideshow) -> MediaSlideshowSlideView {
+        guard let image = source as? ImageSource else {
+            fatalError("Expected MediaSource to be an ImageSource")
+        }
+        let slide = MediaSlideshowImageSlide(
+            image: image,
+            zoomEnabled: mediaSlideshow.zoomEnabled,
+            activityIndicator: mediaSlideshow.activityIndicator?.create(),
+            maximumScale: mediaSlideshow.maximumScale)
+        slide.imageView.contentMode = mediaSlideshow.contentScaleMode
+        return slide
+    }
 }

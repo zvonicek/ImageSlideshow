@@ -27,6 +27,9 @@
 		D0320BEC25A7B5B4003A1F54 /* UIImage+AspectFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0320BE025A7B5B4003A1F54 /* UIImage+AspectFit.swift */; };
 		D0320BED25A7B5B4003A1F54 /* UIImageView+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0320BE125A7B5B4003A1F54 /* UIImageView+Tools.swift */; };
 		D0320BEE25A7B5B4003A1F54 /* ZoomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0320BE225A7B5B4003A1F54 /* ZoomAnimatedTransitioning.swift */; };
+		D0320C7F25A7C3A1003A1F54 /* MediaSlideshowSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0320C7D25A7C3A1003A1F54 /* MediaSlideshowSlide.swift */; };
+		D0320C8025A7C3A1003A1F54 /* MediaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0320C7E25A7C3A1003A1F54 /* MediaSource.swift */; };
+		D0320C9725A7DA30003A1F54 /* ZoomableMediaSlideshowSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0320C9625A7DA30003A1F54 /* ZoomableMediaSlideshowSlide.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,9 @@
 		D0320BE025A7B5B4003A1F54 /* UIImage+AspectFit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+AspectFit.swift"; path = "../../MediaSlideshow/Classes/Core/UIImage+AspectFit.swift"; sourceTree = "<group>"; };
 		D0320BE125A7B5B4003A1F54 /* UIImageView+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+Tools.swift"; path = "../../MediaSlideshow/Classes/Core/UIImageView+Tools.swift"; sourceTree = "<group>"; };
 		D0320BE225A7B5B4003A1F54 /* ZoomAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZoomAnimatedTransitioning.swift; path = ../../MediaSlideshow/Classes/Core/ZoomAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		D0320C7D25A7C3A1003A1F54 /* MediaSlideshowSlide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaSlideshowSlide.swift; path = ../../MediaSlideshow/Classes/Core/MediaSlideshowSlide.swift; sourceTree = "<group>"; };
+		D0320C7E25A7C3A1003A1F54 /* MediaSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaSource.swift; path = ../../MediaSlideshow/Classes/Core/MediaSource.swift; sourceTree = "<group>"; };
+		D0320C9625A7DA30003A1F54 /* ZoomableMediaSlideshowSlide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZoomableMediaSlideshowSlide.swift; path = ../../MediaSlideshow/Classes/Core/ZoomableMediaSlideshowSlide.swift; sourceTree = "<group>"; };
 		D0E8A9E21D97EB6D007EC517 /* MediaSlideshow-framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "MediaSlideshow-framework.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD45C56C18E7B8EC08371B86 /* Pods-ImageSlideshow_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSlideshow_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSlideshow_Example/Pods-ImageSlideshow_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,12 +208,15 @@
 				D0320BDA25A7B5B4003A1F54 /* FullScreenSlideshowViewController.swift */,
 				D0320BDF25A7B5B4003A1F54 /* MediaSlideshow.swift */,
 				D0320BD925A7B5B4003A1F54 /* MediaSlideshowImageSlide.swift */,
+				D0320C7D25A7C3A1003A1F54 /* MediaSlideshowSlide.swift */,
+				D0320C7E25A7C3A1003A1F54 /* MediaSource.swift */,
 				D0320BD825A7B5B4003A1F54 /* ImageSource.swift */,
 				D0320BDD25A7B5B4003A1F54 /* PageIndicator.swift */,
 				D0320BDE25A7B5B4003A1F54 /* PageIndicatorPosition.swift */,
 				D0320BDB25A7B5B4003A1F54 /* SwiftSupport.swift */,
 				D0320BE025A7B5B4003A1F54 /* UIImage+AspectFit.swift */,
 				D0320BE125A7B5B4003A1F54 /* UIImageView+Tools.swift */,
+				D0320C9625A7DA30003A1F54 /* ZoomableMediaSlideshowSlide.swift */,
 				D0320BE225A7B5B4003A1F54 /* ZoomAnimatedTransitioning.swift */,
 				D0320BD625A7B553003A1F54 /* Info.plist */,
 				D0320BD525A7B553003A1F54 /* MediaSlideshow_framework.h */,
@@ -440,8 +449,11 @@
 				D0320BEA25A7B5B4003A1F54 /* PageIndicatorPosition.swift in Sources */,
 				D0320BE925A7B5B4003A1F54 /* PageIndicator.swift in Sources */,
 				D0320BEC25A7B5B4003A1F54 /* UIImage+AspectFit.swift in Sources */,
+				D0320C9725A7DA30003A1F54 /* ZoomableMediaSlideshowSlide.swift in Sources */,
+				D0320C7F25A7C3A1003A1F54 /* MediaSlideshowSlide.swift in Sources */,
 				D0320BED25A7B5B4003A1F54 /* UIImageView+Tools.swift in Sources */,
 				D0320BE525A7B5B4003A1F54 /* MediaSlideshowImageSlide.swift in Sources */,
+				D0320C8025A7C3A1003A1F54 /* MediaSource.swift in Sources */,
 				D0320BEB25A7B5B4003A1F54 /* MediaSlideshow.swift in Sources */,
 				D0320BEE25A7B5B4003A1F54 /* ZoomAnimatedTransitioning.swift in Sources */,
 			);

@@ -8,6 +8,14 @@
 import UIKit
 
 @objc
+public protocol MediaSlideshowDataSource: class {
+
+    @objc func sourcesInMediaSlideshow(_ mediaSlideshow: MediaSlideshow) -> [MediaSource]
+
+    @objc func slideForSource(_ source: MediaSource, in mediaSlideshow: MediaSlideshow) -> MediaSlideshowSlideView
+}
+
+@objc
 /// The delegate protocol informing about slideshow state changes
 public protocol MediaSlideshowDelegate: class {
     /// Tells the delegate that the current page has changed
@@ -124,8 +132,11 @@ open class MediaSlideshow: UIView {
         }
     }
 
-    /// Delegate called on image slideshow state change
+    /// Delegate called on slideshow state change
     open weak var delegate: MediaSlideshowDelegate?
+
+    /// Datasource used when reloadData is called
+    open weak var dataSource: MediaSlideshowDataSource?
 
     /// Called on each currentPage change
     open var currentPageChanged: ((_ page: Int) -> Void)?
@@ -137,9 +148,9 @@ open class MediaSlideshow: UIView {
     open var didEndDecelerating: (() -> Void)?
 
     /// Currenlty displayed slideshow item
-    open var currentSlideshowItem: MediaSlideshowImageSlide? {
-        if slideshowSlides.count > scrollViewPage {
-            return slideshowSlides[scrollViewPage]
+    open var currentSlide: MediaSlideshowSlideView? {
+        if slides.count > scrollViewPage {
+            return slides[scrollViewPage]
         } else {
             return nil
         }
@@ -149,18 +160,18 @@ open class MediaSlideshow: UIView {
     open fileprivate(set) var scrollViewPage: Int = 0
 
     /// Input Sources loaded to slideshow
-    open fileprivate(set) var images = [ImageSource]()
+    open fileprivate(set) var sources = [MediaSource]()
 
     /// Image Slideshow Items loaded to slideshow
-    open fileprivate(set) var slideshowSlides = [MediaSlideshowImageSlide]()
+    open fileprivate(set) var slides = [MediaSlideshowSlideView]()
 
     // MARK: - Preferences
 
     /// Enables/disables infinite scrolling between images
     open var circular = true {
         didSet {
-            if images.count > 0 {
-                setImageInputs(images)
+            if sources.count > 0 {
+                setMediaInputs(sources)
             }
         }
     }
@@ -201,14 +212,14 @@ open class MediaSlideshow: UIView {
     /// Content mode of each image in the slideshow
     open var contentScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit {
         didSet {
-            for view in slideshowSlides {
-                view.imageView.contentMode = contentScaleMode
+            for view in slides {
+                view.mediaContentMode = contentScaleMode
             }
         }
     }
 
     fileprivate var slideshowTimer: Timer?
-    fileprivate var scrollViewImages = [ImageSource]()
+    fileprivate var scrollViewMedias = [MediaSource]()
     fileprivate var isAnimating: Bool = false
 
     /// Transitioning delegate to manage the transition to full screen controller
@@ -283,7 +294,7 @@ open class MediaSlideshow: UIView {
 
     open func layoutPageControl() {
         if let pageIndicatorView = pageIndicator?.view {
-            pageIndicatorView.isHidden = images.count < 2
+            pageIndicatorView.isHidden = sources.count < 2
 
             var edgeInsets: UIEdgeInsets = UIEdgeInsets.zero
             if #available(iOS 11.0, *) {
@@ -301,11 +312,11 @@ open class MediaSlideshow: UIView {
         let scrollViewBottomPadding = pageIndicatorViewSize.flatMap { pageIndicatorPosition.underPadding(for: $0) } ?? 0
 
         scrollView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height - scrollViewBottomPadding)
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(scrollViewImages.count), height: scrollView.frame.size.height)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(scrollViewMedias.count), height: scrollView.frame.size.height)
 
-        for (index, view) in slideshowSlides.enumerated() {
-            if !view.zoomInInitially {
-                view.zoomOut()
+        for (index, view) in slides.enumerated() {
+            if let zoomable = view as? ZoomableMediaSlideshowSlide, !zoomable.zoomInInitially {
+                zoomable.zoomOut()
             }
             view.frame = CGRect(x: scrollView.frame.size.width * CGFloat(index), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
         }
@@ -316,21 +327,20 @@ open class MediaSlideshow: UIView {
     /// reloads scroll view with latest slideshow items
     func reloadScrollView() {
         // remove previous slideshow items
-        for view in slideshowSlides {
+        for view in slides {
             view.removeFromSuperview()
         }
-        slideshowSlides = []
+        slides = []
 
-        var i = 0
-        for image in scrollViewImages {
-            let item = MediaSlideshowImageSlide(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale)
-            item.imageView.contentMode = contentScaleMode
-            slideshowSlides.append(item)
-            scrollView.addSubview(item)
-            i += 1
+        if let dataSource = dataSource {
+            for source in scrollViewMedias {
+                let slide = dataSource.slideForSource(source, in: self)
+                slides.append(slide)
+                scrollView.addSubview(slide)
+            }
         }
 
-        if circular && (scrollViewImages.count > 1) {
+        if circular && (scrollViewMedias.count > 1) {
             scrollViewPage = 1
             scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: false)
         } else {
@@ -341,49 +351,54 @@ open class MediaSlideshow: UIView {
     }
 
     private func loadImages(for scrollViewPage: Int) {
-        let totalCount = slideshowSlides.count
+        let totalCount = slides.count
 
         for i in 0..<totalCount {
-            let item = slideshowSlides[i]
+            let item = slides[i]
             switch preload {
             case .all:
-                item.loadImage()
+                item.loadMedia()
             case .fixed(let offset):
                 // if circular scrolling is enabled and image is on the edge, a helper ("dummy") image on the other side needs to be loaded too
                 let circularEdgeLoad = circular && ((scrollViewPage == 0 && i == totalCount-3) || (scrollViewPage == 0 && i == totalCount-2) || (scrollViewPage == totalCount-2 && i == 1))
 
                 // load image if page is in range of loadOffset, else release image
                 let shouldLoad = abs(scrollViewPage-i) <= offset || abs(scrollViewPage-i) > totalCount-offset || circularEdgeLoad
-                shouldLoad ? item.loadImage() : item.releaseImage()
+                shouldLoad ? item.loadMedia() : item.releaseMedia()
             }
         }
     }
 
     // MARK: - Image setting
 
+    open func reloadData() {
+        let sources = dataSource?.sourcesInMediaSlideshow(self) ?? []
+        setMediaInputs(sources)
+    }
+
     /**
      Set image inputs into the image slideshow
      - parameter inputs: Array of InputSource instances.
      */
-    open func setImageInputs(_ inputs: [ImageSource]) {
-        images = inputs
+    private func setMediaInputs(_ inputs: [MediaSource]) {
+        sources = inputs
         pageIndicator?.numberOfPages = inputs.count
 
         // in circular mode we add dummy first and last image to enable smooth scrolling
-        if circular && images.count > 1 {
-            var scImages = [ImageSource]()
+        if circular && sources.count > 1 {
+            var scMedias = [MediaSource]()
 
-            if let last = images.last {
-                scImages.append(last)
+            if let last = sources.last {
+                scMedias.append(last)
             }
-            scImages += images
-            if let first = images.first {
-                scImages.append(first)
+            scMedias += sources
+            if let first = sources.first {
+                scMedias.append(first)
             }
 
-            scrollViewImages = scImages
+            scrollViewMedias = scMedias
         } else {
-            scrollViewImages = images
+            scrollViewMedias = sources
         }
 
         reloadScrollView()
@@ -401,7 +416,7 @@ open class MediaSlideshow: UIView {
      */
     open func setCurrentPage(_ newPage: Int, animated: Bool) {
         var pageOffset = newPage
-        if circular && (scrollViewImages.count > 1) {
+        if circular && (scrollViewMedias.count > 1) {
             pageOffset += 1
         }
 
@@ -414,7 +429,7 @@ open class MediaSlideshow: UIView {
      - parameter animated: true if animate the change
      */
     open func setScrollViewPage(_ newScrollViewPage: Int, animated: Bool) {
-        if scrollViewPage < scrollViewImages.count {
+        if scrollViewPage < scrollViewMedias.count {
             scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width * CGFloat(newScrollViewPage), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: animated)
             setCurrentPageForScrollViewPage(newScrollViewPage)
             if animated {
@@ -424,7 +439,7 @@ open class MediaSlideshow: UIView {
     }
 
     fileprivate func setTimerIfNeeded() {
-        if slideshowInterval > 0 && scrollViewImages.count > 1 && slideshowTimer == nil {
+        if slideshowInterval > 0 && scrollViewMedias.count > 1 && slideshowTimer == nil {
             slideshowTimer = Timer.scheduledTimer(timeInterval: slideshowInterval, target: self, selector: #selector(MediaSlideshow.slideshowTick(_:)), userInfo: nil, repeats: true)
         }
     }
@@ -433,7 +448,7 @@ open class MediaSlideshow: UIView {
         let page = scrollView.frame.size.width > 0 ? Int(scrollView.contentOffset.x / scrollView.frame.size.width) : 0
         var nextPage = page + 1
 
-        if !circular && page == scrollViewImages.count - 1 {
+        if !circular && page == scrollViewMedias.count - 1 {
             nextPage = 0
         }
 
@@ -443,8 +458,8 @@ open class MediaSlideshow: UIView {
     fileprivate func setCurrentPageForScrollViewPage(_ page: Int) {
         if scrollViewPage != page {
             // current page has changed, zoom out this image
-            if slideshowSlides.count > scrollViewPage {
-                slideshowSlides[scrollViewPage].zoomOut()
+            if slides.count > scrollViewPage, let zoomable = slides[scrollViewPage] as? ZoomableMediaSlideshowSlide {
+                zoomable.zoomOut()
             }
         }
 
@@ -459,8 +474,8 @@ open class MediaSlideshow: UIView {
         if circular {
             if page == 0 {
                 // first page contains the last image
-                return Int(images.count) - 1
-            } else if page == scrollViewImages.count - 1 {
+                return Int(sources.count) - 1
+            } else if page == scrollViewMedias.count - 1 {
                 // last page contains the first image
                 return 0
             } else {
@@ -506,7 +521,7 @@ open class MediaSlideshow: UIView {
      - Parameter animated: true if animate the change
      */
     open func nextPage(animated: Bool) {
-        if !circular && currentPage == images.count - 1 {
+        if !circular && currentPage == sources.count - 1 {
             return
         }
         if isAnimating {
@@ -529,7 +544,7 @@ open class MediaSlideshow: UIView {
             return
         }
 
-        let newPage = scrollViewPage > 0 ? scrollViewPage - 1 : scrollViewImages.count - 3
+        let newPage = scrollViewPage > 0 ? scrollViewPage - 1 : scrollViewMedias.count - 3
         setScrollViewPage(newPage, animated: animated)
         restartTimer()
     }
@@ -547,7 +562,7 @@ open class MediaSlideshow: UIView {
         }
 
         fullscreen.initialPage = currentPage
-        fullscreen.inputs = images
+        fullscreen.dataSource = dataSource
         slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
         fullscreen.transitioningDelegate = slideshowTransitioningDelegate
         fullscreen.modalPresentationStyle = .custom
@@ -578,10 +593,10 @@ extension MediaSlideshow: UIScrollViewDelegate {
     }
 
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if circular && (scrollViewImages.count > 1) {
-            let regularContentOffset = scrollView.frame.size.width * CGFloat(images.count)
+        if circular && (scrollViewMedias.count > 1) {
+            let regularContentOffset = scrollView.frame.size.width * CGFloat(sources.count)
 
-            if scrollView.contentOffset.x >= scrollView.frame.size.width * CGFloat(images.count + 1) {
+            if scrollView.contentOffset.x >= scrollView.frame.size.width * CGFloat(sources.count + 1) {
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x - regularContentOffset, y: 0)
             } else if scrollView.contentOffset.x <= 0 {
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x + regularContentOffset, y: 0)

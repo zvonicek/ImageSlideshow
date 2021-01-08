@@ -47,7 +47,7 @@ class TableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let fullScreenController = FullScreenSlideshowViewController()
-        fullScreenController.inputs = models.map { $0.inputSource }
+        fullScreenController.dataSource = ImageMediaSlideshowDataSource(sources: models.map { $0.inputSource })
         fullScreenController.initialPage = indexPath.row
 
         if let cell = tableView.cellForRow(at: indexPath), let imageView = cell.imageView {
