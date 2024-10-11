@@ -61,7 +61,18 @@ public class KingfisherSource: NSObject, InputSource {
             case .success(let image):
                 callback(image.image)
             case .failure:
-                callback(self.placeholder)
+                var failureImage: UIImage?
+                
+                for option in self.options ?? [] {
+                    switch option {
+                    case .onFailureImage(let image):
+                        failureImage = image
+                    default:
+                        continue
+                    }
+                }
+                
+                callback(failureImage ?? self.placeholder)
             }
         }
     }
