@@ -268,7 +268,9 @@ class ZoomOutAnimator: ZoomAnimator, UIViewControllerAnimatedTransitioning {
         let params = animationParams(using: transitionContext)
 
         let animator = UIViewPropertyAnimator(duration: params.0, curve: .linear, animations: params.1)
-        animator.addCompletion(params.2)
+        animator.addCompletion { position in
+            params.2(position)
+        }
         animatorForCurrentTransition = animator
 
         return animator
