@@ -53,7 +53,12 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         - parameter image: Input Source to load the image
         - parameter zoomEnabled: holds if it should be possible to zoom-in the image
     */
-    init(image: InputSource, zoomEnabled: Bool, activityIndicator: ActivityIndicatorView? = nil, maximumScale: CGFloat = 2.0) {
+    init(
+        image: InputSource,
+        zoomEnabled: Bool,
+        activityIndicator: ActivityIndicatorView? = nil,
+        maximumScale: CGFloat = 2.0
+    ) {
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.activityIndicator = activityIndicator
@@ -65,14 +70,14 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         imageView.isAccessibilityElement = true
         imageView.accessibilityTraits = .image
-        if #available(iOS 11.0, *) {
-            imageView.accessibilityIgnoresInvertColors = true
-        }
+        imageView.accessibilityIgnoresInvertColors = true
 
         imageViewWrapper.clipsToBounds = true
         imageViewWrapper.isUserInteractionEnabled = true
         if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
-            imageView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+            imageView.transform = CGAffineTransform(
+                rotationAngle: CGFloat(Double.pi)
+            )
         }
 
         setPictoCenter()
@@ -90,12 +95,18 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         }
 
         // tap gesture recognizer
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ImageSlideshowItem.tapZoom))
+        let tapRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(ImageSlideshowItem.tapZoom)
+        )
         tapRecognizer.numberOfTapsRequired = 2
         imageViewWrapper.addGestureRecognizer(tapRecognizer)
         gestureRecognizer = tapRecognizer
 
-        singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(retryLoadImage))
+        singleTapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(retryLoadImage)
+        )
         singleTapGestureRecognizer!.numberOfTapsRequired = 1
         singleTapGestureRecognizer!.isEnabled = false
         imageViewWrapper.addGestureRecognizer(singleTapGestureRecognizer!)
@@ -139,7 +150,7 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
             isLoading = true
             imageReleased = false
             activityIndicator?.show()
-            image.load(to: self.imageView) {[weak self] image in
+            image.load(to: self.imageView) { [weak self] image in
                 // set image to nil if there was a release request during the image load
                 if let imageRelease = self?.imageReleased, imageRelease {
                     self?.imageView.image = nil
@@ -192,18 +203,28 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
 
     fileprivate func calculatePictureSize() -> CGSize {
-        if let image = imageView.image, imageView.contentMode == .scaleAspectFit {
+        if let image = imageView.image, imageView.contentMode == .scaleAspectFit
+        {
             let picSize = image.size
             let picRatio = picSize.width / picSize.height
             let screenRatio = screenSize().width / screenSize().height
 
             if picRatio > screenRatio {
-                return CGSize(width: screenSize().width, height: screenSize().width / picSize.width * picSize.height)
+                return CGSize(
+                    width: screenSize().width,
+                    height: screenSize().width / picSize.width * picSize.height
+                )
             } else {
-                return CGSize(width: screenSize().height / picSize.height * picSize.width, height: screenSize().height)
+                return CGSize(
+                    width: screenSize().height / picSize.height * picSize.width,
+                    height: screenSize().height
+                )
             }
         } else {
-            return CGSize(width: screenSize().width, height: screenSize().height)
+            return CGSize(
+                width: screenSize().width,
+                height: screenSize().height
+            )
         }
     }
 
@@ -212,15 +233,23 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     }
 
     fileprivate func setPictoCenter() {
-        var intendHorizon = (screenSize().width - imageViewWrapper.frame.width ) / 2
-        var intendVertical = (screenSize().height - imageViewWrapper.frame.height ) / 2
+        var intendHorizon =
+            (screenSize().width - imageViewWrapper.frame.width) / 2
+        var intendVertical =
+            (screenSize().height - imageViewWrapper.frame.height) / 2
         intendHorizon = intendHorizon > 0 ? intendHorizon : 0
         intendVertical = intendVertical > 0 ? intendVertical : 0
-        contentInset = UIEdgeInsets(top: intendVertical, left: intendHorizon, bottom: intendVertical, right: intendHorizon)
+        contentInset = UIEdgeInsets(
+            top: intendVertical,
+            left: intendHorizon,
+            bottom: intendVertical,
+            right: intendHorizon
+        )
     }
 
     private func isFullScreen() -> Bool {
-        return imageViewWrapper.frame.width >= screenSize().width && imageViewWrapper.frame.height >= screenSize().height
+        return imageViewWrapper.frame.width >= screenSize().width
+            && imageViewWrapper.frame.height >= screenSize().height
     }
 
     func clearContentInsets() {

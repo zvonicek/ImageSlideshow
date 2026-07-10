@@ -1,11 +1,13 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 import PackageDescription
 
 let package = Package(
     name: "ImageSlideshow",
     platforms: [
-        .iOS(.v10),
+        .iOS(.v15),
+        // iOS-only library; declared to satisfy Kingfisher's macOS floor during resolution
+        .macOS(.v10_15),
     ],
     products: [
         .library(
@@ -22,9 +24,9 @@ let package = Package(
             targets: ["ImageSlideshowKingfisher"])
     ],
     dependencies: [
-        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "5.8.0"),
-        .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.0.0"),
-        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.1.0")
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.3.2"),
+        .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.3.0"),
+        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.21.0")
     ],
     targets: [
         .target(
@@ -39,7 +41,6 @@ let package = Package(
                 "Classes/Core/InputSource.swift",
                 "Classes/Core/PageIndicator.swift",
                 "Classes/Core/PageIndicatorPosition.swift",
-                "Classes/Core/SwiftSupport.swift",
                 "Classes/Core/UIImage+AspectFit.swift",
                 "Classes/Core/UIImageView+Tools.swift",
                 "Classes/Core/ZoomAnimatedTransitioning.swift",

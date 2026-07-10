@@ -27,7 +27,7 @@ import UIKit
 
 /// Input Source to load plain UIImage
 @objcMembers
-open class ImageSource: NSObject, InputSource {
+open class ImageSource: NSObject, @preconcurrency InputSource {
     var image: UIImage
 
     /// Initializes a new Image Source with UIImage
@@ -48,7 +48,7 @@ open class ImageSource: NSObject, InputSource {
         }
     }
 
-    public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
+    @MainActor public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         imageView.image = image
         callback(image)
     }
@@ -56,7 +56,7 @@ open class ImageSource: NSObject, InputSource {
 
 /// Input Source to load an image from the main bundle
 @objcMembers
-open class BundleImageSource: NSObject, InputSource {
+open class BundleImageSource: NSObject, @preconcurrency InputSource {
     var imageString: String
 
     /// Initializes a new Image Source with an image name from the main bundle
@@ -66,7 +66,7 @@ open class BundleImageSource: NSObject, InputSource {
         super.init()
     }
 
-    public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
+    @MainActor public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         let image = UIImage(named: imageString)
         imageView.image = image
         callback(image)
@@ -75,7 +75,7 @@ open class BundleImageSource: NSObject, InputSource {
 
 /// Input Source to load an image from a local file path
 @objcMembers
-open class FileImageSource: NSObject, InputSource {
+open class FileImageSource: NSObject, @preconcurrency InputSource {
     var path: String
 
     /// Initializes a new Image Source with an image name from the main bundle
@@ -85,7 +85,7 @@ open class FileImageSource: NSObject, InputSource {
         super.init()
     }
 
-    public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
+    @MainActor public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         let image = UIImage(contentsOfFile: path)
         imageView.image = image
         callback(image)

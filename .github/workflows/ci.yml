@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  spm:
+    name: SPM build (iOS)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      # _Pods.xcodeproj would shadow the Swift package for xcodebuild
+      - name: Remove CocoaPods development project placeholder
+        run: rm -rf _Pods.xcodeproj
+      - name: Build all package products
+        run: |
+          xcodebuild -scheme ImageSlideshow-Package \
+            -destination 'generic/platform=iOS Simulator' \
+            build
+
+  example-tests:
+    name: Example app tests
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate Xcode project
+        working-directory: Example
+        run: xcodegen generate
+      - name: Install pods
+        working-directory: Example
+        run: pod install
+      - name: Run tests
+        working-directory: Example
+        run: |
+          DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^(]+' | sed 's/ *$//')
+          echo "Using simulator: $DEVICE"
+          xcodebuild test \
+            -workspace ImageSlideshow.xcworkspace \
+            -scheme ImageSlideshow-Example \
+            -destination "platform=iOS Simulator,name=$DEVICE" \
+            CODE_SIGNING_ALLOWED=NO

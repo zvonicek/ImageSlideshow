@@ -1,54 +1,32 @@
 PODS:
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
-  - AFNetworking/NSURLSession (3.2.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
-    - AFNetworking/NSURLSession
-  - Alamofire (5.2.1)
-  - AlamofireImage (4.1.0):
-    - Alamofire (~> 5.1)
-  - ImageSlideshow (1.9.0):
-    - ImageSlideshow/Core (= 1.9.0)
-  - ImageSlideshow/AFURL (1.9.0):
-    - AFNetworking (~> 3.0)
-    - ImageSlideshow/Core
-  - ImageSlideshow/Alamofire (1.9.0):
+  - Alamofire (5.11.2)
+  - AlamofireImage (4.4.0):
+    - Alamofire (~> 5.11)
+  - ImageSlideshow (1.9.4):
+    - ImageSlideshow/Core (= 1.9.4)
+  - ImageSlideshow/Alamofire (1.9.4):
     - AlamofireImage (~> 4.0)
     - ImageSlideshow/Core
-  - ImageSlideshow/Core (1.9.0)
-  - ImageSlideshow/Kingfisher (1.9.0):
+  - ImageSlideshow/Core (1.9.4)
+  - ImageSlideshow/Kingfisher (1.9.4):
     - ImageSlideshow/Core
-    - Kingfisher (> 3.0)
-  - ImageSlideshow/SDWebImage (1.9.0):
+    - Kingfisher (>= 8.3.2)
+  - ImageSlideshow/SDWebImage (1.9.4):
     - ImageSlideshow/Core
-    - SDWebImage (>= 3.7)
-  - Kingfisher (5.14.0):
-    - Kingfisher/Core (= 5.14.0)
-  - Kingfisher/Core (5.14.0)
-  - SDWebImage (5.8.1):
-    - SDWebImage/Core (= 5.8.1)
-  - SDWebImage/Core (5.8.1)
+    - SDWebImage (>= 5.1)
+  - Kingfisher (8.9.0)
+  - SDWebImage (5.21.7):
+    - SDWebImage/Core (= 5.21.7)
+  - SDWebImage/Core (5.21.7)
 
 DEPENDENCIES:
   - ImageSlideshow (from `../`)
-  - ImageSlideshow/AFURL (from `../`)
   - ImageSlideshow/Alamofire (from `../`)
   - ImageSlideshow/Kingfisher (from `../`)
   - ImageSlideshow/SDWebImage (from `../`)
 
 SPEC REPOS:
   trunk:
-    - AFNetworking
     - Alamofire
     - AlamofireImage
     - Kingfisher
@@ -59,13 +37,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
-  AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
-  ImageSlideshow: a90cc3568a325cdf1bd543732a2cfcf6361d0dc1
-  Kingfisher: 7b64389a43139c903ec434788344c288217c792d
-  SDWebImage: e3eae2eda88578db0685a0c88597fdadd9433f05
+  Alamofire: 400275dd1c6d87d95a041861d2a59da4b520a203
+  AlamofireImage: 19ec9c0991f52cc7f9ba6a9d4ec782e29bdf6210
+  ImageSlideshow: 9778cb0ce8b1f8d14145d4c2934495e632249141
+  Kingfisher: 90f3a3c2871a71e01d5493c1c196fc2d3ff132cf
+  SDWebImage: e9fc87c1aab89a8ab1bbd74eba378c6f53be8abf
 
-PODFILE CHECKSUM: 46015634277c8c8bfd78d1b363e41ea2dfd179d9
+PODFILE CHECKSUM: 958bd53553061c42535e4a018e4bf567b60f6526
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.16.2

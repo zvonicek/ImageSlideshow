@@ -1,0 +1,59 @@
+# XcodeGen manifest for the example project.
+#
+# The generated ImageSlideshow.xcodeproj/ is gitignored.
+# Regenerate locally with:
+#   xcodegen generate && pod install
+# (pod install is required after generation — XcodeGen wipes the CocoaPods integration.)
+# CI runs the same two commands before building.
+name: ImageSlideshow
+options:
+  deploymentTarget:
+    iOS: "15.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    # CocoaPods script phases write into the build dir
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+
+targets:
+  ImageSlideshow_Example:
+    type: application
+    platform: iOS
+    sources:
+      - ImageSlideshow
+    settings:
+      base:
+        INFOPLIST_FILE: ImageSlideshow/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)"
+        DEVELOPMENT_TEAM: 5VWB99DS38
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+
+  ImageSlideshow_Tests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests
+    dependencies:
+      - target: ImageSlideshow_Example
+    settings:
+      base:
+        INFOPLIST_FILE: Tests/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)"
+        DEVELOPMENT_TEAM: 5VWB99DS38
+
+schemes:
+  ImageSlideshow-Example:
+    build:
+      targets:
+        ImageSlideshow_Example: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - ImageSlideshow_Tests
+    profile:
+      config: Release
+    archive:
+      config: Release

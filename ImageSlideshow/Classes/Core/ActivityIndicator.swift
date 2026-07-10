@@ -25,7 +25,7 @@ public protocol ActivityIndicatorFactory {
 }
 
 /// Default ActivityIndicatorView implementation for UIActivityIndicatorView
-extension UIActivityIndicatorView: ActivityIndicatorView {
+extension UIActivityIndicatorView: @preconcurrency ActivityIndicatorView {
     public var view: UIView {
         return self
     }
@@ -41,9 +41,9 @@ extension UIActivityIndicatorView: ActivityIndicatorView {
 
 /// Default activity indicator factory creating UIActivityIndicatorView instances
 @objcMembers
-open class DefaultActivityIndicator: ActivityIndicatorFactory {
+open class DefaultActivityIndicator: @preconcurrency ActivityIndicatorFactory {
     /// activity indicator style
-    open var style: UIActivityIndicatorViewStyle
+    open var style: UIActivityIndicatorView.Style
 
     /// activity indicator color
     open var color: UIColor?
@@ -52,18 +52,17 @@ open class DefaultActivityIndicator: ActivityIndicatorFactory {
     ///
     /// - style: activity indicator style
     /// - color: activity indicator color
-    public init(style: UIActivityIndicatorViewStyle = .gray, color: UIColor? = nil) {
+    public init(
+        style: UIActivityIndicatorView.Style = .medium,
+        color: UIColor? = nil
+    ) {
         self.style = style
         self.color = color
     }
 
     /// create ActivityIndicatorView instance
-    open func create() -> ActivityIndicatorView {
-        #if swift(>=4.2)
+    @MainActor open func create() -> ActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView(style: style)
-        #else
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: style)
-        #endif
         activityIndicator.color = color
         activityIndicator.hidesWhenStopped = true
 

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "ImageSlideshow"
-  s.version          = "1.9.2"
+  s.version          = "1.9.4"
   s.summary          = "Image slideshow written in Swift with circular scrolling, timer and full screen viewer"
 
 # This description is used to generate tags and improve search results.
@@ -27,8 +27,8 @@ Image slideshow is a Swift library providing customizable image slideshow with c
   s.source           = { :git => "https://github.com/zvonicek/ImageSlideshow.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/zvonicek'
 
-  s.swift_versions = ['4.0', '4.1', '4.2', '5', '5.1', '5.2']
-  s.platform     = :ios, '8.0'
+  s.swift_versions = ['5', '5.1', '5.2', '5.10', '6.0', '6.1']
+  s.platform     = :ios, '15.0'
   s.requires_arc = true
 
   s.subspec 'Core' do |core|
@@ -38,7 +38,7 @@ Image slideshow is a Swift library providing customizable image slideshow with c
 
   s.subspec 'AFURL' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
-    subspec.dependency 'AFNetworking', '~> 3.0'
+    subspec.dependency 'AFNetworking', '~> 4.0'
     subspec.source_files = 'ImageSlideshow/Classes/InputSources/AFURLSource.swift'
   end
 
@@ -51,27 +51,19 @@ Image slideshow is a Swift library providing customizable image slideshow with c
   s.subspec 'Alamofire' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
     subspec.dependency 'AlamofireImage', '~> 4.0'
-    subspec.platform     = :ios, '10.0'
     subspec.source_files = 'ImageSlideshow/Classes/InputSources/AlamofireSource.swift'
   end
 
   s.subspec 'SDWebImage' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
-    subspec.dependency 'SDWebImage', '>= 3.7'
+    subspec.dependency 'SDWebImage', '>= 5.1'
     subspec.source_files = 'ImageSlideshow/Classes/InputSources/SDWebImageSource.swift'
   end
 
   s.subspec 'Kingfisher' do |subspec|
     subspec.dependency 'ImageSlideshow/Core'
-    subspec.dependency 'Kingfisher', '> 3.0'
-    subspec.platform     = :ios, '10.0'
+    subspec.dependency 'Kingfisher', '>= 8.3.2'
     subspec.source_files = 'ImageSlideshow/Classes/InputSources/KingfisherSource.swift'
-  end
-
-  s.subspec 'Parse' do |subspec|
-    subspec.dependency 'ImageSlideshow/Core'
-    subspec.dependency 'Parse', '~> 1.14'
-    subspec.source_files = 'ImageSlideshow/Classes/InputSources/ParseSource.swift'
   end
 
   s.default_subspec = 'Core'

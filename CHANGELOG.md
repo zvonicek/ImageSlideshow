@@ -1,5 +1,24 @@
 # Change log
 
+## [1.9.4](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.9.4) (12/06/2026)
+
+## Breaking
+
+- Minimum deployment target raised to iOS 15 (CocoaPods and Swift Package Manager)
+- Removed the unmaintained `Parse` subspec
+- Removed the Swift 4.2 compatibility typealiases (`UIViewContentMode` etc.)
+
+## New Features
+
+- Input sources, activity indicators and page indicators adopt main-actor isolation for Swift concurrency
+
+## Fixes
+
+- Fixed Swift Package Manager dependency resolution (AlamofireImage requirement pointed at a nonexistent version)
+- Kingfisher loads run synchronously on the main actor, fixing a race where a deferred cancel could abort a newly started download
+- Failed image loads now report nil so the retry gesture is enabled (KingfisherSource, AFURLSource)
+- Interactive dismiss gesture is removed from the window it was added to, fixing a leak when the key window changes
+
 ## [1.6.1](https://github.com/zvonicek/ImageSlideshow/releases/tag/1.6.1) (11/06/2018)
 
 ## Fixes

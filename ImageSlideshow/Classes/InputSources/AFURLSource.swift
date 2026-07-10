@@ -10,7 +10,7 @@ import AFNetworking
 
 /// Input Source to image using AFNetworking
 @objcMembers
-public class AFURLSource: NSObject, InputSource {
+public class AFURLSource: NSObject, @preconcurrency InputSource {
     /// url to load
     public var url: URL
 
@@ -39,15 +39,15 @@ public class AFURLSource: NSObject, InputSource {
         }
     }
 
-    public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
+    @MainActor public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
         imageView.setImageWith(URLRequest(url: url), placeholderImage: self.placeholder, success: { (_, _, image: UIImage) in
             callback(image)
-        }, failure: {[placeholder = self.placeholder] _, _, _ in
-            callback(placeholder)
+        }, failure: { _, _, _ in
+            callback(nil)
         })
     }
 
-    public func cancelLoad(on imageView: UIImageView) {
+    @MainActor public func cancelLoad(on imageView: UIImageView) {
         imageView.cancelImageDownloadTask()
     }
 }

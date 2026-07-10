@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "fca036f7aeca07124067cb6e0c12b0ad6359e3d4",
-          "version": "5.1.0"
+          "revision": "7595cbcf59809f9977c5f6378500de2ad73b7ddb",
+          "version": "5.12.0"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/Alamofire/AlamofireImage.git",
         "state": {
           "branch": null,
-          "revision": "3e8edbeb75227f8542aa87f90240cf0424d6362f",
-          "version": "4.1.0"
+          "revision": "4cf73d601c482b7d77bae47de3ef1b8bcf328ec1",
+          "version": "4.4.0"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
           "branch": null,
-          "revision": "349ed06467a6f8a4939bcb83db301542bc84eac9",
-          "version": "5.13.4"
+          "revision": "7deda23bbdca612076c5c315003d8638a08ed0f1",
+          "version": "8.3.2"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "74ae21337c415bb542eb901803f3e84799265c34",
-          "version": "5.7.2"
+          "revision": "2de3a496eaf6df9a1312862adcfd54acd73c39c0",
+          "version": "5.21.7"
         }
       }
     ]

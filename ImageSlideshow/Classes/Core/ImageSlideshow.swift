@@ -9,32 +9,38 @@ import UIKit
 
 @objc
 /// The delegate protocol informing about image slideshow state changes
-public protocol ImageSlideshowDelegate: class {
+public protocol ImageSlideshowDelegate: AnyObject {
     /// Tells the delegate that the current page has changed
     ///
     /// - Parameters:
     ///   - imageSlideshow: image slideshow instance
     ///   - page: new page
-    @objc optional func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int)
+    @objc optional func imageSlideshow(
+        _ imageSlideshow: ImageSlideshow,
+        didChangeCurrentPageTo page: Int
+    )
 
     /// Tells the delegate that the slideshow will begin dragging
     ///
     /// - Parameter imageSlideshow: image slideshow instance
-    @objc optional func imageSlideshowWillBeginDragging(_ imageSlideshow: ImageSlideshow)
+    @objc optional func imageSlideshowWillBeginDragging(
+        _ imageSlideshow: ImageSlideshow
+    )
 
     /// Tells the delegate that the slideshow did end decelerating
     ///
     /// - Parameter imageSlideshow: image slideshow instance
-    @objc optional func imageSlideshowDidEndDecelerating(_ imageSlideshow: ImageSlideshow)
+    @objc optional func imageSlideshowDidEndDecelerating(
+        _ imageSlideshow: ImageSlideshow
+    )
 }
 
-/** 
-    Used to represent position of the Page Control
-    - hidden: Page Control is hidden
-    - insideScrollView: Page Control is inside image slideshow
-    - underScrollView: Page Control is under image slideshow
-    - custom: Custom vertical padding, relative to "insideScrollView" position
- */
+///
+///    Used to represent position of the Page Control
+///    - hidden: Page Control is hidden
+///    - insideScrollView: Page Control is inside image slideshow
+///    - underScrollView: Page Control is under image slideshow
+///    - custom: Custom vertical padding, relative to "insideScrollView" position
 public enum PageControlPosition {
     case hidden
     case insideScrollView
@@ -80,14 +86,20 @@ open class ImageSlideshow: UIView {
             if let pageIndicator = pageIndicator {
                 addSubview(pageIndicator.view)
                 if let pageIndicator = pageIndicator as? UIControl {
-                    pageIndicator.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
+                    pageIndicator.addTarget(
+                        self,
+                        action: #selector(pageControlValueChanged),
+                        for: .valueChanged
+                    )
                 }
             }
             setNeedsLayout()
         }
     }
 
-    open var pageIndicatorPosition: PageIndicatorPosition = PageIndicatorPosition() {
+    open var pageIndicatorPosition: PageIndicatorPosition =
+        PageIndicatorPosition()
+    {
         didSet {
             setNeedsLayout()
         }
@@ -108,7 +120,9 @@ open class ImageSlideshow: UIView {
             case .underScrollView:
                 pageIndicatorPosition = PageIndicatorPosition(vertical: .under)
             case .custom(let padding):
-                pageIndicatorPosition = PageIndicatorPosition(vertical: .customUnder(padding: padding-30))
+                pageIndicatorPosition = PageIndicatorPosition(
+                    vertical: .customUnder(padding: padding - 30)
+                )
             }
         }
     }
@@ -119,7 +133,10 @@ open class ImageSlideshow: UIView {
             if oldValue != currentPage {
                 pageIndicator?.page = currentPage
                 currentPageChanged?(currentPage)
-                delegate?.imageSlideshow?(self, didChangeCurrentPageTo: currentPage)
+                delegate?.imageSlideshow?(
+                    self,
+                    didChangeCurrentPageTo: currentPage
+                )
             }
         }
     }
@@ -199,7 +216,9 @@ open class ImageSlideshow: UIView {
     open var preload = ImagePreload.all
 
     /// Content mode of each image in the slideshow
-    open var contentScaleMode: UIViewContentMode = UIViewContentMode.scaleAspectFit {
+    open var contentScaleMode: UIView.ContentMode =
+        .scaleAspectFit
+    {
         didSet {
             for view in slideshowItems {
                 view.imageView.contentMode = contentScaleMode
@@ -212,10 +231,13 @@ open class ImageSlideshow: UIView {
     fileprivate var isAnimating: Bool = false
 
     /// Transitioning delegate to manage the transition to full screen controller
-    open fileprivate(set) var slideshowTransitioningDelegate: ZoomAnimatedTransitioningDelegate? // swiftlint:disable:this weak_delegate
+    open fileprivate(set) var slideshowTransitioningDelegate:
+        ZoomAnimatedTransitioningDelegate?  // swiftlint:disable:this weak_delegate
 
     private var primaryVisiblePage: Int {
-        return scrollView.frame.size.width > 0 ? Int(scrollView.contentOffset.x + scrollView.frame.size.width / 2) / Int(scrollView.frame.size.width) : 0
+        return scrollView.frame.size.width > 0
+            ? Int(scrollView.contentOffset.x + scrollView.frame.size.width / 2)
+                / Int(scrollView.frame.size.width) : 0
     }
 
     // MARK: - Life cycle
@@ -237,12 +259,15 @@ open class ImageSlideshow: UIView {
     fileprivate func initialize() {
         autoresizesSubviews = true
         clipsToBounds = true
-        if #available(iOS 13.0, *) {
-            backgroundColor = .systemBackground
-        }
+        backgroundColor = .systemBackground
 
         // scroll view configuration
-        scrollView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height - 50.0)
+        scrollView.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: frame.size.width,
+            height: frame.size.height - 50.0
+        )
         scrollView.delegate = self
         scrollView.isPagingEnabled = true
         scrollView.bounces = true
@@ -250,12 +275,12 @@ open class ImageSlideshow: UIView {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.autoresizingMask = autoresizingMask
         if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
-            scrollView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+            scrollView.transform = CGAffineTransform(
+                rotationAngle: CGFloat(Double.pi)
+            )
         }
 
-        if #available(iOS 11.0, *) {
-            scrollView.contentInsetAdjustmentBehavior = .never
-        }
+        scrollView.contentInsetAdjustmentBehavior = .never
         addSubview(scrollView)
 
         if pageIndicator == nil {
@@ -286,28 +311,47 @@ open class ImageSlideshow: UIView {
             pageIndicatorView.isHidden = images.count < 2
 
             var edgeInsets: UIEdgeInsets = UIEdgeInsets.zero
-            if #available(iOS 11.0, *) {
-                edgeInsets = safeAreaInsets
-            }
+            edgeInsets = safeAreaInsets
 
             pageIndicatorView.sizeToFit()
-            pageIndicatorView.frame = pageIndicatorPosition.indicatorFrame(for: frame, indicatorSize: pageIndicatorView.frame.size, edgeInsets: edgeInsets)
+            pageIndicatorView.frame = pageIndicatorPosition.indicatorFrame(
+                for: frame,
+                indicatorSize: pageIndicatorView.frame.size,
+                edgeInsets: edgeInsets
+            )
         }
     }
 
     /// updates frame of the scroll view and its inner items
     func layoutScrollView() {
         let pageIndicatorViewSize = pageIndicator?.view.frame.size
-        let scrollViewBottomPadding = pageIndicatorViewSize.flatMap { pageIndicatorPosition.underPadding(for: $0) } ?? 0
+        let scrollViewBottomPadding =
+            pageIndicatorViewSize.flatMap {
+                pageIndicatorPosition.underPadding(for: $0)
+            } ?? 0
 
-        scrollView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height - scrollViewBottomPadding)
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(scrollViewImages.count), height: scrollView.frame.size.height)
+        scrollView.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: frame.size.width,
+            height: frame.size.height - scrollViewBottomPadding
+        )
+        scrollView.contentSize = CGSize(
+            width: scrollView.frame.size.width
+                * CGFloat(scrollViewImages.count),
+            height: scrollView.frame.size.height
+        )
 
         for (index, view) in slideshowItems.enumerated() {
             if !view.zoomInInitially {
                 view.zoomOut()
             }
-            view.frame = CGRect(x: scrollView.frame.size.width * CGFloat(index), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
+            view.frame = CGRect(
+                x: scrollView.frame.size.width * CGFloat(index),
+                y: 0,
+                width: scrollView.frame.size.width,
+                height: scrollView.frame.size.height
+            )
         }
 
         setScrollViewPage(scrollViewPage, animated: false)
@@ -323,7 +367,12 @@ open class ImageSlideshow: UIView {
 
         var i = 0
         for image in scrollViewImages {
-            let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale)
+            let item = ImageSlideshowItem(
+                image: image,
+                zoomEnabled: zoomEnabled,
+                activityIndicator: activityIndicator?.create(),
+                maximumScale: maximumScale
+            )
             item.imageView.contentMode = contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)
@@ -332,7 +381,15 @@ open class ImageSlideshow: UIView {
 
         if circular && (scrollViewImages.count > 1) {
             scrollViewPage = 1
-            scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: false)
+            scrollView.scrollRectToVisible(
+                CGRect(
+                    x: scrollView.frame.size.width,
+                    y: 0,
+                    width: scrollView.frame.size.width,
+                    height: scrollView.frame.size.height
+                ),
+                animated: false
+            )
         } else {
             scrollViewPage = 0
         }
@@ -350,10 +407,17 @@ open class ImageSlideshow: UIView {
                 item.loadImage()
             case .fixed(let offset):
                 // if circular scrolling is enabled and image is on the edge, a helper ("dummy") image on the other side needs to be loaded too
-                let circularEdgeLoad = circular && ((scrollViewPage == 0 && i == totalCount-3) || (scrollViewPage == 0 && i == totalCount-2) || (scrollViewPage == totalCount-2 && i == 1))
+                let circularEdgeLoad =
+                    circular
+                    && ((scrollViewPage == 0 && i == totalCount - 3)
+                        || (scrollViewPage == 0 && i == totalCount - 2)
+                        || (scrollViewPage == totalCount - 2 && i == 1))
 
                 // load image if page is in range of loadOffset, else release image
-                let shouldLoad = abs(scrollViewPage-i) <= offset || abs(scrollViewPage-i) > totalCount-offset || circularEdgeLoad
+                let shouldLoad =
+                    abs(scrollViewPage - i) <= offset
+                    || abs(scrollViewPage - i) > totalCount - offset
+                    || circularEdgeLoad
                 shouldLoad ? item.loadImage() : item.releaseImage()
             }
         }
@@ -415,7 +479,15 @@ open class ImageSlideshow: UIView {
      */
     open func setScrollViewPage(_ newScrollViewPage: Int, animated: Bool) {
         if scrollViewPage < scrollViewImages.count {
-            scrollView.scrollRectToVisible(CGRect(x: scrollView.frame.size.width * CGFloat(newScrollViewPage), y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height), animated: animated)
+            scrollView.scrollRectToVisible(
+                CGRect(
+                    x: scrollView.frame.size.width * CGFloat(newScrollViewPage),
+                    y: 0,
+                    width: scrollView.frame.size.width,
+                    height: scrollView.frame.size.height
+                ),
+                animated: animated
+            )
             setCurrentPageForScrollViewPage(newScrollViewPage)
             if animated {
                 isAnimating = true
@@ -424,13 +496,23 @@ open class ImageSlideshow: UIView {
     }
 
     fileprivate func setTimerIfNeeded() {
-        if slideshowInterval > 0 && scrollViewImages.count > 1 && slideshowTimer == nil {
-            slideshowTimer = Timer.scheduledTimer(timeInterval: slideshowInterval, target: self, selector: #selector(ImageSlideshow.slideshowTick(_:)), userInfo: nil, repeats: true)
+        if slideshowInterval > 0 && scrollViewImages.count > 1
+            && slideshowTimer == nil
+        {
+            slideshowTimer = Timer.scheduledTimer(
+                timeInterval: slideshowInterval,
+                target: self,
+                selector: #selector(ImageSlideshow.slideshowTick(_:)),
+                userInfo: nil,
+                repeats: true
+            )
         }
     }
 
     func slideshowTick(_ timer: Timer) {
-        let page = scrollView.frame.size.width > 0 ? Int(scrollView.contentOffset.x / scrollView.frame.size.width) : 0
+        let page =
+            scrollView.frame.size.width > 0
+            ? Int(scrollView.contentOffset.x / scrollView.frame.size.width) : 0
         var nextPage = page + 1
 
         if !circular && page == scrollViewImages.count - 1 {
@@ -529,7 +611,8 @@ open class ImageSlideshow: UIView {
             return
         }
 
-        let newPage = scrollViewPage > 0 ? scrollViewPage - 1 : scrollViewImages.count - 3
+        let newPage =
+            scrollViewPage > 0 ? scrollViewPage - 1 : scrollViewImages.count - 3
         setScrollViewPage(newPage, animated: animated)
         restartTimer()
     }
@@ -540,15 +623,21 @@ open class ImageSlideshow: UIView {
      - returns: FullScreenSlideshowViewController instance
      */
     @discardableResult
-    open func presentFullScreenController(from controller: UIViewController, completion: (() -> Void)? = nil) -> FullScreenSlideshowViewController {
+    open func presentFullScreenController(
+        from controller: UIViewController,
+        completion: (() -> Void)? = nil
+    ) -> FullScreenSlideshowViewController {
         let fullscreen = FullScreenSlideshowViewController()
-        fullscreen.pageSelected = {[weak self] (page: Int) in
+        fullscreen.pageSelected = { [weak self] (page: Int) in
             self?.setCurrentPage(page, animated: false)
         }
 
         fullscreen.initialPage = currentPage
         fullscreen.inputs = images
-        slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
+        slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(
+            slideshowView: self,
+            slideshowController: fullscreen
+        )
         fullscreen.transitioningDelegate = slideshowTransitioningDelegate
         fullscreen.modalPresentationStyle = .custom
         controller.present(fullscreen, animated: true, completion: completion)
@@ -579,19 +668,30 @@ extension ImageSlideshow: UIScrollViewDelegate {
 
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if circular && (scrollViewImages.count > 1) {
-            let regularContentOffset = scrollView.frame.size.width * CGFloat(images.count)
+            let regularContentOffset =
+                scrollView.frame.size.width * CGFloat(images.count)
 
-            if scrollView.contentOffset.x >= scrollView.frame.size.width * CGFloat(images.count + 1) {
-                scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x - regularContentOffset, y: 0)
+            if scrollView.contentOffset.x >= scrollView.frame.size.width
+                * CGFloat(images.count + 1)
+            {
+                scrollView.contentOffset = CGPoint(
+                    x: scrollView.contentOffset.x - regularContentOffset,
+                    y: 0
+                )
             } else if scrollView.contentOffset.x <= 0 {
-                scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x + regularContentOffset, y: 0)
+                scrollView.contentOffset = CGPoint(
+                    x: scrollView.contentOffset.x + regularContentOffset,
+                    y: 0
+                )
             }
         }
 
         // Updates the page indicator as the user scrolls (#204). Not called when not dragging to prevent flickers
         // when interacting with PageControl directly (#376).
         if scrollView.isDragging {
-            pageIndicator?.page = currentPageForScrollViewPage(primaryVisiblePage)
+            pageIndicator?.page = currentPageForScrollViewPage(
+                primaryVisiblePage
+            )
         }
     }
 

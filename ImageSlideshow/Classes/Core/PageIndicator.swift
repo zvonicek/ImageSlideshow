@@ -8,7 +8,7 @@
 import UIKit
 
 /// Cusotm Page Indicator can be used by implementing this protocol
-public protocol PageIndicatorView: class {
+public protocol PageIndicatorView: AnyObject {
     /// View of the page indicator
     var view: UIView { get }
 
@@ -16,10 +16,10 @@ public protocol PageIndicatorView: class {
     var page: Int { get set }
 
     /// Total number of pages of the page indicator
-    var numberOfPages: Int { get set}
+    var numberOfPages: Int { get set }
 }
 
-extension UIPageControl: PageIndicatorView {
+extension UIPageControl: @preconcurrency PageIndicatorView {
     public var view: UIView {
         return self
     }
@@ -43,20 +43,12 @@ extension UIPageControl: PageIndicatorView {
     public static func withSlideshowColors() -> UIPageControl {
         let pageControl = UIPageControl()
 
-        if #available(iOS 13.0, *) {
-            pageControl.currentPageIndicatorTintColor = UIColor { traits in
-                traits.userInterfaceStyle == .dark ? .white : .lightGray
-            }
-        } else {
-            pageControl.currentPageIndicatorTintColor = .lightGray
+        pageControl.currentPageIndicatorTintColor = UIColor { traits in
+            traits.userInterfaceStyle == .dark ? .white : .lightGray
         }
-        
-        if #available(iOS 13.0, *) {
-            pageControl.pageIndicatorTintColor = UIColor { traits in
-                traits.userInterfaceStyle == .dark ? .systemGray : .black
-            }
-        } else {
-            pageControl.pageIndicatorTintColor = .black
+
+        pageControl.pageIndicatorTintColor = UIColor { traits in
+            traits.userInterfaceStyle == .dark ? .systemGray : .black
         }
 
         return pageControl
@@ -64,7 +56,7 @@ extension UIPageControl: PageIndicatorView {
 }
 
 /// Page indicator that shows page in numeric style, eg. "5/21"
-public class LabelPageIndicator: UILabel, PageIndicatorView {
+public class LabelPageIndicator: UILabel, @preconcurrency PageIndicatorView {
     public var view: UIView {
         return self
     }
@@ -100,7 +92,10 @@ public class LabelPageIndicator: UILabel, PageIndicatorView {
     }
 
     public override func sizeToFit() {
-        let maximumString = String(repeating: "8", count: numberOfPages) as NSString
-        self.frame.size = maximumString.size(withAttributes: [.font: font as Any])
+        let maximumString =
+            String(repeating: "8", count: numberOfPages) as NSString
+        self.frame.size = maximumString.size(withAttributes: [
+            .font: font as Any
+        ])
     }
 }
