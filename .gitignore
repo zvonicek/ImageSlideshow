@@ -34,3 +34,4 @@ Pods/
 
 # Swift Package Manager
 .build/
+*.xcworkspacedata
