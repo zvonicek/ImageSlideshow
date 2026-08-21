@@ -6,6 +6,7 @@
 //
 //
 
+#if !SWIFT_PACKAGE || Kingfisher
 import UIKit
 #if SWIFT_PACKAGE
 import ImageSlideshow
@@ -73,3 +74,4 @@ public class KingfisherSource: NSObject, InputSource {
         imageView.kf.cancelDownloadTask()
     }
 }
+#endif

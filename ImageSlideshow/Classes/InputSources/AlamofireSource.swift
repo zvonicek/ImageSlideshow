@@ -6,6 +6,7 @@
 //
 //
 
+#if !SWIFT_PACKAGE || Alamofire
 import UIKit
 #if SWIFT_PACKAGE
 import ImageSlideshow
@@ -59,3 +60,4 @@ public class AlamofireSource: NSObject, InputSource {
         imageView.af.cancelImageRequest()
     }
 }
+#endif

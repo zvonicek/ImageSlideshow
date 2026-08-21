@@ -1,11 +1,11 @@
-// swift-tools-version:5.3
+// swift-tools-version:6.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 import PackageDescription
 
 let package = Package(
     name: "ImageSlideshow",
     platforms: [
-        .iOS(.v10),
+        .iOS(.v12),
     ],
     products: [
         .library(
@@ -21,6 +21,11 @@ let package = Package(
             name: "ImageSlideshow/Kingfisher",
             targets: ["ImageSlideshowKingfisher"])
     ],
+    traits: [
+        .trait(name: "Alamofire"),
+        .trait(name: "SDWebImage"),
+        .trait(name: "Kingfisher")
+    ],
     dependencies: [
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "5.8.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.0.0"),
@@ -30,6 +35,14 @@ let package = Package(
         .target(
             name: "ImageSlideshow",
             path: "ImageSlideshow",
+            exclude: [
+                "Classes/InputSources/AFURLSource.swift",
+                "Classes/InputSources/AlamofireLegacySource.swift",
+                "Classes/InputSources/AlamofireSource.swift",
+                "Classes/InputSources/KingfisherSource.swift",
+                "Classes/InputSources/ParseSource.swift",
+                "Classes/InputSources/SDWebImageSource.swift"
+            ],
             sources: [
                 "Classes/Core/ActivityIndicator.swift",
                 "Classes/Core/Bundle+Module.swift",
@@ -50,19 +63,61 @@ let package = Package(
             ]),
         .target(
             name: "ImageSlideshowAlamofire",
-            dependencies: ["ImageSlideshow", "AlamofireImage"],
+            dependencies: [
+                "ImageSlideshow",
+                .product(
+                    name: "AlamofireImage",
+                    package: "AlamofireImage",
+                    condition: .when(traits: ["Alamofire"])
+                )
+            ],
             path: "ImageSlideshow/Classes/InputSources",
+            exclude: [
+                "AFURLSource.swift",
+                "AlamofireLegacySource.swift",
+                "KingfisherSource.swift",
+                "ParseSource.swift",
+                "SDWebImageSource.swift"
+            ],
             sources: ["AlamofireSource.swift"]),
         .target(
             name: "ImageSlideshowSDWebImage",
-            dependencies: ["ImageSlideshow", "SDWebImage"],
+            dependencies: [
+                "ImageSlideshow",
+                .product(
+                    name: "SDWebImage",
+                    package: "SDWebImage",
+                    condition: .when(traits: ["SDWebImage"])
+                )
+            ],
             path: "ImageSlideshow/Classes/InputSources",
+            exclude: [
+                "AFURLSource.swift",
+                "AlamofireLegacySource.swift",
+                "AlamofireSource.swift",
+                "KingfisherSource.swift",
+                "ParseSource.swift"
+            ],
             sources: ["SDWebImageSource.swift"]),
         .target(
             name: "ImageSlideshowKingfisher",
-            dependencies: ["ImageSlideshow", "Kingfisher"],
+            dependencies: [
+                "ImageSlideshow",
+                .product(
+                    name: "Kingfisher",
+                    package: "Kingfisher",
+                    condition: .when(traits: ["Kingfisher"])
+                )
+            ],
             path: "ImageSlideshow/Classes/InputSources",
+            exclude: [
+                "AFURLSource.swift",
+                "AlamofireLegacySource.swift",
+                "AlamofireSource.swift",
+                "ParseSource.swift",
+                "SDWebImageSource.swift"
+            ],
             sources: ["KingfisherSource.swift"])
     ],
-    swiftLanguageVersions: [.v4, .v4_2, .v5]
+    swiftLanguageModes: [.v5]
 )
