@@ -6,6 +6,7 @@
 //
 //
 
+#if !SWIFT_PACKAGE || SDWebImage
 import UIKit
 #if SWIFT_PACKAGE
 import ImageSlideshow
@@ -53,3 +54,4 @@ public class SDWebImageSource: NSObject, InputSource {
         imageView.sd_cancelCurrentImageLoad()
     }
 }
+#endif
